@@ -2,9 +2,9 @@
   "expoServerPort": 19000,
   "devToolsPort": 19002,
   "packagerPort": 19001,
-  "packagerPid": 3576,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "packagerPid": 16436,
+  "expoServerNgrokUrl": "https://34-rgc.hendrik17.kawan3.exp.direct",
+  "packagerNgrokUrl": "https://packager.34-rgc.hendrik17.kawan3.exp.direct",
+  "ngrokPid": 10372,
   "webpackServerPort": null
 }
