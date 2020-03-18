@@ -102,7 +102,7 @@ class notifScreen extends React.Component {
             <View
               style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
             >
-              <TouchableOpacity onPress={() => this.props.navigation.navigate("homeScreen")}>
+              <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                 <Image source={require("../src/img/back.png")}></Image>
               </TouchableOpacity>
 

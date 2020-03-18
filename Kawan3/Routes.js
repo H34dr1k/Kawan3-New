@@ -172,19 +172,25 @@
 // export default createAppContainer(AppNavigator);
 
 import React from "react";
-import { StyleSheet, View, Button, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Button, Image, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Intro from './screen/IntroScreen'
 import Loading from './screen/LoadingScreen'
 import Login from './screen/LoginScreen'
 import SignUp1 from './screen/SignUp1'
 import SignUp2 from './screen/SignUp2'
 import { homeScreen1 } from './screen/homeScreen1'
-import { homeScreen } from './screen/homeScreen'
+import homeScreen from './screen/homeScreen'
 import profilScreen from './screen/profilScreen'
+
 import communityScreen from './screen/communityScreen'
+import nearYouScreen from './screen/nearYouScreen'
+import trendingScreen from './screen/trendingScreen'
+import mostJoinedScreen from './screen/mostJoinedScreen'
+
 import { searchScreen } from './screen/searchScreen'
 import addScreen from './screen/addScreen'
 import settingScreen from './screen/settingScreen'
@@ -196,6 +202,12 @@ import historyScreen from './screen/historyScreen'
 import friendDetailScreen from './screen/friendDetail'
 import communityDetail1Screen from './screen/communityDetail1'
 import navigation from './screen/navigation'
+
+import normalize from "react-native-normalize";
+import {
+    heightPercentageToDP as hp,
+    widthPercentageToDP as wp
+} from "react-native-responsive-screen";
 
 import firebase from 'firebase';
 import { firebaseConfig } from './config';
@@ -214,7 +226,7 @@ try {
 
 
 const screens = createStackNavigator();
-const Tabs = createBottomTabNavigator();
+const Tabs = createMaterialBottomTabNavigator();
 const introStack = createStackNavigator();
 const homeStack = createStackNavigator();
 const addStack = createStackNavigator();
@@ -222,6 +234,8 @@ const searchStack = createStackNavigator();
 const profilStack = createStackNavigator();
 const communityStack = createStackNavigator();
 const tabScreen = createStackNavigator();
+const topTabScreen1 = createMaterialTopTabNavigator();
+
 
 function introStackScreen({ navigation, route }) {
     if (route.state && route.state.index > 0) {
@@ -260,10 +274,45 @@ function homeStackScreen({ navigation, route }) {
     return (
         <homeStack.Navigator>
 
-            <homeStack.Screen name="homeScreen" options={{ headerShown: false }} component={homeScreen} />
-            <homeStack.Screen name="historyScreen" options={{
-                headerShown: false,
-            }} component={historyScreen} />
+            <homeStack.Screen name="Home" options={({ route }) => ({
+                title: route.name,
+
+                headerStyle: {
+                    backgroundColor: '#E5E5E5',
+                    elevation: 0,
+
+                },
+                headerTintColor: 'red',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                    fontSize: hp('3%')
+                }, headerRight: () => (
+                    // <Button
+                    //     onPress={() => navigation.navigate('historyScreen')}
+                    //     title="Info"
+                    //     color="#00cc00"
+                    // />
+                    <View style={{ flexDirection: 'row', marginHorizontal: wp('4%') }}>
+                        <TouchableOpacity onPress={() => navigation.push("historyScreen")} >
+                            <Image
+                                source={require("./src/image/History.png")}
+                                style={{ marginRight: 13 }}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => navigation.push("notifScreen")}
+                        >
+                            <Image source={require("./src/image/Notif.png")} />
+                        </TouchableOpacity>
+                    </View>
+
+                ),
+            })}
+
+
+                component={homeScreen}
+            />
+            <homeStack.Screen name="historyScreen" options={{ title: 'History' }} component={historyScreen} />
             <homeStack.Screen name="notifScreen" options={{
                 headerShown: false,
             }} component={notifScreen} />
@@ -294,21 +343,7 @@ function profilStackScreen({ navigation, route }) {
     )
 }
 
-function communityStackScreen({ navigation, route }) {
-    if (route.state && route.state.index > 0) {
-        navigation.setOptions({ tabBarVisible: false })
-    } else {
-        navigation.setOptions({ tabBarVisible: true })
-    }
 
-    return (
-        <communityStack.Navigator>
-
-            <communityStack.Screen name="communityScreen" options={{ headerShown: false }} component={communityScreen} />
-
-        </communityStack.Navigator>
-    )
-}
 
 function addStackScreen({ navigation, route }) {
     if (route.state && route.state.index > 0) {
@@ -326,6 +361,41 @@ function addStackScreen({ navigation, route }) {
     )
 }
 
+function nearYou({ navigation, route }) {
+    if (route.name === 'communityDetail1Screen') {
+        navigation.setOptions({ headerShown: false })
+    } else {
+        navigation.setOptions({ tabBarVisible: false })
+    }
+
+    return (
+        <communityStack.Navigator>
+            <communityStack.Screen name="nearYouScreen" options={{ headerShown: false }} component={nearYouScreen} />
+            <communityStack.Screen name="communityDetail1Screen" options={{ headerShown: false }} component={communityDetail1Screen} />
+        </communityStack.Navigator>
+    )
+}
+
+function communityTopTabs({ navigation, route }) {
+    if (route.state && route.state.index > 0) {
+        navigation.setOptions({ tabBarVisible: false })
+    } else {
+        navigation.setOptions({ tabBarVisible: true })
+    }
+
+    return (
+        <topTabScreen1.Navigator>
+
+            <topTabScreen1.Screen name="nearYouScreen" options={{
+
+            }} component={nearYou} />
+            <topTabScreen1.Screen name="trendingScreen" options={{}} component={trendingScreen} />
+            <topTabScreen1.Screen name="mostJoinedScreen" options={{}} component={mostJoinedScreen} />
+
+        </topTabScreen1.Navigator>
+    )
+}
+
 function TabScreen({ navigation, route }) {
     if (route.state && route.state.index > 0) {
         navigation.setOptions({ tabBarVisible: false })
@@ -335,8 +405,12 @@ function TabScreen({ navigation, route }) {
 
     return (
         <Tabs.Navigator
-            options={{ tabBarVisible: false }}
+            options={{ tabBarVisible: false}}
             initialRouteName="homeScreen"
+            
+            activeColor='cyan'
+            inactiveColor='black'
+            barStyle={{ backgroundColor: 'white' }}
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
@@ -364,22 +438,23 @@ function TabScreen({ navigation, route }) {
                     }
 
                     // You can return any component that you like here!
-                    return <Image source={iconName} style={{ width: 25, height: 25 }} resizeMode="contain" />;
+                    return  <Image source={iconName} style={{  width: 25, height: 25, }} resizeMode="contain" />
                 },
             })}
             tabBarOptions={{
-                activeTintColor: 'cyan',
-                inactiveTintColor: 'black',
+                activeColor: 'cyan',
+                inactiveColor: 'black',
+                
             }}
 
         >
-            <Tabs.Screen options={{ headerShown: false }} name="Home" component={homeStackScreen} />
+            <Tabs.Screen options={{ headerShown: false,  }} name="Home" component={homeStackScreen} />
 
             <Tabs.Screen options={{ headerShown: false }} name="Search" component={searchStackScreen} />
 
             <Tabs.Screen options={{ headerShown: false }} name="Add" component={addStackScreen} />
 
-            <Tabs.Screen options={{ headerShown: false }} name="Community" component={communityStackScreen} />
+            <Tabs.Screen options={{}} name="Community" component={communityTopTabs} />
 
 
             <Tabs.Screen options={{ headerShown: false }} name="Profil" component={profilStackScreen} />
@@ -407,10 +482,20 @@ export default (navigation, route) => (
 
         <screens.Navigator>
             <screens.Screen options={{ headerShown: false }} name="Intro" component={introStackScreen} />
+            <screens.Screen options={{
+                title: 'My h',
+                headerStyle: {
+                    backgroundColor: '#f4511e',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                },
+            }} name="homeScreen" component={communityTopTabs} />
             <screens.Screen options={{ headerShown: false }} name="SignUp1" component={SignUp1} />
             <screens.Screen options={{ headerShown: false }} name="SignUp2" component={SignUp2} />
             <screens.Screen options={{ headerShown: false }} name="Login" component={Login} />
-            <screens.Screen options={{ headerShown: false }} name="TabScreen" component={TabScreen} />
+
 
         </screens.Navigator>
     </NavigationContainer>
