@@ -175,7 +175,8 @@ import React from "react";
 import { StyleSheet, View, Button, Image, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+// import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Intro from './screen/IntroScreen'
 import Loading from './screen/LoadingScreen'
@@ -198,7 +199,7 @@ import settingPrivasi from './screen/settingPrivasi'
 import settingNotif from './screen/settingNotif'
 import settingAbout from './screen/settingAbout'
 import notifScreen from './screen/notificationScreen'
-import historyScreen from './screen/historyScreen'
+import History from './screen/historyScreen'
 import friendDetailScreen from './screen/friendDetail'
 import communityDetail1Screen from './screen/communityDetail1'
 import navigation from './screen/navigation'
@@ -226,7 +227,7 @@ try {
 
 
 const screens = createStackNavigator();
-const Tabs = createMaterialBottomTabNavigator();
+const Tabs = createBottomTabNavigator();
 const introStack = createStackNavigator();
 const homeStack = createStackNavigator();
 const addStack = createStackNavigator();
@@ -239,9 +240,9 @@ const topTabScreen1 = createMaterialTopTabNavigator();
 
 function introStackScreen({ navigation, route }) {
     if (route.state && route.state.index > 0) {
-        navigation.setOptions({ tabBarVisible: false })
-    } else {
         navigation.setOptions({ tabBarVisible: true })
+    } else {
+        navigation.setOptions({ tabBarVisible: false })
     }
 
     return (
@@ -256,6 +257,7 @@ function introStackScreen({ navigation, route }) {
             }} component={Login} />
             <introStack.Screen name="homeScreen" options={{
                 headerShown: false,
+                tabBarVisible: false,
             }} component={TabScreen} />
 
 
@@ -272,11 +274,13 @@ function homeStackScreen({ navigation, route }) {
     }
 
     return (
+        
         <homeStack.Navigator>
 
-            <homeStack.Screen name="Home" options={({ route }) => ({
+            <homeStack.Screen name="Home"
+            options={({ route, navigation }) => ({
                 title: route.name,
-
+                
                 headerStyle: {
                     backgroundColor: '#E5E5E5',
                     elevation: 0,
@@ -287,20 +291,21 @@ function homeStackScreen({ navigation, route }) {
                     fontWeight: 'bold',
                     fontSize: hp('3%')
                 }, headerRight: () => (
+
                     // <Button
                     //     onPress={() => navigation.navigate('historyScreen')}
                     //     title="Info"
                     //     color="#00cc00"
                     // />
                     <View style={{ flexDirection: 'row', marginHorizontal: wp('4%') }}>
-                        <TouchableOpacity onPress={() => navigation.push("historyScreen")} >
+                        <TouchableOpacity onPress={() => navigation.navigate("History")} >
                             <Image
                                 source={require("./src/image/History.png")}
                                 style={{ marginRight: 13 }}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.push("notifScreen")}
+                            onPress={() => navigation.push("Notification")}
                         >
                             <Image source={require("./src/image/Notif.png")} />
                         </TouchableOpacity>
@@ -312,10 +317,38 @@ function homeStackScreen({ navigation, route }) {
 
                 component={homeScreen}
             />
-            <homeStack.Screen name="historyScreen" options={{ title: 'History' }} component={historyScreen} />
-            <homeStack.Screen name="notifScreen" options={{
-                headerShown: false,
-            }} component={notifScreen} />
+
+            <homeStack.Screen name="History" options={({ route}) => ({
+                title: route.name,
+
+                headerBackImage: () => (<Image resizeMode="contain" style={{width:24}} source={require('./src/img/left-arrows.png')} />),
+                headerStyle: {
+                    backgroundColor: 'white',
+                    elevation: 0,
+
+                },
+                headerTintColor: 'black',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                    fontSize: hp('3%')
+                }
+            })}
+                component={History} />
+            <homeStack.Screen name="Notification" options={({ route }) => ({
+                title: route.name,
+                tabBarVisible: false,
+                headerStyle: {
+                    backgroundColor: '#E5E5E5',
+                    elevation: 0,
+
+                },
+                headerTintColor: 'red',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                    fontSize: hp('3%')
+                }
+            })}
+                component={notifScreen} />
 
 
         </homeStack.Navigator>
@@ -384,7 +417,20 @@ function communityTopTabs({ navigation, route }) {
     }
 
     return (
-        <topTabScreen1.Navigator>
+        <topTabScreen1.Navigator name="Community" options={({ route }) => ({
+            title: route.name,
+
+            headerStyle: {
+                backgroundColor: '#E5E5E5',
+                elevation: 0,
+
+            },
+            headerTintColor: 'red',
+            headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: hp('3%')
+            }
+        })}>
 
             <topTabScreen1.Screen name="nearYouScreen" options={{
 
@@ -405,9 +451,9 @@ function TabScreen({ navigation, route }) {
 
     return (
         <Tabs.Navigator
-            options={{ tabBarVisible: false}}
-            initialRouteName="homeScreen"
             
+            initialRouteName="Home"
+
             activeColor='cyan'
             inactiveColor='black'
             barStyle={{ backgroundColor: 'white' }}
@@ -438,17 +484,16 @@ function TabScreen({ navigation, route }) {
                     }
 
                     // You can return any component that you like here!
-                    return  <Image source={iconName} style={{  width: 25, height: 25, }} resizeMode="contain" />
+                    return <Image source={iconName} style={{ width: 25, height: 25, }} resizeMode="contain" />
                 },
             })}
             tabBarOptions={{
                 activeColor: 'cyan',
                 inactiveColor: 'black',
-                
             }}
 
         >
-            <Tabs.Screen options={{ headerShown: false,  }} name="Home" component={homeStackScreen} />
+            <Tabs.Screen options={{ headerShown: false, }} name="Home" component={homeStackScreen} />
 
             <Tabs.Screen options={{ headerShown: false }} name="Search" component={searchStackScreen} />
 
@@ -478,6 +523,7 @@ const searchStackScreen = () => (
 )
 
 export default (navigation, route) => (
+    
     <NavigationContainer>
 
         <screens.Navigator>

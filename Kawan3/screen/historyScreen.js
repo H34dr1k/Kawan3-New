@@ -40,11 +40,8 @@ import { notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import firebase from "firebase";
 
-export default class historyfScreen extends React.Component {
-    static navigationOptions = {
-        title: "historyfScreen",
-        header: null,
-    };
+export default class History extends React.Component {
+    
 
 
 
@@ -102,7 +99,7 @@ export default class historyfScreen extends React.Component {
             <AppFontLoader>
                 <SafeAreaView style={s.container}>
                     <StatusBar barStyle="dark-content" barAnimation="slide" />
-                    <View style={s.atas}>
+                    {/* <View style={s.atas}>
                         <View
                             style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
                         >
@@ -115,7 +112,7 @@ export default class historyfScreen extends React.Component {
               </Text>
                         </View>
                         <Image style={{}} source={require("../src/img/filter.png")}></Image>
-                    </View>
+                    </View> */}
 
                     <View style={{ flex: 3, alignItems: "center" }}>
 
