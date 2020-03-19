@@ -234,7 +234,7 @@ const addStack = createStackNavigator();
 const searchStack = createStackNavigator();
 const profilStack = createStackNavigator();
 const communityStack = createStackNavigator();
-const tabScreen = createStackNavigator();
+const TabScreen = createStackNavigator();
 const topTabScreen1 = createMaterialTopTabNavigator();
 
 
