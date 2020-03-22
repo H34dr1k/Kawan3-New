@@ -278,7 +278,7 @@ export default class homeScreen extends React.Component {
                   }}
                 >
                   <TouchableOpacity
-                    onPress={this._onPressButton}
+                    onPress={() => this.props.navigation.navigate("Map")}
                     style={{
                       width: 70,
                       height: 30,

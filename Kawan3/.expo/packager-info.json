@@ -3,8 +3,8 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": "https://fq-wwe.hendrik17.kawan3.exp.direct",
-  "packagerNgrokUrl": "https://packager.fq-wwe.hendrik17.kawan3.exp.direct",
-  "ngrokPid": 15596,
+  "expoServerNgrokUrl": "https://f5-tks.hendrik17.kawan3.exp.direct",
+  "packagerNgrokUrl": "https://packager.f5-tks.hendrik17.kawan3.exp.direct",
+  "ngrokPid": 12364,
   "webpackServerPort": null
 }

@@ -202,6 +202,8 @@ import notifScreen from './screen/notificationScreen'
 import History from './screen/historyScreen'
 import friendDetailScreen from './screen/friendDetail'
 import communityDetail1Screen from './screen/communityDetail1'
+import Home from './screen/MAP/routes/Home/components/Home'
+
 import navigation from './screen/navigation'
 
 import normalize from "react-native-normalize";
@@ -349,6 +351,12 @@ function homeStackScreen({ navigation, route }) {
                 }
             })}
                 component={notifScreen} />
+
+            <homeStack.Screen name="Map" options={({navigation, route }) => ({
+                title: route.name,
+                
+            })}
+                component={Home} />
 
 
         </homeStack.Navigator>
