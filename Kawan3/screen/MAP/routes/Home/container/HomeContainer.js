@@ -8,7 +8,7 @@ import {
 const mapStateToProps = (state) => ({
     region: state.home.region,
 });
-const mapActionCreators = {
+const mapActionCreators = { 
     getCurrentLocation
 };
 

@@ -209,6 +209,11 @@ import createEvent from './screen/createEvent'
 import createEvent2 from './screen/createEvent2'
 import travelFriend from './screen/travelFriend'
 
+
+import mapScreen from './screen/mapScreen'
+// import Home from './screen/MAP/routes/Home/components/Home'
+
+
 import navigation from './screen/navigation'
 
 import normalize from "react-native-normalize";
@@ -361,7 +366,7 @@ function homeStackScreen({ navigation, route }) {
                 title: route.name,
                 
             })}
-                component={Home} />
+                component={mapScreen} />
 
 
         </homeStack.Navigator>
