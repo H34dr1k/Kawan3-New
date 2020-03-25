@@ -3,15 +3,10 @@ import { Container } from "native-base";
 import MapContainer from "./MapContainer";
 
 
-import { connect } from "react-redux";
-import {
-    getCurrentLocation
-} from "../module/home";
-
 class Home extends React.Component {
-    componentDidMount() {
+    componentDidMount(){
         this.props.getCurrentLocation();
-    }    
+    }
     render() {
         
         const region = {
@@ -28,14 +23,7 @@ class Home extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    region: state.home.region,
-});
-const mapActionCreators = {
-    getCurrentLocation
-};
-
-export default connect(mapStateToProps, mapActionCreators,Home);
+export default Home;
 
 // import React fro./node_modules/reactact";
 // import { View, Text } from "react-native";

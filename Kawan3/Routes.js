@@ -202,7 +202,9 @@ import notifScreen from './screen/notificationScreen'
 import History from './screen/historyScreen'
 import friendDetailScreen from './screen/friendDetail'
 import communityDetail1Screen from './screen/communityDetail1'
-import Home from './screen/MAP/routes/Home/components/Home'
+
+import mapScreen from './screen/mapScreen'
+// import Home from './screen/MAP/routes/Home/components/Home'
 
 import navigation from './screen/navigation'
 
@@ -356,7 +358,7 @@ function homeStackScreen({ navigation, route }) {
                 title: route.name,
                 
             })}
-                component={Home} />
+                component={mapScreen} />
 
 
         </homeStack.Navigator>
