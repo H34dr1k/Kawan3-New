@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": "https://f5-tks.hendrik17.kawan3.exp.direct",
-  "packagerNgrokUrl": "https://packager.f5-tks.hendrik17.kawan3.exp.direct",
-  "ngrokPid": 12364,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 9416,
+  "expoServerNgrokUrl": "https://xa-966.anonymous.kawan3.exp.direct",
+  "packagerNgrokUrl": "https://packager.xa-966.anonymous.kawan3.exp.direct",
+  "ngrokPid": 112,
   "webpackServerPort": null
 }
