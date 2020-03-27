@@ -202,9 +202,17 @@ import notifScreen from './screen/notificationScreen'
 import History from './screen/historyScreen'
 import friendDetailScreen from './screen/friendDetail'
 import communityDetail1Screen from './screen/communityDetail1'
+import Home from './screen/MAP/routes/Home/components/Home'
+import createComm from './screen/createComm'
+import createComm2 from './screen/createComm2'
+import createEvent from './screen/createEvent'
+import createEvent2 from './screen/createEvent2'
+import travelFriend from './screen/travelFriend'
+
 
 import mapScreen from './screen/mapScreen'
 // import Home from './screen/MAP/routes/Home/components/Home'
+
 
 import navigation from './screen/navigation'
 
@@ -397,8 +405,17 @@ function addStackScreen({ navigation, route }) {
 
     return (
         <addStack.Navigator>
+           
 
-            <addStack.Screen name="addScreen" options={{ headerShown: false }} component={addScreen} />
+        <addStack.Screen name="addScreen"  options={{ headerShown: false }}
+        
+         component={addScreen} />
+
+        <addStack.Screen name="createComm"  options={{ headerShown: false }} component={createComm} />
+        <addStack.Screen name="createComm2"  options={{ headerShown: false }} component={createComm2} />
+        <addStack.Screen name="createEvent"  options={{ headerShown: false }} component={createEvent} />
+        <addStack.Screen name="createEvent2"  options={{ headerShown: false }} component={createEvent2} />
+        <addStack.Screen name="travelFriend"  options={{ headerShown: false }} component={travelFriend} />
 
         </addStack.Navigator>
     )

@@ -1,5 +1,13 @@
 {
+<<<<<<< HEAD
   "urlRandomness": "t8-zhx",
+=======
+<<<<<<< HEAD
+  "urlRandomness": "xa-966",
+=======
+  "urlRandomness": "ae-uhc",
+>>>>>>> 3e4fda5166a90bd8b2739d71156412962cea23f5
+>>>>>>> d95e966877d883117e55b32e72933c1756b2a484
   "hostType": "lan",
   "lanType": "ip",
   "dev": true,

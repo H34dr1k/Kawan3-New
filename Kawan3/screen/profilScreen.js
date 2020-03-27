@@ -60,10 +60,7 @@ export default class profilScreen extends React.Component {
                 <ScrollView>
                     <View style={{ flex: 0, backgroundColor: '#49438D', height: 229, paddingTop: 26.5 }}>
                         <ImageBackground source={require('../src/image/decoStar.png')} style={{ width: '100%', height: '100%', flexDirection: 'row' }}>
-                            <TouchableOpacity>
-                                <Image source={require('../src/image/arrowBack.png')} />
-                            </TouchableOpacity>
-                            <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'white', marginTop: 15 }}>Profile</Text>
+                            <Text style={{ fontSize: 24, marginHorizontal: 26, fontWeight: 'bold', color: 'white', marginTop: 15 }}>Profile</Text>
                             <View style={{ marginLeft: 150, marginTop: 10 }}>
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate('settingScreen')}>
                                     <Image source={require('../src/image/btnSetting.png')} />

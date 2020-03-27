@@ -98,20 +98,6 @@ class notifScreen extends React.Component {
       <AppFontLoader>
         <SafeAreaView style={s.container}>
           <StatusBar barStyle="dark-content" barAnimation="slide" />
-          <View style={s.atas}>
-            <View
-              style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
-            >
-              <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                <Image source={require("../src/img/back.png")}></Image>
-              </TouchableOpacity>
-
-              <Text type="rbold" style={s.atas1}>
-                Notification
-              </Text>
-            </View>
-            <Image style={{}} source={require("../src/img/filter.png")}></Image>
-          </View>
 
           <View style={s.notifikasi}>
             <TouchableOpacity

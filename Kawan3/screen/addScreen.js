@@ -22,19 +22,19 @@ export default class addScreen extends React.Component {
                         <Text style={{ fontSize: 12, color: '#D2D3D7' }}>Choose what do you want to create and do something awesome.</Text>
                     </View>
                     <View style={{ marginLeft: 50, width: 270, height: 50, backgroundColor: '#526EDD', marginBottom: 15, borderRadius: 10, justifyContent: 'center' }}>
-                        <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+                        <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}} onPress={()=> this.props.navigation.navigate("createComm")} >
                             <Image source={require('../src/image/comm1.png')} />
                             <Text style={{ fontSize: 18, color: 'white', marginLeft: 15, fontWeight: 'bold' }}>Create a Community</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ marginLeft: 50, width: 270, height: 50, backgroundColor: '#F8B814', marginBottom: 15, borderRadius: 10, justifyContent: 'center' }}>
-                        <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+                        <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }} onPress={()=> this.props.navigation.navigate("createEvent")} >
                             <Image source={require('../src/image/comm2.png')} style={{ marginLeft: -45 }} />
                             <Text style={{ fontSize: 18, color: 'white', marginLeft: 15, fontWeight: 'bold' }}>Create a Event</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ marginLeft: 50, width: 270, height: 50, backgroundColor: '#49438D', marginBottom: 15, borderRadius: 10, justifyContent: 'center' }}>
-                        <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+                        <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }} onPress={()=> this.props.navigation.navigate("travelFriend")} >
                             <Image source={require('../src/image/comm3.png')} style={{ marginLeft: -60 }} />
                             <Text style={{ fontSize: 18, color: 'white', marginLeft: 15, fontWeight: 'bold' }}>Travel Friend</Text>
                         </TouchableOpacity>
