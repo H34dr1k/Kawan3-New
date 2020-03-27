@@ -4,7 +4,9 @@ import {
     View,
     Button,
     Image,
+    StatusBar,
     ActivityIndicator,
+    SafeAreaView,
     TouchableOpacity
 } from "react-native";
 import "react-native-gesture-handler";
@@ -63,6 +65,19 @@ class Intro extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
+
+
+
+                {/* <View style={{marginTop: StatusBar.currentHeight, flex:1, backgroundColor:"white"}}>
+                    <View style={{flex:1, alignItems: "center", justifyContent:"center"}}>
+                        
+                        <Image source={require("../src/image/logo.png")}/>
+                        <Text type="rbold" style={{color:"rgb(58,205,228)", fontSize:hp('4%')}}>Kawan</Text>
+                        
+                    </View>
+                </View> */}
+
+
             </AppFontLoader>
         );
     }
@@ -75,6 +90,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         alignItems: "center",
         flex: 1
+    },
+    container2:{
+        marginTop: StatusBar.currentHeight,
+        flex:1,
+        backgroundColor:"white" ,
     },
     isi: {
         flex: 1,
