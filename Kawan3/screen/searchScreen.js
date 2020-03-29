@@ -4,6 +4,12 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
 
+import normalize from "react-native-normalize";
+import {
+    heightPercentageToDP as hp,
+    widthPercentageToDP as wp
+} from "react-native-responsive-screen";
+
 export const searchScreen = ({ }) => {
 
     return (
@@ -23,20 +29,22 @@ export const searchScreen = ({ }) => {
                     </View>
                 </ImageBackground>
             </View>
-            <View style={{ flex: 1, backgroundColor: '#EFEEEE' }}>
-                <View style={{ alignItems: 'center', width: 300, height: 41, flexDirection: 'row', justifyContent: 'space-around', marginTop: 20, backgroundColor: 'white', borderRadius: 15, marginHorizontal: 29 }}>
-                    <TouchableOpacity onPress={() => navigation.push("hobbySmallScreen")}>
-                        <Text style={{ fontSize: 14, color: '#526EDD', fontWeight: 'bold', marginBottom: 10 }}>HOBBY</Text>
+            <View style={{ flex: 1, marginTop: 20 }}>
+                
+                <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                    <TouchableOpacity style={{ borderRadius: 20, backgroundColor: "#F7B815", paddingHorizontal: wp('1%'), paddingVertical: hp('0.5%'), width: wp("25%"), }}>
+                        <Text type="rbold" style={{ textAlign: "center", fontSize: hp("2%") }}>Near You</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style={{ fontSize: 14, color: '#F8B814' }}>FRIENDS</Text>
+
+                    <TouchableOpacity style={{ width: wp("25%"), }}>
+                        <Text type="rbold" style={{ textAlign: "center", color: "#A5AFA5", fontSize: hp("2%") }}>Trending</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style={{ fontSize: 14, color: '#49438D' }}>EVENTS</Text>
+                    <TouchableOpacity style={{ width: wp("25%"), }}>
+                        <Text type="rbold" style={{ textAlign: "center", color: "#A5AFA5", fontSize: hp("2%") }}>Most Joined</Text>
                     </TouchableOpacity>
+
                 </View>
             </View>
-
         </View>
     );
 
