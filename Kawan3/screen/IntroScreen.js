@@ -7,8 +7,11 @@ import {
     ActivityIndicator,
     TouchableOpacity,
     Alert, 
+
     AsyncStorage,
-    StatusBar
+    StatusBar,
+    AsyncStorage
+
 } from "react-native";
 import "react-native-gesture-handler";
 import { createAppContainer } from "react-navigation";

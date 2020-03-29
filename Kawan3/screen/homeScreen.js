@@ -7,7 +7,8 @@ import {
   Button,
   Alert,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  BackHandler,
 } from "react-native";
 import { createAppContainer } from "react-navigation";
 
@@ -22,6 +23,11 @@ import homeScreen1 from "./homeScreen1";
 
 
 export default class homeScreen extends React.Component {
+
+
+  componentWillMount() {
+   BackHandler.addEventListener('hardwareBackPress', () => {return true});
+} 
 
   render() {
     function _onPressButton() {

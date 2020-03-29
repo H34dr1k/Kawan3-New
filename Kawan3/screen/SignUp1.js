@@ -43,13 +43,15 @@ class SignUp1 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            secureTextEntry: true,
-            iconName: "eye-outline",
-            email: "",
-            pass: "",
-            confPass: "",
-            username: ""
-        }
+          secureTextEntry: true,
+          secureTextEntry2: true,
+          iconName: "eye-outline",
+          iconName2: "eye-outline",
+          email: "",
+          pass: "",
+          confPass: "",
+          username: ""
+        };
         this.ref = firebase.firestore().collection("Accounts");
     }
 
@@ -94,6 +96,15 @@ class SignUp1 extends React.Component {
             secureTextEntry: !this.state.secureTextEntry,
             iconName: iconName
         })
+    }
+
+    onIconPress2 = () => {
+        let iconName2 = (this.state.secureTextEntry2) ? "eye-off-outline" : "eye-outline";
+
+        this.setState({
+            secureTextEntry2: !this.state.secureTextEntry2,
+            iconName2: iconName2
+        })   
     }
    
     render() {
@@ -155,11 +166,11 @@ class SignUp1 extends React.Component {
                             <View style={s.fpw}>
                                 <TextInput style={{ flex: 1 }}
                                     placeholder='Confirm your password'
-                                    secureTextEntry={this.state.secureTextEntry}
+                                    secureTextEntry={this.state.secureTextEntry2}
                                     value={this.state.confPass}
                                     onChangeText={(text) => {this.setState({confPass: text}) }}/>
-                                <TouchableOpacity style={{}} onPress={this.onIconPress}>
-                                    <Icon name={this.state.iconName} style={{ paddingTop: 0, justifyContent: "center" }} size={wp('8%')} color="black" />
+                                <TouchableOpacity style={{}} onPress={this.onIconPress2}>
+                                    <Icon name={this.state.iconName2} style={{ paddingTop: 0, justifyContent: "center" }} size={wp('8%')} color="black" />
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -224,6 +235,7 @@ const s = StyleSheet.create({
         flex: 1,
         marginTop: StatusBar.currentHeight,
         margin: -10,
+        backgroundColor:"white"
     },
     img1: {
         // height: hp('30%'),

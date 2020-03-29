@@ -300,7 +300,8 @@ const s = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     marginTop: StatusBar.currentHeight,
-    margin: -10
+    margin: -10,
+    backgroundColor:"white"
   },
   img1: {
     height: hp("33.4%"),
