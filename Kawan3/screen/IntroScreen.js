@@ -7,6 +7,7 @@ import {
     ActivityIndicator,
     TouchableOpacity,
     Alert, 
+    StatusBar,
     AsyncStorage
 } from "react-native";
 import "react-native-gesture-handler";
