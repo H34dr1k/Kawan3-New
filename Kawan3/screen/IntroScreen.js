@@ -4,10 +4,10 @@ import {
     View,
     Button,
     Image,
-    StatusBar,
     ActivityIndicator,
-    SafeAreaView,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert, 
+    AsyncStorage
 } from "react-native";
 import "react-native-gesture-handler";
 import { createAppContainer } from "react-navigation";
@@ -29,57 +29,88 @@ class Intro extends React.Component {
     //     header: null
     // };
 
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            notyet : false
+        }
+    }
+
+    componentDidMount() {
+        setTimeout(() => {
+            AsyncStorage.getItem('introScreen').then((data) => {
+                if(data != null){
+                    this.checkId();
+                }else{
+                    this.setState({ notyet: true });
+                }
+            });
+        }, 5000);
+    }
+
+    checkId = () => {
+        AsyncStorage.setItem('introScreen', 'a');
+        AsyncStorage.getItem('kodeuser').then((data) => {
+            if(data == null){
+                this.props.navigation.navigate('Login');
+            }else{
+                this.props.navigation.navigate('homeScreen');
+            }
+        });
+    }
+
     render() {
-        return (
-            <AppFontLoader>
-                <View style={styles.container}>
-                    <Image
-                        style={styles.img1}
-                        source={require("../src/img/header.png")}
-                    />
-
-                    <View style={styles.isi}>
-                        <Text type="rbold" style={styles.judul}>
-                            Welcome To Our App
-            </Text>
-
-                        <Text style={styles.subjudul}>
-                            Thank you for downloading our application. Hope you enjoy and like
-                            it. Good luck at find your best friend here!
-            </Text>
-
-                        <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate("Loading")}
-                            style={styles.btnmulai}
-                        >
-                            <LinearGradient
-                                start={[0, 1]}
-                                end={[1, 0]}
-                                colors={["#519BD1", "#38D1E6"]}
-                                style={styles.btngradien}
+        if(!this.state.notyet){
+            return (
+                <AppFontLoader>
+                    <View style={{marginTop: StatusBar.currentHeight, flex:1, backgroundColor:"white"}}>
+                        <View style={{flex:1, alignItems: "center", justifyContent:"center"}}>
+                            
+                            <Image source={require("../src/image/logo.png")}/>
+                            <Text type="rbold" style={{color:"rgb(58,205,228)", fontSize:hp('4%')}}>Kawan</Text>
+                            
+                        </View>
+                    </View>
+                </AppFontLoader>
+            );
+        }else{
+            return (
+                <AppFontLoader>
+                    <View style={styles.container}>
+                        <Image
+                            style={styles.img1}
+                            source={require("../src/img/header.png")}
+                        />
+    
+                        <View style={styles.isi}>
+                            <Text type="rbold" style={styles.judul}> Welcome To Our App </Text>
+    
+                            <Text style={styles.subjudul}>
+                                Thank you for downloading our application. Hope you enjoy and like
+                                it. Good luck at find your best friend here!
+                            </Text>
+    
+                            <TouchableOpacity
+                                onPress={() => this.checkId()}
+                                style={styles.btnmulai}
                             >
-                                <Text type="rmedium" style={styles.btnmulaiisi}>
-                                    Get Started
-                </Text>
-                            </LinearGradient>
-                        </TouchableOpacity>
+                                <LinearGradient
+                                    start={[0, 1]}
+                                    end={[1, 0]}
+                                    colors={["#519BD1", "#38D1E6"]}
+                                    style={styles.btngradien}
+                                >
+                                    <Text type="rmedium" style={styles.btnmulaiisi}>
+                                        Get Started
+                    </Text>
+                                </LinearGradient>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
-
-
-
-                {/* <View style={{marginTop: StatusBar.currentHeight, flex:1, backgroundColor:"white"}}>
-                    <View style={{flex:1, alignItems: "center", justifyContent:"center"}}>
-                        
-                        <Image source={require("../src/image/logo.png")}/>
-                        <Text type="rbold" style={{color:"rgb(58,205,228)", fontSize:hp('4%')}}>Kawan</Text>
-                        
-                    </View>
-                </View> */}
-
-
-            </AppFontLoader>
-        );
+                </AppFontLoader>
+            );
+        }
     }
 }
 
@@ -90,11 +121,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         alignItems: "center",
         flex: 1
-    },
-    container2:{
-        marginTop: StatusBar.currentHeight,
-        flex:1,
-        backgroundColor:"white" ,
     },
     isi: {
         flex: 1,

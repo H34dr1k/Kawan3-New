@@ -23,51 +23,21 @@ import homeScreen1 from "./homeScreen1";
 
 export default class homeScreen extends React.Component {
 
-  // var emailUser = "";
-  // var name = "";
-  // var gender = "";
-  // var date = "";
-  // var ref = firebase.firestore().collection("Accounts");
   render() {
     function _onPressButton() {
       Alert.alert("Join Success");
     }
 
+    var fullDay = "";
+    var months = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    var days = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
+    var day = days[new Date().getDay()];
+    var date = new Date().getDate();
+    var month = months[new Date().getMonth() + 1];
+    var year = new Date().getFullYear();
 
-    // function UNSAFE_componentWillMount() {
-    //   var email = firebase.auth().currentUser.email
-    //   var e = "";
-    //   var n = "";
-    //   var g = "";
-
-    //   ref.get().then(ss => {
-    //     ss.docs.forEach(doc => {
-    //       alert(doc.get("email"));
-    //       if (email == doc.get("email")) {
-    //         e = doc.get("email");
-    //         n = doc.get("username");
-    //         g = doc.get("gender");
-    //       }
-    //     });
-
-    //     emailUser = e;
-    //     name = n;
-    //     gender = g;
-    //   });
-    //   var months = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    //   var days = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-    //   var day = days[new Date().getDay()];
-    //   var date = new Date().getDate();
-    //   var month = months[new Date().getMonth() + 1];
-    //   var year = new Date().getFullYear();
-
-    //   date = day + ", " + date + " " + month + " " + year
-
-    // }
-
-    // UNSAFE_componentWillMount();
+    fullDay = day + ", " + date + " " + month + " " + year;
 
     return (
       <View style={{ flex: 1, backgroundColor: "#E5E5E5" }}>

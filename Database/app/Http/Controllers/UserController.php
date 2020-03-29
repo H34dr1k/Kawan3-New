@@ -12,13 +12,12 @@ class UserController extends Controller
         return User::all();
     }
 
-    public function getData($id)
+    public function getData($email)
     {
-        $data = User::find($id);
+        $data = User::where("email", $email)->first();
+        
         if(is_null($data)){
-            return response()->json([
-                "message" => "Data Tidak Ditemukan"
-            ]);
+            return "";
         }else{
             return $data;
         }
@@ -28,29 +27,25 @@ class UserController extends Controller
     {
         $dataJSON = $request->getContent();
         $dataInsert = json_decode($dataJSON);
-        return $dataInsert->name;
+        // return $dataInsert->name;
         
-        // $data = new User;
-        // $data->kodeuser = $dataInsert->kodeuser;
-        // $data->name = $dataInsert->name;
-        // $data->password = $dataInsert->password;
-        // $data->email = $dataInsert->email;
-        // $data->gender = $dataInsert->gender;
-        // $data->loggedIn = $dataInsert->loggedIn;
-        // $data->save();
+        $data = new User;
+        $data->kodeuser = $dataInsert->kodeuser;
+        $data->name = $dataInsert->name;
+        $data->password = $dataInsert->password;
+        $data->email = $dataInsert->email;
+        $data->gender = $dataInsert->gender;
+        $data->loggedIn = $dataInsert->loggedIn;
+        $data->save();
 
-        // return response()->json([
-        //     "message" => "Data Berhasil Ditambah"
-        // ]);
+        return "Data Berhasil Ditambah";
     }
 
     public function update(Request $request, $id)
     {
         $data = User::find($id);
         if(is_null($data)){
-            return response()->json([
-                "message" => "Data Tidak Ditemukan"
-            ]);
+            return "Data Tidak Ditemukan";
         }else{
             $dataJSON = $request->getContent();
             $dataInsert = json_decode($dataJSON);
@@ -62,9 +57,7 @@ class UserController extends Controller
             $data->loggedIn = $dataInsert->loggedIn;
             $data->save();
 
-            return response()->json([
-                "message" => "Data Berhasil Diupdate"
-            ]);
+            return "Data berhasil Diupdate";
         }
     }
 
@@ -72,14 +65,10 @@ class UserController extends Controller
     {
         $data = User::find($id);
         if(is_null($data)){
-            return response()->json([
-                "message" => "Data Tidak Ditemukan"
-            ]);
+            return "Data Tidak Ditemukan";
         }else{
             $data->delete();
-            return response()->json([
-                "message" => "Data Berhasil Dihapus"
-            ]);
+            return "Data Berhasil Dihapus";
         }
     }
 }

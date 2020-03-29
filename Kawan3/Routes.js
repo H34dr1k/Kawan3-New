@@ -300,9 +300,8 @@ function homeStackScreen({ navigation, route }) {
                 headerStyle: {
                     backgroundColor: '#E5E5E5',
                     elevation: 0,
-
                 },
-                headerTintColor: 'red',
+                headerTintColor: '#526EDD',
                 headerTitleStyle: {
                     fontWeight: 'bold',
                     fontSize: hp('3%')
