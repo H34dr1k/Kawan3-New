@@ -4,7 +4,9 @@ import {
     View,
     Button,
     Image,
+    StatusBar,
     ActivityIndicator,
+    SafeAreaView,
     TouchableOpacity
 } from "react-native";
 import "react-native-gesture-handler";
@@ -76,6 +78,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         flex: 1
     },
+    container2:{
+        marginTop: StatusBar.currentHeight,
+        flex:1,
+        backgroundColor:"white" ,
+    },
     isi: {
         flex: 1,
         alignItems: "center",
@@ -115,3 +122,12 @@ const styles = StyleSheet.create({
         // marginHorizontal: 100,
     }
 });
+
+//<View style={{marginTop: StatusBar.currentHeight, flex:1, backgroundColor:"white"}}>
+                   // <View style={{flex:1, alignItems: "center", justifyContent:"center"}}>
+                        
+                      //  <Image source={require("../src/image/logo.png")}/>
+                    //    <Text type="rbold" style={{color:"rgb(58,205,228)", fontSize:hp('4%')}}>Kawan</Text>
+                        
+                  //  </View>
+                //</View>
