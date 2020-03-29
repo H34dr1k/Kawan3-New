@@ -7,7 +7,8 @@ import {
     ActivityIndicator,
     TouchableOpacity,
     Alert, 
-    AsyncStorage
+    AsyncStorage,
+    StatusBar
 } from "react-native";
 import "react-native-gesture-handler";
 import { createAppContainer } from "react-navigation";
@@ -46,12 +47,12 @@ class Intro extends React.Component {
                     this.setState({ notyet: true });
                 }
             });
-        }, 5000);
+        }, 1500);
     }
 
     checkId = () => {
         AsyncStorage.setItem('introScreen', 'a');
-        AsyncStorage.getItem('kodeuser').then((data) => {
+        AsyncStorage.getItem('datauser').then((data) => {
             if(data == null){
                 this.props.navigation.navigate('Login');
             }else{

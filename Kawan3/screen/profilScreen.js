@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ImageBackground, ScrollView, AsyncStorage, BackHandler } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
 
-import * as firebase from 'firebase';
+var datauser = [];
+AsyncStorage.getItem("datauser").then((t) => {
+    datauser = JSON.parse(t);
+});
 
 export default class profilScreen extends React.Component {
     static navigationOptions = {
         title: 'profilScreen',
         header: null
     }
-
 
     // constructor(props) {
     //     super(props);
@@ -23,12 +25,16 @@ export default class profilScreen extends React.Component {
     //     }
     // }
 
-    // onLogOutPress = () => {
-    //     firebase.auth().signOut()
-    //         .then(() => {
-    //             this.props.navigation.navigate('Login');
-    //         });
-    // }
+    componentDidMount(){
+        BackHandler.addEventListener("hardwareBackPress", () => {
+            this.props.navigation.navigate("homeScreen");
+        });
+    }
+
+    onLogOutPress(){
+        AsyncStorage.removeItem("datauser");
+        this.props.navigation.navigate("Login");
+    }
 
     // UNSAFE_componentWillMount = () => {
     //     var email = firebase.auth().currentUser.email
@@ -72,7 +78,7 @@ export default class profilScreen extends React.Component {
                         <View style={{ marginHorizontal: 26, flexDirection: 'row' }}>
                             <TouchableOpacity
                                 style={{ marginTop: 33, width: 80, height: 28, backgroundColor: '#F84B14', borderRadius: 7 }}
-                                onPress={this.onLogOutPress}>
+                                onPress={() => this.onLogOutPress()}>
                                 <Text style={{ marginTop: 3, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: 'white' }}>Log Out</Text>
                             </TouchableOpacity>
                             <View style={{ marginTop: -80 }}>
@@ -87,8 +93,8 @@ export default class profilScreen extends React.Component {
                         </View>
                         <View style={{ flexDirection: 'row', marginHorizontal: 26, marginTop: 20, justifyContent: 'center', alignItems: 'center' }}>
                             <View>
-                                <Text style={{ fontSize: 23, fontWeight: 'bold', color: '#526EDD', textAlign: 'center' }}>{/*this.state.name*/}</Text>
-                                <Text style={{ fontSize: 13, color: 'gray', textAlign: 'center' }}>I like progamming and playing football</Text>
+                                <Text style={{ fontSize: 23, fontWeight: 'bold', color: '#526EDD', textAlign: 'center' }}>{ datauser.name }</Text>
+                                <Text style={{ fontSize: 13, color: 'gray', textAlign: 'center' }}>{ datauser.desc } </Text>
                             </View>
                         </View>
                     </View>
