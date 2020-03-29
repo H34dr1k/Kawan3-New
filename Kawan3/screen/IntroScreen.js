@@ -64,10 +64,13 @@ class Intro extends React.Component {
         if(!this.state.notyet){
             return (
                 <AppFontLoader>
-                    <View style={styles.container}>
-                        <Text>
-                            Test
-                        </Text>
+                    <View style={{marginTop: StatusBar.currentHeight, flex:1, backgroundColor:"white"}}>
+                        <View style={{flex:1, alignItems: "center", justifyContent:"center"}}>
+                            
+                            <Image source={require("../src/image/logo.png")}/>
+                            <Text type="rbold" style={{color:"rgb(58,205,228)", fontSize:hp('4%')}}>Kawan</Text>
+                            
+                        </View>
                     </View>
                 </AppFontLoader>
             );
