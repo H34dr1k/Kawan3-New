@@ -1,17 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-<<<<<<< HEAD
-  "packagerPid": 9416,
-  "expoServerNgrokUrl": "https://xa-966.anonymous.kawan3.exp.direct",
-  "packagerNgrokUrl": "https://packager.xa-966.anonymous.kawan3.exp.direct",
-  "ngrokPid": 112,
-=======
-  "packagerPid": 9348,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
   "expoServerNgrokUrl": null,
   "packagerNgrokUrl": null,
   "ngrokPid": null,
->>>>>>> 3e4fda5166a90bd8b2739d71156412962cea23f5
   "webpackServerPort": null
 }

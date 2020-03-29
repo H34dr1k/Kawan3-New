@@ -39,7 +39,7 @@ class communityScreen extends React.Component {
 
                             <Text type="rbold" style={s.atas1}>
                                 Community
-              </Text>
+                            </Text>
                         </View>
                         <Image style={{ marginRight: wp('4%') }} source={require("../src/img/more.png")}></Image>
                     </View>
