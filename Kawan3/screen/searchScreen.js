@@ -4,12 +4,6 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
 
-import normalize from "react-native-normalize";
-import {
-    heightPercentageToDP as hp,
-    widthPercentageToDP as wp
-} from "react-native-responsive-screen";
-
 export const searchScreen = ({ }) => {
 
     return (
@@ -28,22 +22,6 @@ export const searchScreen = ({ }) => {
                         <Image source={require('../src/image/search-icon.png')} style={{ position: 'absolute', top: 10, left: 10 }} />
                     </View>
                 </ImageBackground>
-            </View>
-            <View style={{ flex: 1, marginTop: 20 }}>
-                
-                <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                    <TouchableOpacity style={{ borderRadius: 20, backgroundColor: "#F7B815", paddingHorizontal: wp('1%'), paddingVertical: hp('0.5%'), width: wp("25%"), }}>
-                        <Text type="rbold" style={{ textAlign: "center", fontSize: hp("2%") }}>Near You</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={{ width: wp("25%"), }}>
-                        <Text type="rbold" style={{ textAlign: "center", color: "#A5AFA5", fontSize: hp("2%") }}>Trending</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{ width: wp("25%"), }}>
-                        <Text type="rbold" style={{ textAlign: "center", color: "#A5AFA5", fontSize: hp("2%") }}>Most Joined</Text>
-                    </TouchableOpacity>
-
-                </View>
             </View>
         </View>
     );
