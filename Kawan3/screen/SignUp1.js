@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyleSheet, Alert, SafeAreaView, ScrollView, StatusBar, StatusBarStyle, Platform, View, Button, Image, ImageBackground, ActivityIndicator, TouchableOpacity, TextInput, ToastAndroid } from 'react-native';
+import { AsyncStorage, StyleSheet, Alert, SafeAreaView, ScrollView, StatusBar, StatusBarStyle, Platform, View, Button, Image, ImageBackground, ActivityIndicator, TouchableOpacity, TextInput, ToastAndroid } from 'react-native';
 
 import 'react-native-gesture-handler';
 import { createAppContainer } from 'react-navigation';
@@ -196,7 +196,7 @@ class SignUp1 extends React.Component {
 
                     <View style={s.continue}>
                         <TouchableOpacity
-                                onPress={this.onSignUpPress}
+                                onPress={() => this.onSignUpPress()}
                                 style={s.btnlogin}>
 
                                 <LinearGradient start={[0, 1]} end={[1, 0]} colors={['#519BD1', '#38D1E6']} style={s.btngradien}>

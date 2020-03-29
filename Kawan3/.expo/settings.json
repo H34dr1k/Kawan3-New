@@ -1,12 +1,8 @@
 {
-<<<<<<< HEAD
-  "urlRandomness": "xa-966",
-=======
-  "urlRandomness": "ae-uhc",
->>>>>>> 3e4fda5166a90bd8b2739d71156412962cea23f5
-  "hostType": "lan",
-  "lanType": "ip",
   "dev": true,
   "minify": false,
+  "hostType": "lan",
+  "lanType": "ip",
+  "urlRandomness": "qf-43n",
   "https": false
 }

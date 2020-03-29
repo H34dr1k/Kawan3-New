@@ -1,20 +1,21 @@
 import React from "react";
 
 import {
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StatusBarStyle,
-  Platform,
-  View,
-  Button,
-  Image,
-  ImageBackground,
-  ActivityIndicator,
-  TouchableOpacity,
-  TextInput,
-  Alert
+    StyleSheet,
+    SafeAreaView,
+    ScrollView,
+    StatusBar,
+    StatusBarStyle,
+    Platform,
+    View,
+    Button,
+    Image,
+    ImageBackground,
+    ActivityIndicator,
+    TouchableOpacity,
+    TextInput,
+    Alert,
+  AsyncStorage
 } from "react-native";
 
 import "react-native-gesture-handler";
@@ -32,97 +33,80 @@ import { Directions } from "react-native-gesture-handler";
 
 import normalize from "react-native-normalize";
 import {
-  heightPercentageToDP as hp,
+    heightPercentageToDP as hp,
   widthPercentageToDP as wp
 } from "react-native-responsive-screen";
 
-import * as firebase from "firebase";
+import data from "../api";
 
 class Login extends React.Component {
-  componentWillUnmount() {
-    this.props.navigation.navigate("Intro");
-  }
+    componentWillUnmount() {
+        this.props.navigation.navigate("Intro");
+    }
 
-  static navigationOptions = {
-    header: null
-    // headerRight: <View />,
-  };
+    static navigationOptions = {
+        header: null
+        // headerRight: <View />,
+    };
 
   constructor(props) {
     super(props);
     this.state = {
-      secureTextEntry: true,
-      iconName: "eye-outline",
-      email: "",
-      pass: ""
+        secureTextEntry: true,
+        iconName: "eye-outline",
+        email: "",
+        pass: ""
     };
   }
 
-  signInWithGoogleAsync = async () => {
-    try {
-      const result = await Google.logInAsync({
-        behavior: "web",
-        androidClientId:
-          "459434791745-s8at2nv6d64akulhahvu7kkb2g563b0v.apps.googleusercontent.com",
-        // iosClientId: YOUR_CLIENT_ID_HERE,
-        scopes: ["profile", "email"]
-      });
+    onIconPress = () => {
+        let iconName = this.state.secureTextEntry
+        ? "eye-off-outline"
+        : "eye-outline";
 
-      if (result.type === "success") {
-        return result.accessToken;
-      } else {
-        return { cancelled: true };
-      }
-    } catch (e) {
-      return { error: true };
-    }
-  };
+        this.setState({
+        secureTextEntry: !this.state.secureTextEntry,
+        iconName: iconName
+        });
+    };
 
-  onGooglePress = () => {
-    alert("I'm Google!");
-    this.signInWithGoogleAsync();
-  };
+    onEndEditing = () => {
+        this.setState({
+        backgroundColor: "green"
+        });
+    };
 
-  onFacebookPress = () => {
-    alert("I'm Facebook!");
-  };
+    onBlur = () => {
+        this.setState({
+        backgroundColor: "#ededed"
+        });
+    };
 
-  onIconPress = () => {
-    let iconName = this.state.secureTextEntry
-      ? "eye-off-outline"
-      : "eye-outline";
-
-    this.setState({
-      secureTextEntry: !this.state.secureTextEntry,
-      iconName: iconName
-    });
-  };
-
-  onEndEditing = () => {
-    this.setState({
-      backgroundColor: "green"
-    });
-  };
-
-  onBlur = () => {
-    this.setState({
-      backgroundColor: "#ededed"
-    });
-  };
-
-  onLoginPress = () => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(this.state.email, this.state.pass)
-      .then(
-        () => {
-          this.props.navigation.navigate("homeScreen");
-        },
-        error => {
-          Alert.alert(error.message);
+    onLoginPress = () => {
+        if(this.state.email == "" || this.state.pass == ""){
+        Alert.alert('Error', 'Isi semua field terlebih dahulu');
+        return;
         }
-      );
-  };
+
+        fetch("http://192.168.1.5:8000/api/user/"+ this.state.email)
+        .then((rs) => {
+            return rs.text();
+        })
+        .then((rd) => {
+            if(rd == ""){
+                Alert.alert("Wrong Email!", "Can't find the email");
+                return;
+            }
+            var data = JSON.parse(rd);
+            
+            if(data.password != this.state.pass){
+                Alert.alert("Wrong Password!", "Your Password is wrong! Please, check it again");
+                return;
+            }
+            AsyncStorage.setItem('kodeuser', data.kodeuser);
+            this.props.navigation.navigate('homeScreen');
+        });
+    };
 
   onForgotPass = () => { };
 
@@ -145,8 +129,9 @@ class Login extends React.Component {
               Log In
             </Text>
             <Text style={s.subjudul}>
-              Enter your email and password to log in or log in with Google
-              Account or Facebook
+              Enter your email and password to log in 
+              {/* or log in with Google
+              Account or Facebook */}
             </Text>
           </ImageBackground>
 
@@ -218,7 +203,7 @@ class Login extends React.Component {
           </View>
 
           <View style={s.login2}>
-            <Text
+            {/* <Text
               type="rbold"
               style={{
                 textAlign: "center",
@@ -270,7 +255,7 @@ class Login extends React.Component {
               <TouchableOpacity>
                 <Text style={{ color: "#fff" }}>a</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
 
             <TouchableOpacity>
               <Text
