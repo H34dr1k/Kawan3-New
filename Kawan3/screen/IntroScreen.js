@@ -65,19 +65,6 @@ class Intro extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-
-
-
-                {/* <View style={{marginTop: StatusBar.currentHeight, flex:1, backgroundColor:"white"}}>
-                    <View style={{flex:1, alignItems: "center", justifyContent:"center"}}>
-                        
-                        <Image source={require("../src/image/logo.png")}/>
-                        <Text type="rbold" style={{color:"rgb(58,205,228)", fontSize:hp('4%')}}>Kawan</Text>
-                        
-                    </View>
-                </View> */}
-
-
             </AppFontLoader>
         );
     }
@@ -135,3 +122,12 @@ const styles = StyleSheet.create({
         // marginHorizontal: 100,
     }
 });
+
+//<View style={{marginTop: StatusBar.currentHeight, flex:1, backgroundColor:"white"}}>
+                   // <View style={{flex:1, alignItems: "center", justifyContent:"center"}}>
+                        
+                      //  <Image source={require("../src/image/logo.png")}/>
+                    //    <Text type="rbold" style={{color:"rgb(58,205,228)", fontSize:hp('4%')}}>Kawan</Text>
+                        
+                  //  </View>
+                //</View>
