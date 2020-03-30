@@ -1,17 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-<<<<<<< HEAD
-  "packagerPid": 3716,
-  "expoServerNgrokUrl": "https://qf-43n.anonymous.kawan3.exp.direct",
-  "packagerNgrokUrl": "https://packager.qf-43n.anonymous.kawan3.exp.direct",
-  "ngrokPid": 12104
-=======
-  "packagerPid": 5156,
-  "expoServerNgrokUrl": "https://zr-m9q.hendrik17.kawan3.exp.direct",
-  "packagerNgrokUrl": "https://packager.zr-m9q.hendrik17.kawan3.exp.direct",
-  "ngrokPid": 3464,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
->>>>>>> cf68cdf0c7a659c8ff6908ad366a4ac7d220f087
 }
