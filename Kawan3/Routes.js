@@ -211,6 +211,7 @@ import createComm2 from './screen/createComm2'
 import createEvent from './screen/createEvent'
 import createEvent2 from './screen/createEvent2'
 import travelFriend from './screen/travelFriend'
+import editProfil from './screen/editProfil'
 
 
 import mapScreen from './screen/mapScreen'
@@ -391,6 +392,7 @@ function profilStackScreen({ navigation, route }) {
             <profilStack.Screen name="settingAbout" options={{ headerShown: false }} component={settingAbout} />
             <profilStack.Screen name="settingNotif" options={{ headerShown: false }} component={settingNotif} />
             <profilStack.Screen name="settingPrivasi" options={{ headerShown: false }} component={settingPrivasi} />
+            <profilStack.Screen name="editProfil" options={{ headerShown: false }} component={editProfil} />
 
 
         </profilStack.Navigator>
