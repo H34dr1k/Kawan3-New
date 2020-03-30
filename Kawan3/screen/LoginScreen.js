@@ -243,100 +243,101 @@ class Login extends React.Component {
 }
 
 const s = StyleSheet.create({
-    container: {
-        alignItems: "center",
-        flex: 1,
-        marginTop: StatusBar.currentHeight,
-        margin: -10
-    },
-    img1: {
-        height: hp("33.4%"),
-        width: wp("100%"),
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    // header : {
-    //     justifyContent: "center",
-    //     alignItems: "center",
-    // },
-    judul: {
-        letterSpacing: 1,
-        fontSize: hp("6%"),
-        color: "#fff",
-        marginBottom: normalize(10)
-    },
-    subjudul: {
-        width: "80%",
-        textAlign: "center",
-        color: "#fff",
-        lineHeight: normalize(25)
-    },
-    login: {
-        flex: 1.2,
-        width: wp("100%"),
-        paddingHorizontal: normalize(45)
-        // backgroundColor: 'red',
-    },
-    wrap1: {
-        marginTop: normalize(30)
-    },
-    temail: {
-        fontSize: hp("2%"),
-        backgroundColor: "#fff",
-        zIndex: 1,
-        width: "40%",
-        textAlign: "center",
-        paddingHorizontal: 5,
-        marginLeft: 10,
-        marginBottom: hp("-1.3%")
-    },
-    femail: {
-        borderWidth: 1,
-        padding: 15,
-        fontSize: normalize(15),
-        borderRadius: 8,
-        marginBottom: normalize(15),
-        height: hp(7.5)
-    },
-    tpw: {
-        fontSize: hp("2%"),
-        backgroundColor: "#fff",
-        zIndex: 1,
-        width: "30%",
-        textAlign: "center",
-        paddingHorizontal: 5,
-        marginLeft: 10,
-        marginBottom: hp("-1.3%")
-    },
-    fpw: {
-        borderWidth: 1,
-        paddingHorizontal: 15,
-        fontSize: hp("1.6%"),
-        borderRadius: 8,
-        flexDirection: "row",
-        height: hp(7.5),
-        alignItems: "center"
-    },
-    btnlogin: {
-        marginTop: hp("3%")
-    },
-    btngradien: {
-        padding: hp("2%"),
-        borderRadius: 8
-    },
-    btnloginisi: {
-        textAlign: "center",
-        letterSpacing: 1,
-        fontSize: hp("3.2%"),
-        color: "#fff"
-    },
-    login2: {
-        flex: 0.8,
-        width: wp("100%"),
-        paddingHorizontal: normalize(10),
-        marginTop: hp("1%")
-        // backgroundColor: 'blue',
-    }
+  container: {
+    alignItems: "center",
+    flex: 1,
+    marginTop: StatusBar.currentHeight,
+    margin: -10,
+    backgroundColor:"white"
+  },
+  img1: {
+    height: hp("33.4%"),
+    width: wp("100%"),
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  // header : {
+  //     justifyContent: "center",
+  //     alignItems: "center",
+  // },
+  judul: {
+    letterSpacing: 1,
+    fontSize: hp("6%"),
+    color: "#fff",
+    marginBottom: normalize(10)
+  },
+  subjudul: {
+    width: "80%",
+    textAlign: "center",
+    color: "#fff",
+    lineHeight: normalize(25)
+  },
+  login: {
+    flex: 1.2,
+    width: wp("100%"),
+    paddingHorizontal: normalize(45)
+    // backgroundColor: 'red',
+  },
+  wrap1: {
+    marginTop: normalize(30)
+  },
+  temail: {
+    fontSize: hp("2%"),
+    backgroundColor: "#fff",
+    zIndex: 1,
+    width: "40%",
+    textAlign: "center",
+    paddingHorizontal: 5,
+    marginLeft: 10,
+    marginBottom: hp("-1.3%")
+  },
+  femail: {
+    borderWidth: 1,
+    padding: 15,
+    fontSize: normalize(15),
+    borderRadius: 8,
+    marginBottom: normalize(15),
+    height: hp(7.5)
+  },
+  tpw: {
+    fontSize: hp("2%"),
+    backgroundColor: "#fff",
+    zIndex: 1,
+    width: "30%",
+    textAlign: "center",
+    paddingHorizontal: 5,
+    marginLeft: 10,
+    marginBottom: hp("-1.3%")
+  },
+  fpw: {
+    borderWidth: 1,
+    paddingHorizontal: 15,
+    fontSize: hp("1.6%"),
+    borderRadius: 8,
+    flexDirection: "row",
+    height: hp(7.5),
+    alignItems: "center"
+  },
+  btnlogin: {
+    marginTop: hp("3%")
+  },
+  btngradien: {
+    padding: hp("2%"),
+    borderRadius: 8
+  },
+  btnloginisi: {
+    textAlign: "center",
+    letterSpacing: 1,
+    fontSize: hp("3.2%"),
+    color: "#fff"
+  },
+  login2: {
+    flex: 0.8,
+    width: wp("100%"),
+    paddingHorizontal: normalize(10),
+    marginTop: hp("1%")
+    // backgroundColor: 'blue',
+  }
 });
 export default Login;

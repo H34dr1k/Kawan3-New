@@ -33,10 +33,11 @@ var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "S
 
 export default class homeScreen extends React.Component {
 
-    _onPressButton() {
-        Alert.alert("Join Success");
-    }
 
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', () => {return true});
+    }
+    
     render() {
         BackHandler.addEventListener('hardwareBackPress', () => {
             this.props.navigation.goBack(null);

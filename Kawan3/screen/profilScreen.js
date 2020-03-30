@@ -74,7 +74,7 @@ export default class profilScreen extends React.Component {
                             </View>
                         </ImageBackground>
                     </View>
-                    <View style={{ flex: 1, width: '100%', height: '100%', backgroundColor: 'white', borderTopLeftRadius: 50, borderTopRightRadius: 50, marginTop: -45 }}>
+                    <View style={{ flex: 1, width: '100%', height: '100%', backgroundColor: '#F0F0F0', borderTopLeftRadius: 50, borderTopRightRadius: 50, marginTop: -45 }}>
                         <View style={{ marginHorizontal: 26, flexDirection: 'row' }}>
                             <TouchableOpacity
                                 style={{ marginTop: 33, width: 80, height: 28, backgroundColor: '#F84B14', borderRadius: 7 }}
@@ -85,7 +85,7 @@ export default class profilScreen extends React.Component {
                                 <Image source={require('../src/image/profilPic.png')} style={{ width: 150, height: 150 }} />
                             </View>
                             <View>
-                                <TouchableOpacity style={{ width: 80, height: 28, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F8B814', marginTop: 33, borderRadius: 7, flexDirection: 'row' }}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('editProfil')} style={{ width: 80, height: 28, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F8B814', marginTop: 33, borderRadius: 7, flexDirection: 'row' }}>
                                     <Image source={require('../src/image/iconEdit.png')} style={{ marginRight: 8 }} />
                                     <Text style={{ fontWeight: 'bold', color: 'white' }}>Edit</Text>
                                 </TouchableOpacity>
@@ -133,6 +133,27 @@ export default class profilScreen extends React.Component {
                         </View>
                     </View>
                     <View style={{ borderWidth: 1, borderColor: '#E8E8E8', marginTop: 20, marginBottom: 15 }}></View>
+                    <View style={{marginHorizontal: 26}}>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                            <Text style={{color: '#526EDD', fontSize: 18, fontWeight: 'bold', marginBottom: 15}}>My Hobby</Text>
+                            <TouchableOpacity>
+                                <Text style={{color: '#FBB429', fontWeight: 'bold', fontSize: 12, marginTop: 5}}>More</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                            <TouchableOpacity>
+                                <View style={{width: 100, height: 25, backgroundColor: 'lightgreen', borderRadius: 14, marginRight: 10}}>
+                                    <Text style={{color: 'white', textAlign: 'center', justifyContent: 'center'}}>Football</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style={{width: 100, height: 25, backgroundColor: 'lightblue', borderRadius: 14}}>
+                                    <Text style={{color: 'white', textAlign: 'center'}}>Progamming</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                <View style={{borderWidth: 1, borderColor: '#E8E8E8', marginTop: 20, marginBottom: 15}}></View>
                     <View style={{ marginHorizontal: 26 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <Text style={{ color: '#526EDD', fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>Community</Text>
@@ -141,7 +162,7 @@ export default class profilScreen extends React.Component {
                             </TouchableOpacity>
                         </View>
                         <ScrollView horizontal={true} style={{ flexDirection: 'row' }}>
-                            <View style={{ marginRight: 15, width: 235, height: 96, borderRadius: 10, backgroundColor: '#E5E5E5', flexDirection: 'row' }}>
+                            <View style={{ marginBottom: 20, marginRight: 15, width: 235, height: 96, borderRadius: 10, backgroundColor: '#E5E5E5', flexDirection: 'row' }}>
                                 <View style={{ flex: 1 }}>
                                     <Image source={require('../src/image/Community1.png')} style={{ margin: 10 }} />
                                 </View>

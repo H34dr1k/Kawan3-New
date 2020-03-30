@@ -6,7 +6,7 @@ import {
     Image,
     ActivityIndicator,
     TouchableOpacity,
-    Alert, 
+    Alert,
     AsyncStorage,
     StatusBar
 } from "react-native";
@@ -51,7 +51,6 @@ class Intro extends React.Component {
     }
 
     checkId = () => {
-        AsyncStorage.setItem('introScreen', 'a');
         AsyncStorage.getItem('datauser').then((data) => {
             if(data == null){
                 this.props.navigation.navigate('Login');
