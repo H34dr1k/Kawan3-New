@@ -203,7 +203,6 @@ import History from './screen/historyScreen'
 import friendDetailScreen from './screen/friendDetail'
 import communityDetail1Screen from './screen/communityDetail1'
 import communityFront from './screen/communityFront'
-import communityTopTabs from './screen/communityFront'
 
 import Home from './screen/MAP/routes/Home/components/Home'
 import createComm from './screen/createComm'
@@ -387,7 +386,37 @@ function profilStackScreen({ navigation, route }) {
     return (
         <profilStack.Navigator>
 
-            <profilStack.Screen name="profilScreen" options={{ headerShown: false }} component={profilScreen} />
+            <profilStack.Screen name="Profile"  options={({ route, navigation }) => ({
+                title: route.name,
+                headerTransparent:true,
+                headerStyle: {
+                    backgroundColor: 'transparent',
+                    elevation: 0,
+                    borderBottomWidth:0,
+                },
+                headerTintColor: '#526EDD',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                    fontSize: hp('3%'),
+                    color:'white',
+                }, headerRight: () => (
+
+                    // <Button
+                    //     onPress={() => navigation.navigate('historyScreen')}
+                    //     title="Info"
+                    //     color="#00cc00"
+                    // />
+                    <View style={{ flexDirection: 'row',}}>
+                        <TouchableOpacity onPress={() => navigation.navigate("settingScreen")} >
+                            
+                        <Image source={require('./src/image/btnSetting.png')} 
+                                style={{marginTop:hp('0.5%')}}
+                            />
+                        </TouchableOpacity>
+                    </View>
+
+                ),
+            })} component={profilScreen} />
             <profilStack.Screen name="settingScreen" options={{ headerShown: false }} component={settingScreen} />
             <profilStack.Screen name="settingAbout" options={{ headerShown: false }} component={settingAbout} />
             <profilStack.Screen name="settingNotif" options={{ headerShown: false }} component={settingNotif} />
@@ -450,27 +479,27 @@ function communityFronts({ navigation,route }) {
 }
 
 
-// function communityTopTabs({ navigation, route }) {
-//     return (
+function communityTopTabs({ navigation, route }) {
+    return (
         
-//       <topTabScreen1.Navigator
-//         name="Community"
-//         style={{ marginTop: StatusBar.currentHeight }}
-//       >
-//         <topTabScreen1.Screen name="nearYouScreen" component={nearYou} />
-//         <topTabScreen1.Screen
-//           name="trendingScreen"
-//           options={{}}
-//           component={trendingScreen}
-//         />
-//         <topTabScreen1.Screen
-//           name="mostJoinedScreen"
-//           options={{}}
-//           component={mostJoinedScreen}
-//         />
-//       </topTabScreen1.Navigator>
-//     );
-// }
+      <topTabScreen1.Navigator
+        name="Community"
+        style={{ marginTop: StatusBar.currentHeight }}
+      >
+        <topTabScreen1.Screen name="nearYouScreen" component={nearYou} />
+        <topTabScreen1.Screen
+          name="trendingScreen"
+          options={{}}
+          component={trendingScreen}
+        />
+        <topTabScreen1.Screen
+          name="mostJoinedScreen"
+          options={{}}
+          component={mostJoinedScreen}
+        />
+      </topTabScreen1.Navigator>
+    );
+}
 
 function TabScreen({ navigation, route }) {
     if (route.state && route.state.index > 0) {
@@ -482,7 +511,7 @@ function TabScreen({ navigation, route }) {
     return (
         <Tabs.Navigator
             
-            initialRouteName="Home"
+            initialRouteName="Profile"
 
             activeColor='cyan'
             inactiveColor='black'
@@ -529,10 +558,10 @@ function TabScreen({ navigation, route }) {
 
             <Tabs.Screen options={{ headerShown: false }} name="Add" component={addStackScreen} />
 
-            <Tabs.Screen name="Community" children={this.props.communityTopTabs} />
+            <Tabs.Screen name="Community" component={communityTopTabs} />
 
 
-            <Tabs.Screen options={{ headerShown: false }} name="Profil" component={profilStackScreen} />
+            <Tabs.Screen options={{ headerShown: false }} name="Profile" component={profilStackScreen} />
 
         </Tabs.Navigator>
     )

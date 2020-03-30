@@ -27,7 +27,7 @@ export default class homeScreen extends React.Component {
 
   componentWillMount() {
    BackHandler.addEventListener('hardwareBackPress', () => {return true});
-} 
+  } 
 
   render() {
     function _onPressButton() {

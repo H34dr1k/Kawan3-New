@@ -10,7 +10,6 @@ import {
 
     AsyncStorage,
     StatusBar,
-    AsyncStorage
 
 } from "react-native";
 import "react-native-gesture-handler";
