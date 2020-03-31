@@ -34,9 +34,9 @@ var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "S
 export default class homeScreen extends React.Component {
 
 
-    componentWillMount() {
-        BackHandler.addEventListener('hardwareBackPress', () => {return true});
-    }
+  componentWillMount() {
+   BackHandler.addEventListener('hardwareBackPress', () => {return true});
+  } 
     
     render() {
         BackHandler.addEventListener('hardwareBackPress', () => {

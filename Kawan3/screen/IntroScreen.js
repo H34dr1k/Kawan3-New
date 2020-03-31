@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     Alert,
     AsyncStorage,
-    StatusBar
+    StatusBar,
+
 } from "react-native";
 import "react-native-gesture-handler";
 import { createAppContainer } from "react-navigation";

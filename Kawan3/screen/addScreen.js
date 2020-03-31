@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ImageBackground, ScrollView, BackHandler } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
 
 export default class addScreen extends React.Component {
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', () => { return true });
+    }
     render() {
         return (
             <View style={{ flex: 1 }}>

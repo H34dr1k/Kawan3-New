@@ -1,19 +1,33 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, ImageBackground, ScrollView, AsyncStorage, BackHandler } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ImageBackground, ScrollView, StatusBar, BackHandler, AsyncStorage } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
+import FacePile from "react-native-face-pile";
 
 var datauser = [];
 AsyncStorage.getItem("datauser").then((t) => {
     datauser = JSON.parse(t);
 });
 
+import normalize from "react-native-normalize";
+import {
+    heightPercentageToDP as hp,
+    widthPercentageToDP as wp
+} from "react-native-responsive-screen";
+
+
 export default class profilScreen extends React.Component {
     static navigationOptions = {
         title: 'profilScreen',
         header: null
     }
+
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', () => { return true });
+    }
+
+    
 
     // constructor(props) {
     //     super(props);
@@ -60,18 +74,62 @@ export default class profilScreen extends React.Component {
     // }
 
     render() {
+        const FACES = [
+          {
+            id: 0,
+            imageUrl:
+              "https://s3.amazonaws.com/uifaces/faces/twitter/vista/128.jpg"
+          },
+          {
+            id: 1,
+            imageUrl:
+              "http://www.yojackets.com/wp-content/uploads/2016/04/Civil-War-Scarlet-Witch-Red-Coat-1.jpg"
+          },
+          {
+            id: 2,
+            imageUrl:
+              "https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg"
+          },
+          {
+            id: 3,
+            imageUrl:
+              "https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg"
+          },
+          {
+            id: 4,
+            imageUrl:
+              "https://pbs.twimg.com/profile_images/885357926373654528/4tGgnF71_bigger.jpg"
+          }
+          //   {
+          //     id: 0,
+          //     imageUrl: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.tek.id%2Ffuture%2Fai-kamera-dibohongi-pakai-gambar-b1Xe89ej6&psig=AOvVaw3PwHjM0zd3Pv870poh7xay&ust=1585648116266000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCOzdv1wegCFQAAAAAdAAAAABAJ'
+          //   },
+          //   {
+          //     id: 1,
+          //     imageUrl: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.tek.id%2Ffuture%2Fai-kamera-dibohongi-pakai-gambar-b1Xe89ej6&psig=AOvVaw3PwHjM0zd3Pv870poh7xay&ust=1585648116266000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCOzdv1wegCFQAAAAAdAAAAABAJ'
+          //   },
+          //   {
+          //     id: 2,
+          //     imageUrl: "../src/image/Friend3.png"
+          //   },
+          //   {
+          //     id: 3,
+          //     imageUrl: "../src/image/Friend1.png"
+          //   },
+          //   {
+          //     id: 4,
+          //     imageUrl: "../src/image/Friend1.png"
+          //   }
+        ];
 
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, marginTop:StatusBar.currentHeight}}>
+            <StatusBar barStyle="dark-content"></StatusBar>
                 <ScrollView>
-                    <View style={{ flex: 0, backgroundColor: '#49438D', height: 229, paddingTop: 26.5 }}>
-                        <ImageBackground source={require('../src/image/decoStar.png')} style={{ width: '100%', height: '100%', flexDirection: 'row' }}>
-                            <Text style={{ fontSize: 24, marginHorizontal: 26, fontWeight: 'bold', color: 'white', marginTop: 15 }}>Profile</Text>
-                            <View style={{ marginLeft: 150, marginTop: 10 }}>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('settingScreen')}>
-                                    <Image source={require('../src/image/btnSetting.png')} />
-                                </TouchableOpacity>
-                            </View>
+                    <View style={{ flex: 0, backgroundColor: '#49438D', height: 229, paddingTop: 26.5, }}>
+                        <ImageBackground source={require('../src/image/decoStar.png')} style={{flex:1, width: '100%', height: '100%', flexDirection: 'row', paddingHorizontal:wp('2%')  }}>
+                            
+                            
                         </ImageBackground>
                     </View>
                     <View style={{ flex: 1, width: '100%', height: '100%', backgroundColor: '#F0F0F0', borderTopLeftRadius: 50, borderTopRightRadius: 50, marginTop: -45 }}>
@@ -80,16 +138,20 @@ export default class profilScreen extends React.Component {
                                 style={{ marginTop: 33, width: 80, height: 28, backgroundColor: '#F84B14', borderRadius: 7 }}
                                 onPress={() => this.onLogOutPress()}>
                                 <Text style={{ marginTop: 3, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: 'white' }}>Log Out</Text>
-                            </TouchableOpacity>
-                            <View style={{ marginTop: -80 }}>
-                                <Image source={require('../src/image/profilPic.png')} style={{ width: 150, height: 150 }} />
-                            </View>
-                            <View>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('editProfil')} style={{ width: 80, height: 28, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F8B814', marginTop: 33, borderRadius: 7, flexDirection: 'row' }}>
-                                    <Image source={require('../src/image/iconEdit.png')} style={{ marginRight: 8 }} />
-                                    <Text style={{ fontWeight: 'bold', color: 'white' }}>Edit</Text>
                                 </TouchableOpacity>
+                           </View>
+
+                           
+
+                            <View style={{flex:2,alignItems:"center",marginTop:-75}}><Image source={require('../src/image/profilPic.png')} resizeMode='cover' style={{ width: 150, height: 150 }} /></View>
+
+                            <View style={{ flex: 1,width:'100%' }}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('editProfil')} style={{ height: 28, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F8B814', marginTop: 33, borderRadius: 7, flexDirection: 'row' }}>
+                                <Image source={require('../src/image/iconEdit.png')} />
+                                <Text style={{ fontWeight: 'bold', color: 'white' }}>Edit</Text>
+                            </TouchableOpacity>
                             </View>
+                        
                         </View>
                         <View style={{ flexDirection: 'row', marginHorizontal: 26, marginTop: 20, justifyContent: 'center', alignItems: 'center' }}>
                             <View>
@@ -97,7 +159,6 @@ export default class profilScreen extends React.Component {
                                 <Text style={{ fontSize: 13, color: 'gray', textAlign: 'center' }}>{ datauser.desc } </Text>
                             </View>
                         </View>
-                    </View>
                     <View style={{ borderWidth: 1, borderColor: '#E8E8E8', marginTop: 20, marginBottom: 15 }}></View>
                     <View style={{ marginHorizontal: 26 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -107,7 +168,12 @@ export default class profilScreen extends React.Component {
                             </TouchableOpacity>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
-                            <View>
+
+                            <TouchableOpacity onPress={()=> alert('Bisa')}>
+                         
+                            <FacePile numFaces={4} faces={FACES} circleSize={25}/>
+                            </TouchableOpacity>
+                            {/* <View>
                                 <TouchableOpacity>
                                     <Image source={require('../src/image/Friend1.png')} style={{ marginRight: 10 }} />
                                 </TouchableOpacity>
@@ -129,7 +195,7 @@ export default class profilScreen extends React.Component {
                                 <TouchableOpacity>
                                     <Text style={{ textAlign: 'center', marginTop: 8, fontWeight: 'bold', color: 'white', fontSize: 20 }}>+5</Text>
                                 </TouchableOpacity>
-                            </View>
+                            </View> */}
                         </View>
                     </View>
                     <View style={{ borderWidth: 1, borderColor: '#E8E8E8', marginTop: 20, marginBottom: 15 }}></View>
