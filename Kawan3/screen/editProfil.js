@@ -12,7 +12,11 @@ class editProfil extends React.Component {
                 <View style={{flex: 0, backgroundColor: '#49438D', height: 229, paddingTop: 26.5}}>
                     <ImageBackground source={require('../src/image/decoStar.png')} style={{width: '100%', height: '100%', flexDirection: 'row'}}>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <TouchableOpacity onPress={()=> this.props.navigation.goBack('profilScreen')}>
+=======
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('profilScreen')}>
+>>>>>>> bb7da155584ade5355708b671e1cdde5ed1c2504
 =======
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('profilScreen')}>
 >>>>>>> bb7da155584ade5355708b671e1cdde5ed1c2504
