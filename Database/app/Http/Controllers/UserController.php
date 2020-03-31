@@ -36,6 +36,7 @@ class UserController extends Controller
         $data->email = $dataInsert->email;
         $data->gender = $dataInsert->gender;
         $data->loggedIn = $dataInsert->loggedIn;
+        $data->desc = $dataInsert->desc;
         $data->save();
 
         return "Data Berhasil Ditambah";

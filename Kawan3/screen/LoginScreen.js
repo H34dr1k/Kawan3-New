@@ -15,11 +15,12 @@ import {
     TouchableOpacity,
     TextInput,
     Alert,
-  AsyncStorage
+    AsyncStorage,
+    BackHandler
 } from "react-native";
 
 import "react-native-gesture-handler";
-import { createAppContainer } from "react-navigation";
+import { StackActions, NavigationActions } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 
 import { LinearGradient } from "expo-linear-gradient";
@@ -39,17 +40,17 @@ import {
 
 import dt from "../api";
 
+
 var dat = new dt;
 
 class Login extends React.Component {
     componentWillUnmount() {
         this.props.navigation.navigate("Intro");
     }
-
-    static navigationOptions = {
-        header: null
-        // headerRight: <View />,
-    };
+    
+    static navigationOptions = navigation => ({
+        header:null
+    });
 
     constructor(props) {
         super(props);
@@ -59,6 +60,10 @@ class Login extends React.Component {
             email: "",
             pass: ""
         };
+    }
+    
+    UNSAFE_componentWillMount(){
+        
     }
 
     onIconPress = () => {
@@ -84,9 +89,13 @@ class Login extends React.Component {
         });
     };
 
+    onSignUpPress = () => {
+        this.props.navigation.navigate('SignUp1');
+    }
+
     onLoginPress = () => {
         if(this.state.email == "" || this.state.pass == ""){
-            Alert.alert('Error', 'Isi semua field terlebih dahulu');
+            Alert.alert('Error', 'Please, fill all the field');
             return;
         }
         
@@ -107,7 +116,10 @@ class Login extends React.Component {
                 return;
             }
             AsyncStorage.setItem('datauser', JSON.stringify(data));
-            this.props.navigation.navigate('homeScreen');
+            this.props.navigation.reset({
+                index: 0,
+                routes: [{ name: 'homeScreen' }],
+            });
         });
     };
 
@@ -143,6 +155,7 @@ class Login extends React.Component {
                     </Text>
                     <TextInput
                         style={s.femail}
+                        keyboardType="email-address"
                         placeholder="Email Address"
                         selectionColor={"red"}
                         underlineColorAndroid={"transparent"}
@@ -219,7 +232,7 @@ class Login extends React.Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                onPress={() => this.props.navigation.navigate("SignUp1")}
+                onPress={() => this.onSignUpPress()}
                 >
                 <Text
                     type="rbold"

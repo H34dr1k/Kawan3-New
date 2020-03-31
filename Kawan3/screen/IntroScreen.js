@@ -48,15 +48,21 @@ class Intro extends React.Component {
                     this.setState({ notyet: true });
                 }
             });
-        }, 1500);
+        }, 2000);
     }
 
     checkId = () => {
         AsyncStorage.getItem('datauser').then((data) => {
             if(data == null){
-                this.props.navigation.navigate('Login');
+                this.props.navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Login' }],
+                });
             }else{
-                this.props.navigation.navigate('homeScreen');
+                this.props.navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'homeScreen' }],
+                });
             }
         });
     }
