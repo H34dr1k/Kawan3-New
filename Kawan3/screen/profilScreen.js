@@ -15,10 +15,14 @@ import {
 
 
 export default class profilScreen extends React.Component {
+    static navigationOptions = {
+        title: 'profilScreen',
+        header: null
+    }
 
-    // componentWillMount() {
-    //     BackHandler.addEventListener('hardwareBackPress', () => { return true });
-    // }
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', () => { return true });
+    }
 
     
 
@@ -118,10 +122,12 @@ export default class profilScreen extends React.Component {
                     <View style={{ flex: 0, backgroundColor: '#49438D', height: 229, paddingTop: 26.5, }}>
                         <ImageBackground source={require('../src/image/decoStar.png')} style={{flex:1, width: '100%', height: '100%', flexDirection: 'row', paddingHorizontal:wp('2%')  }}>
                             
+                            
                         </ImageBackground>
                     </View>
                     <View style={{ flex: 1, width: '100%', height: '100%', backgroundColor: '#F0F0F0', borderTopLeftRadius: 50, borderTopRightRadius: 50, marginTop: -105 }}>
                         <View style={{flex:1, marginHorizontal: 26, flexDirection: 'row' }}>
+
 
                             <View style={{flex:1,width:'100%'}}>
                                 <TouchableOpacity
@@ -129,7 +135,9 @@ export default class profilScreen extends React.Component {
                                 onPress={this.onLogOutPress}>
                                 <Text style={{ marginTop: 3, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: 'white' }}>Log Out</Text>
                                 </TouchableOpacity>
-                            </View>                           
+                           </View>
+
+                           
 
                             <View style={{flex:2,alignItems:"center",marginTop:-75}}><Image source={require('../src/image/profilPic.png')} resizeMode='cover' style={{ width: 150, height: 150 }} /></View>
 

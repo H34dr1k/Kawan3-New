@@ -15,11 +15,12 @@ import {
     TouchableOpacity,
     TextInput,
     Alert,
-  AsyncStorage
+    AsyncStorage,
+    BackHandler
 } from "react-native";
 
 import "react-native-gesture-handler";
-import { createAppContainer } from "react-navigation";
+import { StackActions, NavigationActions } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 
 import { LinearGradient } from "expo-linear-gradient";
@@ -37,27 +38,33 @@ import {
   widthPercentageToDP as wp
 } from "react-native-responsive-screen";
 
-import data from "../api";
+import dt from "../api";
+
+
+var dat = new dt;
 
 class Login extends React.Component {
     componentWillUnmount() {
         this.props.navigation.navigate("Intro");
     }
+    
+    static navigationOptions = navigation => ({
+        header:null
+    });
 
-    static navigationOptions = {
-        header: null
-        // headerRight: <View />,
-    };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-        secureTextEntry: true,
-        iconName: "eye-outline",
-        email: "",
-        pass: ""
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            secureTextEntry: true,
+            iconName: "eye-outline",
+            email: "",
+            pass: ""
+        };
+    }
+    
+    UNSAFE_componentWillMount(){
+        
+    }
 
     onIconPress = () => {
         let iconName = this.state.secureTextEntry
@@ -82,13 +89,17 @@ class Login extends React.Component {
         });
     };
 
+    onSignUpPress = () => {
+        this.props.navigation.navigate('SignUp1');
+    }
+
     onLoginPress = () => {
         if(this.state.email == "" || this.state.pass == ""){
-        Alert.alert('Error', 'Isi semua field terlebih dahulu');
-        return;
+            Alert.alert('Error', 'Please, fill all the field');
+            return;
         }
-
-        fetch("http://192.168.1.5:8000/api/user/"+ this.state.email)
+        
+        fetch(dat.api() + "/api/user/" + this.state.email)
         .then((rs) => {
             return rs.text();
         })
@@ -97,14 +108,18 @@ class Login extends React.Component {
                 Alert.alert("Wrong Email!", "Can't find the email");
                 return;
             }
+            // alert(rd);
             var data = JSON.parse(rd);
             
             if(data.password != this.state.pass){
                 Alert.alert("Wrong Password!", "Your Password is wrong! Please, check it again");
                 return;
             }
-            AsyncStorage.setItem('kodeuser', data.kodeuser);
-            this.props.navigation.navigate('homeScreen');
+            AsyncStorage.setItem('datauser', JSON.stringify(data));
+            this.props.navigation.reset({
+                index: 0,
+                routes: [{ name: 'homeScreen' }],
+            });
         });
     };
 
@@ -116,183 +131,128 @@ class Login extends React.Component {
     }
     console.log("statusBarHeight: ", StatusBar.currentHeight);
 
-    return (
-      <AppFontLoader>
-        <View style={s.container}>
-          <StatusBar barStyle="dark-content" barAnimation="slide" />
+        return (
+        <AppFontLoader>
+            <View style={s.container}>
+            <StatusBar barStyle="dark-content" barAnimation="slide" />
 
-          <ImageBackground
-            style={s.img1}
-            source={require("../src/img/header2.png")}
-          >
-            <Text type="rbold" style={s.judul}>
-              Log In
-            </Text>
-            <Text style={s.subjudul}>
-              Enter your email and password to log in 
-              {/* or log in with Google
-              Account or Facebook */}
-            </Text>
-          </ImageBackground>
-
-          <View style={s.login}>
-            <View style={s.wrap1}>
-              <Text type="rmedium" style={s.temail}>
-                Email Address
-              </Text>
-              <TextInput
-                style={s.femail}
-                placeholder="Email Address"
-                selectionColor={"red"}
-                underlineColorAndroid={"transparent"}
-                value={this.state.email}
-                onChangeText={text => {
-                  this.setState({ email: text });
-                }}
-              />
-
-              <Text type="rmedium" style={s.tpw}>
-                Password
-              </Text>
-              <View style={s.fpw}>
-                <TextInput
-                  style={{ flex: 1 }}
-                  placeholder="Password"
-                  secureTextEntry={this.state.secureTextEntry}
-                  value={this.state.pass}
-                  onChangeText={text => {
-                    this.setState({ pass: text });
-                  }}
-                />
-                <TouchableOpacity onPress={this.onIconPress}>
-                  <Icon
-                    name={this.state.iconName}
-                    style={{ paddingTop: hp("-1%"), justifyContent: "center" }}
-                    size={wp("8%")}
-                    color="black"
-                  />
-                </TouchableOpacity>
-              </View>
-
-              <TouchableOpacity onPress={this.onForgotPass}>
-                <Text
-                  type="rmedium"
-                  style={{
-                    textAlign: "right",
-                    marginTop: normalize(10),
-                    color: "#38D1E6"
-                  }}
-                >
-                  Forgot Password?
+            <ImageBackground
+                style={s.img1}
+                source={require("../src/img/header2.png")}
+            >
+                <Text type="rbold" style={s.judul}>
+                    Log In
                 </Text>
-              </TouchableOpacity>
+                <Text style={s.subjudul}>
+                    Enter your email and password to log in 
+                </Text>
+            </ImageBackground>
 
-              <TouchableOpacity onPress={this.onLoginPress} style={s.btnlogin}>
-                <LinearGradient
-                  start={[0, 1]}
-                  end={[1, 0]}
-                  colors={["#519BD1", "#38D1E6"]}
-                  style={s.btngradien}
-                >
-                  <Text type="rmedium" style={s.btnloginisi}>
-                    LOGIN
-                  </Text>
-                </LinearGradient>
-              </TouchableOpacity>
+            <View style={s.login}>
+                <View style={s.wrap1}>
+                    <Text type="rmedium" style={s.temail}>
+                        Email Address
+                    </Text>
+                    <TextInput
+                        style={s.femail}
+                        keyboardType="email-address"
+                        placeholder="Email Address"
+                        selectionColor={"red"}
+                        underlineColorAndroid={"transparent"}
+                        value={this.state.email}
+                        onChangeText={text => {
+                        this.setState({ email: text });
+                        }}
+                    />
+
+                <Text type="rmedium" style={s.tpw}>
+                    Password
+                </Text>
+                <View style={s.fpw}>
+                    <TextInput
+                    style={{ flex: 1 }}
+                    placeholder="Password"
+                    secureTextEntry={this.state.secureTextEntry}
+                    value={this.state.pass}
+                    onChangeText={text => {
+                        this.setState({ pass: text });
+                    }}
+                    />
+                    <TouchableOpacity onPress={this.onIconPress}>
+                    <Icon
+                        name={this.state.iconName}
+                        style={{ paddingTop: hp("-1%"), justifyContent: "center" }}
+                        size={wp("8%")}
+                        color="black"
+                    />
+                    </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity onPress={this.onForgotPass}>
+                    <Text
+                    type="rmedium"
+                    style={{
+                        textAlign: "right",
+                        marginTop: normalize(10),
+                        color: "#38D1E6"
+                    }}
+                    >
+                    Forgot Password?
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={this.onLoginPress} style={s.btnlogin}>
+                    <LinearGradient
+                    start={[0, 1]}
+                    end={[1, 0]}
+                    colors={["#519BD1", "#38D1E6"]}
+                    style={s.btngradien}
+                    >
+                    <Text type="rmedium" style={s.btnloginisi}>
+                        LOGIN
+                    </Text>
+                    </LinearGradient>
+                </TouchableOpacity>
+                </View>
             </View>
-          </View>
 
-          <View style={s.login2}>
-            {/* <Text
-              type="rbold"
-              style={{
-                textAlign: "center",
-                marginTop: wp("5.5%"),
-                color: "#38D1E6",
-                fontSize: hp("3%")
-              }}
-            >
-              OR
-            </Text>
+            <View style={s.login2}>
+                <TouchableOpacity>
+                    <Text
+                        style={{
+                        textAlign: "center",
+                        fontSize: hp("2%"),
+                        color: "#C8C8C8",
+                        letterSpacing: 0.5,
+                        marginTop: hp("2%")
+                        }}
+                    >
+                        Don't have an account?
+                    </Text>
+                </TouchableOpacity>
 
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-evenly"
-              }}
-            >
-              <TouchableOpacity>
-                <Text style={{ color: "#fff" }}>a</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={{ color: "#fff" }}>a</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={this.onGooglePress}>
-                <Image
-                  source={require("../src/img/google.png")}
-                  style={{
-                    resizeMode: "contain",
-                    width: wp("14%"),
-                    height: hp("7%")
-                  }}
-                />
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={this.onFacebookPress}>
-                <Image
-                  source={require("../src/img/facebook.png")}
-                  style={{
-                    resizeMode: "contain",
-                    width: wp("14%"),
-                    height: hp("7%")
-                  }}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={{ color: "#fff" }}>a</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={{ color: "#fff" }}>a</Text>
-              </TouchableOpacity>
-            </View> */}
-
-            <TouchableOpacity>
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontSize: hp("2%"),
-                  color: "#C8C8C8",
-                  letterSpacing: 0.5,
-                  marginTop: hp("2%")
-                }}
-              >
-                Don't have an account?
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("SignUp1")}
-            >
-              <Text
-                type="rbold"
-                style={{
-                  textAlign: "center",
-                  color: "#38D1E6",
-                  letterSpacing: 1,
-                  marginTop: normalize(5),
-                  fontSize: hp("3.5%"),
-                  textDecorationLine: "underline"
-                }}
-              >
-                SIGN UP
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </AppFontLoader>
-    );
-  }
+                <TouchableOpacity
+                onPress={() => this.onSignUpPress()}
+                >
+                <Text
+                    type="rbold"
+                    style={{
+                    textAlign: "center",
+                    color: "#38D1E6",
+                    letterSpacing: 1,
+                    marginTop: normalize(5),
+                    fontSize: hp("3.5%"),
+                    textDecorationLine: "underline"
+                    }}
+                >
+                    SIGN UP
+                </Text>
+                </TouchableOpacity>
+            </View>
+            </View>
+        </AppFontLoader>
+        );
+    }
 }
 
 const s = StyleSheet.create({

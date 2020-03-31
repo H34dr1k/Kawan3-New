@@ -5,16 +5,13 @@ import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
 
 class editProfil extends React.Component {
-    static navigationOptions= {
-        title: 'editProfil',
-        header: null
-    }
+    
     render(){
         return(
             <View style={{flex: 0}}>
                 <View style={{flex: 0, backgroundColor: '#49438D', height: 229, paddingTop: 26.5}}>
                     <ImageBackground source={require('../src/image/decoStar.png')} style={{width: '100%', height: '100%', flexDirection: 'row'}}>
-                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('profilScreen')}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('profilScreen')}>
                         <Image source={require('../src/image/arrowBack.png')} />
                     </TouchableOpacity>
                     <Text style={{fontSize: 24, fontWeight: 'bold', color: 'white', marginTop: 15}}>Profile</Text>

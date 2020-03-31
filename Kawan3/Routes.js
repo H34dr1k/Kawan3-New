@@ -189,6 +189,7 @@ import homeScreen from './screen/homeScreen'
 import eventDetail from './screen/eventDetailScreen'
 import myEvent from './screen/myEventScreen'
 import profilScreen from './screen/profilScreen'
+import editProfilScreen from './screen/editProfil'
 
 import communityScreen from './screen/communityScreen'
 import nearYouScreen from './screen/nearYouScreen'
@@ -251,11 +252,33 @@ const homeStack = createStackNavigator();
 const addStack = createStackNavigator();
 const searchStack = createStackNavigator();
 const profilStack = createStackNavigator();
+const editProfilStack = createStackNavigator();
 const communityStack = createStackNavigator();
 const communitys = createStackNavigator();
 const tabScreen = createStackNavigator();
 const topTabScreen1 = createMaterialTopTabNavigator();
 
+
+function editProfilStackScreen({ navigation, route}) {
+    if (route.state && route.state.index > 0) {
+        navigation.setOptions({ tabBarVisible: true })
+    } else {
+        navigation.setOptions({ tabBarVisible: false })
+    }
+
+    return (
+        <editProfil.Navigator>
+
+            <editProfil.Screen name="editProfil" options={{ headerShown: false }} component={editProfilScreen} />
+            <editProfil.Screen name="profilScreen" options={{
+                headerShown: false,
+                tabBarVisible: false,
+            }} component={profilScreen} />
+
+
+        </editProfil.Navigator>
+    )
+}
 
 function introStackScreen({ navigation, route }) {
     if (route.state && route.state.index > 0) {
@@ -476,6 +499,8 @@ function profilStackScreen({ navigation, route }) {
             <profilStack.Screen name="settingNotif" options={{ headerShown: false }} component={settingNotif} />
             <profilStack.Screen name="settingPrivasi" options={{ headerShown: false }} component={settingPrivasi} />
             <profilStack.Screen name="editProfil" options={{ headerShown: false }} component={editProfil} />
+    <profilStack.Screen options={{ headerShown: false }} name="Intro" component={introStackScreen} />
+
         </profilStack.Navigator>
     )
 }
