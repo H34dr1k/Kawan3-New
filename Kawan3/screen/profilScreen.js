@@ -167,7 +167,6 @@ export default class profilScreen extends React.Component {
                         <View style={{ flexDirection: 'row' }}>
 
                             <TouchableOpacity onPress={()=> alert('Bisa')}>
-                         
                             <FacePile numFaces={4} faces={FACES} circleSize={25}/>
                             </TouchableOpacity>
                             {/* <View>

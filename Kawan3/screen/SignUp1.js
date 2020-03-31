@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { AsyncStorage, StyleSheet, Alert, SafeAreaView, ScrollView, StatusBar, StatusBarStyle, Platform, View, Button, Image, ImageBackground, ActivityIndicator, TouchableOpacity, TextInput, ToastAndroid } from 'react-native';
+import { BackHandler, AsyncStorage, StyleSheet, Alert, SafeAreaView, ScrollView, StatusBar, StatusBarStyle, Platform, View, Button, Image, ImageBackground, ActivityIndicator, TouchableOpacity, TextInput, ToastAndroid } from 'react-native';
 
 import 'react-native-gesture-handler';
-import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import { LinearGradient } from 'expo-linear-gradient';
@@ -15,6 +14,7 @@ import { AppFontLoader } from '../components/AppFontLoader.js';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import { Directions } from 'react-native-gesture-handler';
 
+import navigation from 'react-navigation';
 import normalize from 'react-native-normalize';
 import {
     heightPercentageToDP as hp,
@@ -24,21 +24,29 @@ import { Col } from 'native-base';
 
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel, RadioWrap } from 'react-native-simple-radio-button';
 
-import * as firebase from 'firebase';
-import '@firebase/firestore';
+import dt from '../api';
 
 var gender = [
     { label: "Male", value: 0},
     { label: "Female", value: 1},
 ];
 
+var data = new dt();
+var datauser = [];
+fetch(data.api() + "/api/user")
+.then(rs => {
+    return rs.text();
+})
+.then(rd => {
+    datauser = JSON.parse(rd);
+});
+
+const validate = (email) => {
+    const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+    return expression.test(String(email));
+}
 
 class SignUp1 extends React.Component {
-
-    static navigationOptions = {
-        header: null,
-        // headerRight: <View />,
-    }
 
     constructor(props) {
         super(props);
@@ -50,44 +58,87 @@ class SignUp1 extends React.Component {
           email: "",
           pass: "",
           confPass: "",
-          username: ""
+          username: "",
+          gender: 0
         };
-        this.ref = firebase.firestore().collection("Accounts");
     }
 
     onSignUpPress = () => {
+        if(this.state.username == "" || this.state.email == "" || this.state.pass == "" || this.state.confPass == ""){
+            Alert.alert("Error", "Please, fill all the field");
+            return;
+        }
+
+        if(!validate(this.state.email)){
+            Alert.alert("Error", "Invalid email address");
+            return;
+        }
+
+        if(this.state.pass.length < 6){
+            Alert.alert("Error", "Password must be filled with 6 characters or numbers");
+            return;
+        }
 
         if(this.state.pass != this.state.confPass){
             Alert.alert("Password do not match");
             return;
         }
 
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.pass)
-            .then(() => {
-                this.simpanUsername();
-                // this.props.navigation.navigate('homeScreen');
-            }, (error) => {
-                Alert.alert(error.message);
+        for (let i = 0; i < datauser.length; i++) {
+            if(datauser[i].name == this.state.username){
+                Alert.alert("Error", "This username have been used by another account");
+                return;
+            }
+        }
+
+        for (let i = 0; i < datauser.length; i++) {
+            if(datauser[i].email == this.state.email){
+                Alert.alert("Error", "This email have been used by another account");
+                return;
+            }
+        }
+
+        var lastId = datauser[datauser.length - 1].kodeuser;
+        var newIdNumber = parseInt(lastId.substring(1)) + 1;
+        var newId = "U" + newIdNumber.toString().padStart(4, '0');
+
+        var gender = "";
+        if(this.state.gender == 0){
+            gender = "Male";
+        }else{
+            gender = "Female";
+        }
+
+        var dataSignUp = 
+            "{"+
+                "\"kodeuser\":\"" + newId + "\", " +
+                "\"name\":\"" + this.state.username + "\", " +
+                "\"email\":\"" + this.state.email + "\", "+
+                "\"password\":\"" + this.state.pass + "\", "+
+                "\"gender\":\"" + gender + "\", "+
+                "\"loggedIn\":0,"+
+                "\"desc\":\"\""+
+            "}";
+        var t = JSON.parse(dataSignUp);
+        
+        fetch(data.api() + "/api/user", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(t)
+        }).then(rs => { return rs.text() })
+        .then(rd => {
+            Alert.alert("Success", "You've successfully signed up. Login to continue");
+            this.props.navigation.reset({
+                index: 0,
+                routes: [{ names: 'Login' }]
             });
+        })
+        .catch(er => {
+            Alert.alert("Error", er);
+        })
     }
-
-    componentDidMount = () => {
-        this.simpanUsername();
-    };
-
-    simpanUsername = () => {
-        this.ref.add({
-            email: this.state.email,
-            gender: "Male",
-            username: this.state.username
-        }).then((data) => {
-            this.setState({
-                email: '',
-                gender: 'Male',
-                username: ''
-            })
-        });
-    };
 
     onIconPress = () => {
         let iconName = (this.state.secureTextEntry) ? "eye-off-outline" : "eye-outline";
@@ -125,7 +176,7 @@ class SignUp1 extends React.Component {
                         onPress={() => this.props.navigation.navigate('Login')} 
                          type='rbold' style={s.judul}>Sign Up</Text>
                         <Text style={s.subjudul}>Fill the details & create your account!</Text>
-                    </ImageBackground>   
+                    </ImageBackground>
 
                     <View style={s.form}>
 
@@ -134,6 +185,7 @@ class SignUp1 extends React.Component {
                             <TextInput style={s.fusername}
                                 placeholder='Username'
                                 underlineColorAndroid={'transparent'} 
+                                onChangeText={value => this.setState({ username: value })}
                             />
                         </View>
 
@@ -141,9 +193,10 @@ class SignUp1 extends React.Component {
                             <Text type='rmedium' style={s.temail}>Email Address</Text>
                             <TextInput style={s.femail}
                                 placeholder='Email Address'
+                                keyboardType="email-address"
                                 underlineColorAndroid={'transparent'}
                                 value={this.state.email}
-                                onChangeText={(text) => {this.setState({email: text}) }}
+                                onChangeText={(text) => {this.setState({email: text})}}
                             />
                         </View>
 
@@ -189,10 +242,9 @@ class SignUp1 extends React.Component {
                             <RadioForm
                                 style={{width:wp('35%'), height:hp('10%')}}
                                 radio_props={gender}
-                                initial={''} //Atur posisi default
-                                // onPress={(value) => {ToastAndroid.show(value.toString(), ToastAndroid.SHORT )}}
-                                onPress={(value) => {}}
-                                buttonSize={15}
+                                initial={0} //Atur posisi default
+                                onPress={(value) => {this.setState({ gender: value })}}
+                                buttonSize={14.5}
                                 buttonOuterSize={25}
                                 selectedButtonColor={'#38D1E6'}
                                 selectedLabelColor={'#38D1E6'}
@@ -200,7 +252,6 @@ class SignUp1 extends React.Component {
                                 formHorizontal={true}
                                 buttonColor={'#C8C8C8'}
                                 buttonWrapStyle={{ borderWidth:1 }}
-                                labelWrapStyle={{}}
                             />
                         </View>
                     </View>

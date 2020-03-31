@@ -6,8 +6,7 @@ import {
     Image,
     ActivityIndicator,
     TouchableOpacity,
-    Alert, 
-
+    Alert,
     AsyncStorage,
     StatusBar,
 
@@ -49,18 +48,22 @@ class Intro extends React.Component {
                     this.setState({ notyet: true });
                 }
             });
-        }, 5000);
+        }, 2000);
     }
 
     checkId = () => {
-        AsyncStorage.setItem('introScreen', 'a');
-        AsyncStorage.getItem('kodeuser').then((data) => {
-            // if(data == null){
-            //     this.props.navigation.navigate('Login');
-            // }else{
-            //     this.props.navigation.navigate('homeScreen');
-            // }
-            this.props.navigation.navigate('homeScreen');
+        AsyncStorage.getItem('datauser').then((data) => {
+            if(data == null){
+                this.props.navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Login' }],
+                });
+            }else{
+                this.props.navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'homeScreen' }],
+                });
+            }
         });
     }
 

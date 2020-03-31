@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2020 at 06:02 PM
+-- Generation Time: Mar 31, 2020 at 11:54 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -53,11 +53,20 @@ CREATE TABLE `user` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gender` enum('Pria','Wanita') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gender` enum('Male','Female') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `loggedIn` tinyint(1) DEFAULT NULL
+  `loggedIn` tinyint(1) DEFAULT NULL,
+  `desc` text COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`kodeuser`, `name`, `password`, `email`, `gender`, `created_at`, `updated_at`, `loggedIn`, `desc`) VALUES
+('U0001', 'Cleimen', '123', 'email', 'Male', '2020-03-19 22:11:40', '2020-03-19 22:11:40', 0, NULL),
+('U0002', 'Cleiment', 'cleimen30', 'cleimentinus@gmail.com', 'Male', '2020-03-31 02:06:10', '2020-03-31 02:06:10', 0, '');
 
 --
 -- Indexes for dumped tables

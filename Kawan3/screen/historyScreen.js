@@ -41,12 +41,6 @@ import * as Permissions from "expo-permissions";
 import firebase from "firebase";
 
 export default class History extends React.Component {
-    
-
-
-
-
-
     registerForPushNotificationsAsync = async () => {
         const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
         // only asks if permissions have not already been determined, because
