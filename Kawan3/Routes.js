@@ -183,8 +183,11 @@ import Loading from './screen/LoadingScreen'
 import Login from './screen/LoginScreen'
 import SignUp1 from './screen/SignUp1'
 import SignUp2 from './screen/SignUp2'
+
 import { homeScreen1 } from './screen/homeScreen1'
 import homeScreen from './screen/homeScreen'
+import eventDetail from './screen/eventDetailScreen'
+import myEvent from './screen/myEventScreen'
 import profilScreen from './screen/profilScreen'
 
 import communityScreen from './screen/communityScreen'
@@ -290,90 +293,142 @@ function homeStackScreen({ navigation, route }) {
     }
 
     return (
-        
-        <homeStack.Navigator>
+      <homeStack.Navigator>
+        <homeStack.Screen
+          name="Home"
+          options={({ route, navigation }) => ({
+            title: route.name,
 
-            <homeStack.Screen name="Home"
-            options={({ route, navigation }) => ({
-                title: route.name,
-                
-                headerStyle: {
-                    backgroundColor: '#E5E5E5',
-                    elevation: 0,
-                },
-                headerTintColor: '#526EDD',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                    fontSize: hp('3%')
-                }, headerRight: () => (
+            headerStyle: {
+              backgroundColor: "#E5E5E5",
+              elevation: 0
+            },
+            headerTintColor: "#526EDD",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              fontSize: hp("3%")
+            },
+            headerRight: () => (
+              // <Button
+              //     onPress={() => navigation.navigate('historyScreen')}
+              //     title="Info"
+              //     color="#00cc00"
+              // />
+              <View
+                style={{ flexDirection: "row", marginHorizontal: wp("4%") }}
+              >
+                <TouchableOpacity onPress={() => navigation.push("My Event")}>
+                  <Image
+                    resizeMode="contain"
+                    style={{ marginRight: 13 }}
+                    source={require("./src/img/MyEvent.png")}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("History")}
+                >
+                  <Image
+                    source={require("./src/image/History.png")}
+                    style={{ marginRight: 13 }}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.push("Notification")}
+                >
+                  <Image source={require("./src/image/Notif.png")} />
+                </TouchableOpacity>
+              </View>
+            )
+          })}
+          component={homeScreen}
+        />
 
-                    // <Button
-                    //     onPress={() => navigation.navigate('historyScreen')}
-                    //     title="Info"
-                    //     color="#00cc00"
-                    // />
-                    <View style={{ flexDirection: 'row', marginHorizontal: wp('4%') }}>
-                        <TouchableOpacity onPress={() => navigation.navigate("History")} >
-                            <Image
-                                source={require("./src/image/History.png")}
-                                style={{ marginRight: 13 }}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => navigation.push("Notification")}
-                        >
-                            <Image source={require("./src/image/Notif.png")} />
-                        </TouchableOpacity>
-                    </View>
+        <homeStack.Screen
+          name="History"
+          options={({ route }) => ({
+            title: route.name,
 
-                ),
-            })}
+            headerBackImage: () => (
+              <Image
+                resizeMode="contain"
+                style={{ width: 24 }}
+                source={require("./src/img/left-arrows.png")}
+              />
+            ),
+            headerStyle: {
+              backgroundColor: "white",
+              elevation: 0
+            },
+            headerTintColor: "black",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              fontSize: hp("3%")
+            }
+          })}
+          component={History}
+        />
+        <homeStack.Screen
+          name="Notification"
+          options={({ route }) => ({
+            title: route.name,
+            tabBarVisible: false,
+            headerStyle: {
+              backgroundColor: "#E5E5E5",
+              elevation: 0
+            },
+            headerTintColor: "red",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              fontSize: hp("3%")
+            }
+          })}
+          component={notifScreen}
+        />
 
+        <homeStack.Screen
+          name="My Event"
+          options={({ route }) => ({
+            title: route.name,
+            tabBarVisible: false,
+            headerStyle: {
+              backgroundColor: "#E5E5E5",
+              elevation: 0
+            },
+            headerTintColor: "grey",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              fontSize: hp("3%")
+            }
+          })}
+          component={myEvent}
+        />
+        <homeStack.Screen
+          name="Event Detail"
+          options={({ route }) => ({
+            title: route.name,
+            tabBarVisible: false,
+            headerStyle: {
+              backgroundColor: "#E5E5E5",
+              elevation: 0
+            },
+            headerTintColor: "grey",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              fontSize: hp("3%")
+            }
+          })}
+          component={eventDetail}
+        />
 
-                component={homeScreen}
-            />
-
-            <homeStack.Screen name="History" options={({ route}) => ({
-                title: route.name,
-
-                headerBackImage: () => (<Image resizeMode="contain" style={{width:24}} source={require('./src/img/left-arrows.png')} />),
-                headerStyle: {
-                    backgroundColor: 'white',
-                    elevation: 0,
-
-                },
-                headerTintColor: 'black',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                    fontSize: hp('3%')
-                }
-            })}
-                component={History} />
-            <homeStack.Screen name="Notification" options={({ route }) => ({
-                title: route.name,
-                tabBarVisible: false,
-                headerStyle: {
-                    backgroundColor: '#E5E5E5',
-                    elevation: 0,
-
-                },
-                headerTintColor: 'red',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                    fontSize: hp('3%')
-                }
-            })}
-                component={notifScreen} />
-
-            <homeStack.Screen name="Map" options={({navigation, route }) => ({
-                title: route.name,
-                
-            })}
-                component={mapScreen} />
-
-
-        </homeStack.Navigator>
-    )
+        <homeStack.Screen
+          name="Map"
+          options={({ navigation, route }) => ({
+            title: route.name
+          })}
+          component={mapScreen}
+        />
+      </homeStack.Navigator>
+    );
 }
 
 function profilStackScreen({ navigation, route }) {
@@ -385,7 +440,6 @@ function profilStackScreen({ navigation, route }) {
 
     return (
         <profilStack.Navigator>
-
             <profilStack.Screen name="Profile"  options={({ route, navigation }) => ({
                 title: route.name,
                 headerTransparent:true,
@@ -409,7 +463,7 @@ function profilStackScreen({ navigation, route }) {
                     <View style={{ flexDirection: 'row',}}>
                         <TouchableOpacity onPress={() => navigation.navigate("settingScreen")} >
                             
-                        <Image source={require('./src/image/btnSetting.png')} 
+                        <Image source={require('./src/image/btnSetting.png')}
                                 style={{marginTop:hp('0.5%')}}
                             />
                         </TouchableOpacity>
@@ -422,13 +476,9 @@ function profilStackScreen({ navigation, route }) {
             <profilStack.Screen name="settingNotif" options={{ headerShown: false }} component={settingNotif} />
             <profilStack.Screen name="settingPrivasi" options={{ headerShown: false }} component={settingPrivasi} />
             <profilStack.Screen name="editProfil" options={{ headerShown: false }} component={editProfil} />
-
-
         </profilStack.Navigator>
     )
 }
-
-
 
 function addStackScreen({ navigation, route }) {
     if (route.state && route.state.index > 0) {
@@ -511,7 +561,7 @@ function TabScreen({ navigation, route }) {
     return (
         <Tabs.Navigator
             
-            initialRouteName="Profile"
+            initialRouteName="Home"
 
             activeColor='cyan'
             inactiveColor='black'
@@ -536,7 +586,7 @@ function TabScreen({ navigation, route }) {
                         iconName = focused
                             ? require('./src/img/team.png')
                             : require('./src/img/group.png');
-                    } else if (route.name === 'Profil') {
+                    } else if (route.name === 'Profile') {
                         iconName = focused
                             ? require('./src/img/user.png')
                             : require('./src/img/user-normal.png');

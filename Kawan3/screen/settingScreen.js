@@ -13,7 +13,7 @@ class settingScreen extends React.Component {
         return(
             <View style={{flex: 1, backgroundColor: '#E5E5E5'}}>
                 <View style={{flex: 0, marginTop: 35, flexDirection: 'row', marginHorizontal: 28}}>
-                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('profilScreen')}>
+                    <TouchableOpacity onPress={()=> this.props.navigation.goBack()}>
                         <Image source={require('../src/image/iconBack.png')} />
                     </TouchableOpacity>
                     <Text style={{fontSize: 24, fontWeight: 'bold', color: '#626262', marginLeft: 28}}>Setting</Text>
