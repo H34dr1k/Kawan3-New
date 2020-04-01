@@ -45,7 +45,7 @@ export default class homeScreen extends React.Component {
         this.state = { loaded : false }
     }
 
-    UNSAFE_componentWillMount(){
+    componentDidMount(){
         AsyncStorage.getItem("datauser").then((t) => {
             datauser = JSON.parse(t);
             this.setState({ loaded:true });

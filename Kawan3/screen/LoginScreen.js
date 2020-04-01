@@ -40,7 +40,6 @@ import {
 
 import dt from "../api";
 
-
 var dat = new dt;
 
 class Login extends React.Component {
@@ -60,10 +59,6 @@ class Login extends React.Component {
             email: "",
             pass: ""
         };
-    }
-    
-    UNSAFE_componentWillMount(){
-        
     }
 
     onIconPress = () => {
@@ -115,11 +110,36 @@ class Login extends React.Component {
                 Alert.alert("Wrong Password!", "Your Password is wrong! Please, check it again");
                 return;
             }
+
+            if(data.loggedIn == 1){
+                Alert.alert('Error', 'This account have been used on another device');
+                return;
+            }
+
             AsyncStorage.setItem('datauser', JSON.stringify(data));
-            this.props.navigation.reset({
-                index: 0,
-                routes: [{ name: 'homeScreen' }],
+
+            data.loggedIn = 1;
+
+            fetch(dat.api() + "/api/user/" + data.kodeuser, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(rd => {
+                return rd.text();
+            })
+            .then(a => {
+                this.props.navigation.reset({
+                    index: 0,
+                    routes: [{ names: 'homeScreen' }]
+                })
             });
+        })
+        .catch(er => {
+            Alert.alert("Error", er);
+            return;
         });
     };
 

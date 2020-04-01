@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "urlRandomness": "cv-u37",
+=======
+  "urlRandomness": "6x-rte",
+>>>>>>> 62400160166221e0237610c80c4e39e8b066174a
   "hostType": "lan",
   "lanType": "ip",
   "dev": true,
