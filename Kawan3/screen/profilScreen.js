@@ -20,9 +20,9 @@ export default class profilScreen extends React.Component {
         header: null
     }
 
-    componentWillMount() {
-        BackHandler.addEventListener('hardwareBackPress', () => { return true });
-    }
+    // componentWillMount() {
+    //     BackHandler.addEventListener('hardwareBackPress', () => { return true });
+    // }
 
     
 
