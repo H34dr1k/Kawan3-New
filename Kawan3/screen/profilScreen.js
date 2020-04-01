@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, ImageBackground, ScrollView,StatusBar, BackHandler } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ImageBackground, ScrollView,StatusBar, BackHandler, AsyncStorage } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
@@ -13,6 +13,14 @@ import {
     widthPercentageToDP as wp
 } from "react-native-responsive-screen";
 
+var datauser = [];
+AsyncStorage.getItem('datauser')
+.then(rs => {
+    return rs.text();
+})
+.then(rd => {
+    datauser = JSON.parse(rd);
+});
 
 export default class profilScreen extends React.Component {
     static navigationOptions = {
@@ -151,8 +159,8 @@ export default class profilScreen extends React.Component {
                         </View>
                         <View style={{ flexDirection: 'row', marginHorizontal: 26, marginTop: 20, justifyContent: 'center', alignItems: 'center' }}>
                             <View>
-                                <Text style={{ fontSize: 23, fontWeight: 'bold', color: '#526EDD', textAlign: 'center' }}>{/*this.state.name*/}</Text>
-                                <Text style={{ fontSize: 13, color: 'gray', textAlign: 'center' }}>I like progamming and playing football</Text>
+                                <Text style={{ fontSize: 23, fontWeight: 'bold', color: '#526EDD', textAlign: 'center' }}>{ datauser.name }</Text>
+        <Text style={{ fontSize: 13, color: 'gray', textAlign: 'center' }}>{ datauser.desc }</Text>
                             </View>
                         </View>
                     </View>

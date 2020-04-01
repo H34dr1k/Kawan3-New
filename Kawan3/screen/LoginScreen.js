@@ -40,7 +40,6 @@ import {
 
 import dt from "../api";
 
-
 var dat = new dt;
 
 class Login extends React.Component {
@@ -120,6 +119,10 @@ class Login extends React.Component {
                 index: 0,
                 routes: [{ name: 'homeScreen' }],
             });
+        })
+        .catch(er => {
+            Alert.alert("Error", er);
+            return;
         });
     };
 
