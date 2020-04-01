@@ -31,14 +31,15 @@ var gender = [
     { label: "Female", value: 1},
 ];
 
-var data = new dt();
 var datauser = [];
+
+var data = new dt();
+
 fetch(data.api() + "/api/user")
 .then(rs => {
     return rs.text();
 })
 .then(rd => {
-    alert(rd);
     datauser = JSON.parse(rd);
 })
 .catch(er => {

@@ -1,6 +1,6 @@
 {
-  "urlRandomness": "q8-ac7",
-  "hostType": "tunnel",
+  "urlRandomness": "6x-rte",
+  "hostType": "lan",
   "lanType": "ip",
   "dev": true,
   "minify": false,
