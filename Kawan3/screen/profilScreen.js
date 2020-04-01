@@ -15,12 +15,9 @@ import {
 
 var datauser = [];
 AsyncStorage.getItem('datauser')
-.then(rs => {
-    return rs.text();
-})
 .then(rd => {
     datauser = JSON.parse(rd);
-});
+})
 
 export default class profilScreen extends React.Component {
     static navigationOptions = {
