@@ -38,7 +38,7 @@ fetch(data.api() + "/api/user")
     return rs.text();
 })
 .then(rd => {
-    alert(rd);
+    
     datauser = JSON.parse(rd);
 })
 .catch(er => {

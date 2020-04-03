@@ -1,16 +1,28 @@
 import React,  {Component} from 'react';
-import {View, Text, Image, TouchableOpacity, ImageBackground, ScrollView, TextInput} from 'react-native';
+import {View, Modal,Text, Image, TouchableOpacity, ImageBackground, ScrollView, TextInput, StyleSheet} from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
+import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 
+
+
+var memberset = [
+    { label: "Invite Only", value: 0 },
+    { label: "Public", value: 1 },
+    { label: "Closed", value: 2 }
+];
 class createEvent extends React.Component {
     static navigationOptions= {
         title: 'createEvent',
         header: null
     }
+
+
     render(){
         return(
+
+
             <View style={{flex: 1, backgroundColor: '#EFEEEE'}}>
                 <View style={{borderBottomLeftRadius: 20, borderBottomRightRadius: 20, flex: 0,flexDirection: 'row', height: 102, width: '100%', backgroundColor: '#628DE7', paddingTop: 26.5}}>
                     <TouchableOpacity onPress={()=> this.props.navigation.navigate('addScreen')}>
@@ -20,8 +32,8 @@ class createEvent extends React.Component {
                         <Text style={{fontSize: 24, color: 'white'}}>Create a</Text>
                         <Text style={{fontSize: 24, color: 'white', fontWeight: 'bold'}}>Event</Text>
                     </View>
-                </View>
-                <View style={{flex: 1, marginHorizontal: 26, marginTop: 20}}>
+                </View> 
+                 <View style={{flex: 1, marginHorizontal: 26, marginTop: 20}}>
                     <Text style={{fontSize: 18, color: '#628DE7', fontWeight: 'bold'}}>Step 1</Text>
                     <View style={{marginTop: 20}}>
                         <Text style={{fontSize: 14, color: '#49438D', marginBottom: 5}}>Location</Text>
@@ -43,8 +55,16 @@ class createEvent extends React.Component {
                     </ImageBackground>
                     </TouchableOpacity>
                 </View>
+
+                
             </View>
         );
     }
 }
+
+const style = StyleSheet.create({
+    container: {
+        marginTop: 10,
+    },
+});
 export default createEvent;

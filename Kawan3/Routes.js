@@ -522,8 +522,33 @@ function addStackScreen({ navigation, route }) {
 
         <addStack.Screen name="createComm"  options={{ headerShown: false }} component={createComm} />
         <addStack.Screen name="createComm2"  options={{ headerShown: false }} component={createComm2} />
-        <addStack.Screen name="createEvent"  options={{ headerShown: false }} component={createEvent} />
-        <addStack.Screen name="createEvent2"  options={{ headerShown: false }} component={createEvent2} />
+        <addStack.Screen name="Create Event" options={({ route }) => ({
+          title: route.name,
+          tabBarVisible: false,
+          headerStyle: {
+            backgroundColor: "#628DE7",
+            elevation: 0
+          },
+          headerTintColor: "white",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: hp("3%")
+          }
+        })} component={createEvent} />
+        <addStack.Screen name="Create a Event" options={({ route }) => ({
+          title: route.name,
+          tabBarVisible: false,
+          headerStyle: {
+            backgroundColor: "#628DE7",
+            elevation: 0
+          },
+          headerTintColor: "white",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: hp("3%")
+          }
+        })} component={createEvent2} />
+
         <addStack.Screen name="travelFriend"  options={{ headerShown: false }} component={travelFriend} />
 
         </addStack.Navigator>
