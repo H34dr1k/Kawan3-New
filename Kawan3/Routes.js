@@ -487,7 +487,7 @@ function profilStackScreen({ navigation, route }) {
                         <TouchableOpacity onPress={() => navigation.navigate("settingScreen")} >
                             
                         <Image source={require('./src/image/btnSetting.png')}
-                                style={{marginTop:hp('0.5%')}}
+                                style={{marginTop:hp('1.5%'), marginRight:wp('1.5%')}}
                             />
                         </TouchableOpacity>
                     </View>
@@ -499,7 +499,6 @@ function profilStackScreen({ navigation, route }) {
             <profilStack.Screen name="settingNotif" options={{ headerShown: false }} component={settingNotif} />
             <profilStack.Screen name="settingPrivasi" options={{ headerShown: false }} component={settingPrivasi} />
             <profilStack.Screen name="editProfil" options={{ headerShown: false }} component={editProfil} />
-    <profilStack.Screen options={{ headerShown: false }} name="Intro" component={introStackScreen} />
 
         </profilStack.Navigator>
     )
