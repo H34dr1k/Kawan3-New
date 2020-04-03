@@ -1,8 +1,8 @@
 {
   "dev": true,
   "minify": false,
-  "https": false,
   "hostType": "lan",
   "lanType": "ip",
-  "urlRandomness": "iv-uf4"
+  "urlRandomness": "iv-uf4",
+  "https": false
 }
