@@ -146,15 +146,15 @@ class Login extends React.Component {
   onForgotPass = () => { };
 
   render() {
-    if (Platform.OS === "android") {
-      const hasNotch = StatusBar.currentHeight > 24;
-    }
-    console.log("statusBarHeight: ", StatusBar.currentHeight);
+    // if (Platform.OS === "android") {
+    //   const hasNotch = StatusBar.currentHeight > 24;
+    // }
+    // console.log("statusBarHeight: ", StatusBar.currentHeight);
 
         return (
         <AppFontLoader>
-            <View style={s.container}>
-            <StatusBar barStyle="dark-content" barAnimation="slide" />
+                <ScrollView contentContainerStyle={{ alignItems: "center",}} style={s.container}>
+            <StatusBar barStyle="light-content" barAnimation="slide" />
 
             <ImageBackground
                 style={s.img1}
@@ -269,7 +269,7 @@ class Login extends React.Component {
                 </Text>
                 </TouchableOpacity>
             </View>
-            </View>
+            </ScrollView>
         </AppFontLoader>
         );
     }
@@ -277,14 +277,13 @@ class Login extends React.Component {
 
 const s = StyleSheet.create({
   container: {
-    alignItems: "center",
     flex: 1,
-    marginTop: StatusBar.currentHeight,
+
     margin: -10,
     backgroundColor:"white"
   },
   img1: {
-    height: hp("33.4%"),
+    height: hp("30%"),
     width: wp("100%"),
     flex: 1,
     justifyContent: "center",

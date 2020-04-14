@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, ImageBackground, ScrollView, BackHandler } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ImageBackground, ScrollView, BackHandler, StatusBar } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
@@ -9,13 +9,13 @@ export default class addScreen extends React.Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <View style={{ flex: 1, height: 229, backgroundColor: '#3F3D56', marginTop: 26.5 }}>
+                <View style={{ flex: 1, height: 229, backgroundColor: '#3F3D56'}}>
                     <ImageBackground source={require('../src/image/banner2.png')} style={{ width: '115%', height: '115%' }}>
                         <Image source={require('../src/image/banner1.png')} />
                     </ImageBackground>
                 </View>
 
-                <View style={{ flex: 1, width: '100%', height: '100%',paddingHorizontal:50 ,backgroundColor: '#EFEEEE', borderTopLeftRadius: 50, borderTopRightRadius: 50, marginTop: 0, paddingTop:5, }}>                 
+                <View style={{ flex: 1, width: '100%', height: '100%',paddingHorizontal:50 ,backgroundColor: '#EFEEEE', borderTopLeftRadius: 25, borderTopRightRadius: 25, marginTop: 0, paddingTop:5, }}>                 
                     <View style={{ marginTop: 15, marginBottom:15 }}>
                         <Text style={{ textAlign:"center", fontSize: 28, fontWeight: 'bold', color: '#526EDD' }}>Create something today!</Text>
                     </View>

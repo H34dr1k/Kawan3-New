@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BackHandler, AsyncStorage, StyleSheet, Alert, SafeAreaView, ScrollView, StatusBar, StatusBarStyle, Platform, View, Button, Image, ImageBackground, ActivityIndicator, TouchableOpacity, TextInput, ToastAndroid } from 'react-native';
+import { BackHandler, KeyboardAvoidingView ,AsyncStorage, StyleSheet, Alert, SafeAreaView, ScrollView, StatusBar, StatusBarStyle, Platform, View, Button, Image, ImageBackground, ActivityIndicator, TouchableOpacity, TextInput, ToastAndroid } from 'react-native';
 
 import 'react-native-gesture-handler';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -42,9 +42,7 @@ fetch(data.api() + "/api/user")
 .then(rd => {
     datauser = JSON.parse(rd);
 })
-.catch(er => {
-    Alert.alert("Error", er);
-});
+
 
 const validate = (email) => {
     const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
@@ -140,9 +138,6 @@ class SignUp1 extends React.Component {
                 routes: [{ names: 'Login' }]
             });
         })
-        .catch(er => {
-            Alert.alert("Error", er);
-        })
     }
 
     onIconPress = () => {
@@ -171,69 +166,68 @@ class SignUp1 extends React.Component {
         console.log('statusBarHeight: ', StatusBar.currentHeight);
 
         return (
-             <AppFontLoader>
-                <View style={s.container}>
+            <AppFontLoader>
+                <ScrollView contentContainerStyle={{alignItems:"center"}} style={s.container}>
+                        <StatusBar barStyle="light-content" barAnimation="slide" />
 
-                    <StatusBar barStyle="dark-content" barAnimation="slide"/>
+                        <ImageBackground resizeMode={'cover'} style={s.img1} source={require('../src/img/header3.png')}>
+                            <Text
+                                onPress={() => this.props.navigation.navigate('Login')}
+                                type='rbold' style={s.judul}>Sign Up</Text>
+                            <Text style={s.subjudul}>Fill the details & create your account!</Text>
+                        </ImageBackground>
 
-                    <ImageBackground resizeMode={'cover'} style={s.img1} source={require('../src/img/header3.png')}>
-                        <Text
-                        onPress={() => this.props.navigation.navigate('Login')} 
-                         type='rbold' style={s.judul}>Sign Up</Text>
-                        <Text style={s.subjudul}>Fill the details & create your account!</Text>
-                    </ImageBackground>
+                        <View style={s.form}>
 
-                    <View style={s.form}>
-
-                        <View>
-                            <Text type='rmedium' style={s.tusername}>Username</Text>
-                            <TextInput style={s.fusername}
-                                placeholder='Username'
-                                underlineColorAndroid={'transparent'} 
-                                onChangeText={value => this.setState({ username: value })}
-                            />
-                        </View>
-
-                        <View>
-                            <Text type='rmedium' style={s.temail}>Email Address</Text>
-                            <TextInput style={s.femail}
-                                placeholder='Email Address'
-                                keyboardType="email-address"
-                                underlineColorAndroid={'transparent'}
-                                value={this.state.email}
-                                onChangeText={(text) => {this.setState({email: text})}}
-                            />
-                        </View>
-
-                        <View>
-                            <Text type='rmedium' style={s.tpw}>Password</Text>
-                            <View style={s.fpw}>
-                                <TextInput style={{ flex: 1 }}
-                                    placeholder='Password'
-                                    secureTextEntry={this.state.secureTextEntry}
-                                    value={this.state.pass}
-                                    onChangeText={(text) => {this.setState({pass: text}) }}/>
-                                <TouchableOpacity style={{}} onPress={this.onIconPress}>
-                                    <Icon name={this.state.iconName} style={{ paddingTop: 0, justifyContent: "center" }} size={wp('8%')} color="black" />
-                                </TouchableOpacity>
+                            <View style={{marginBottom:20,}}>
+                                <Text type='rmedium' style={s.tusername}>Username</Text>
+                                <TextInput style={s.fusername}
+                                    placeholder='Username'
+                                    underlineColorAndroid={'transparent'}
+                                    onChangeText={value => this.setState({ username: value })}
+                                />
                             </View>
-                        </View>
 
-                        <View>
-                            <Text type='rmedium' style={s.tcpw}> Confirm Password</Text>
-                            <View style={s.fpw}>
-                                <TextInput style={{ flex: 1 }}
-                                    placeholder='Confirm your password'
-                                    secureTextEntry={this.state.secureTextEntry2}
-                                    value={this.state.confPass}
-                                    onChangeText={(text) => {this.setState({confPass: text}) }}/>
-                                <TouchableOpacity style={{}} onPress={this.onIconPress2}>
-                                    <Icon name={this.state.iconName2} style={{ paddingTop: 0, justifyContent: "center" }} size={wp('8%')} color="black" />
-                                </TouchableOpacity>
+                            <View style={{ marginBottom: 20, }}>
+                                <Text type='rmedium' style={s.temail}>Email Address</Text>
+                                <TextInput style={s.femail}
+                                    placeholder='Email Address'
+                                    keyboardType="email-address"
+                                    underlineColorAndroid={'transparent'}
+                                    value={this.state.email}
+                                    onChangeText={(text) => { this.setState({ email: text }) }}
+                                />
                             </View>
-                        </View>
 
-                        {/* <View>
+                            <View style={{marginBottom:20,}}>
+                                <Text type='rmedium' style={s.tpw}>Password</Text>
+                                <View style={s.fpw}>
+                                    <TextInput style={{ flex: 1 }}
+                                        placeholder='Password'
+                                        secureTextEntry={this.state.secureTextEntry}
+                                        value={this.state.pass}
+                                        onChangeText={(text) => { this.setState({ pass: text }) }} />
+                                    <TouchableOpacity style={{}} onPress={this.onIconPress}>
+                                        <Icon name={this.state.iconName} style={{ paddingTop: 0, justifyContent: "center" }} size={wp('8%')} color="black" />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+
+                            <View>
+                                <Text type='rmedium' style={s.tcpw}> Confirm Password</Text>
+                                <View style={s.fpw}>
+                                    <TextInput style={{ flex: 1 }}
+                                        placeholder='Confirm your password'
+                                        secureTextEntry={this.state.secureTextEntry2}
+                                        value={this.state.confPass}
+                                        onChangeText={(text) => { this.setState({ confPass: text }) }} />
+                                    <TouchableOpacity style={{}} onPress={this.onIconPress2}>
+                                        <Icon name={this.state.iconName2} style={{ paddingTop: 0, justifyContent: "center" }} size={wp('8%')} color="black" />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+
+                            {/* <View>
                             <Text type='rmedium' style={s.tcpw}>Phone Number</Text>
                             <View style={s.fpw}>
                                 <TextInput 
@@ -242,7 +236,7 @@ class SignUp1 extends React.Component {
                                 ></TextInput>
                             </View>
                         </View> */}
-
+                            {/* 
                         <View style={s.gender}>
                             <RadioForm
                                 style={{width:wp('35%'), height:hp('10%')}}
@@ -258,11 +252,11 @@ class SignUp1 extends React.Component {
                                 buttonColor={'#C8C8C8'}
                                 buttonWrapStyle={{ borderWidth:1 }}
                             />
+                        </View> */}
                         </View>
-                    </View>
 
-                    <View style={s.continue}>
-                        <TouchableOpacity
+                        <View style={s.continue}>
+                            <TouchableOpacity
                                 onPress={() => this.onSignUpPress()}
                                 style={s.btnlogin}>
 
@@ -271,13 +265,13 @@ class SignUp1 extends React.Component {
                                 </LinearGradient>
 
                             </TouchableOpacity>
-                    </View>
-
-                    
+                        </View>
 
 
-                    
-                </View>
+
+
+                 </ScrollView>
+               
             </AppFontLoader>
         );
     }
@@ -287,11 +281,8 @@ export default SignUp1;
 
 const s = StyleSheet.create({
     container: {
-        alignItems: "center",
-        flex: 1,
-        marginTop: StatusBar.currentHeight,
+        flex:1,
         margin: -10,
-        backgroundColor:"white"
     },
     img1: {
         // height: hp('30%'),
@@ -300,6 +291,7 @@ const s = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        paddingVertical:40,
     },
     judul: {
         marginTop: hp('1%'),
@@ -319,7 +311,6 @@ const s = StyleSheet.create({
         width: wp('100%'),
         paddingHorizontal: normalize(45),
         marginTop: hp('1%'),
-        justifyContent:'space-evenly',
         flexDirection: 'column',
     },  
     wrap1: {
@@ -394,6 +385,7 @@ const s = StyleSheet.create({
         flex: 0.5,
         width: wp('100%'),
         paddingHorizontal: wp('12%'),
+        marginTop:100
     },  
     btnlogin: {
         marginTop: hp('-2%'),

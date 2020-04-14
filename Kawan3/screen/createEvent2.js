@@ -21,7 +21,7 @@ class createEvent2 extends React.Component {
     render(){
         return(
             <View style={{flex: 1, backgroundColor: '#EFEEEE'}}>
-                <View style={{borderBottomLeftRadius: 20, borderBottomRightRadius: 20, flex: 0,flexDirection: 'row', height: 102, width: '100%', backgroundColor: '#628DE7', paddingTop: 26.5}}>
+                {/* <View style={{borderBottomLeftRadius: 20, borderBottomRightRadius: 20, flex: 0,flexDirection: 'row', height: 102, width: '100%', backgroundColor: '#628DE7', paddingTop: 26.5}}>
                     <TouchableOpacity onPress={()=> this.props.navigation.navigate('createEvent')}>
                         <Image source={require('../src/image/arrowBack.png')} />
                     </TouchableOpacity>
@@ -29,7 +29,7 @@ class createEvent2 extends React.Component {
                         <Text style={{fontSize: 24, color: 'white'}}>Create a</Text>
                         <Text style={{fontSize: 24, color: 'white', fontWeight: 'bold'}}>Event</Text>
                     </View>
-                </View>
+                </View> */}
                 <View style={{flex: 1, marginHorizontal: 26, marginTop: 20}}>
                     <Text style={{fontSize: 18, color: '#628DE7', fontWeight: 'bold'}}>Step 2</Text>
                     <View style={{marginTop: 40, flexDirection: 'row'}}>

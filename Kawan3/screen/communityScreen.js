@@ -28,7 +28,7 @@ class communityScreen extends React.Component {
         return (
             <AppFontLoader>
                 <SafeAreaView style={s.container}>
-                    <StatusBar barStyle="dark-content" barAnimation="slide" />
+                    <StatusBar barStyle="light-content" barAnimation="slide" />
                     <View style={s.atas}>
                         <View
                             style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
@@ -96,7 +96,6 @@ export default communityScreen;
 const s = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: StatusBar.currentHeight,
         marginHorizontal: wp("3%")
     },
     atas: {

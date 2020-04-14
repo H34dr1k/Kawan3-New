@@ -12,4 +12,7 @@ const config = {
   appId: "1:459434791745:web:e4410be7ebcf0e7c2447c0",
   measurementId: "G-JNZEBY4T45"
 };
-export default !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
+
+firebase.initializeApp(config);
+export default firebase; 
+// export default !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();

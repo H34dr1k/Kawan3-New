@@ -215,7 +215,12 @@ import createEvent from './screen/createEvent'
 import createEvent2 from './screen/createEvent2'
 import travelFriend from './screen/travelFriend'
 import editProfil from './screen/editProfil'
+import personalEventScreen from './screen/personalEvent'
 
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware} from 'redux'
+import ReduxThunk from 'redux-thunk';
+import reducers from './screen/CRUD(percobaan)/reducers'
 
 import mapScreen from './screen/mapScreen'
 // import Home from './screen/MAP/routes/Home/components/Home'
@@ -229,20 +234,8 @@ import {
     widthPercentageToDP as wp
 } from "react-native-responsive-screen";
 
-import firebase from 'firebase';
-import { firebaseConfig } from './config';
 
 
-
-try {
-    firebase.initializeApp(firebaseConfig);
-} catch (err) {
-    // we skip the "already exists" message which is
-    // not an actual error when we're hot-reloading
-    if (!/already exists/.test(err.message)) {
-        console.error('Firebase initialization error', err.stack)
-    }
-}
 
 
 const screens = createStackNavigator();
@@ -321,7 +314,6 @@ function homeStackScreen({ navigation, route }) {
           name="Home"
           options={({ route, navigation }) => ({
             title: route.name,
-
             headerStyle: {
               backgroundColor: "#E5E5E5",
               elevation: 0
@@ -338,7 +330,8 @@ function homeStackScreen({ navigation, route }) {
               //     color="#00cc00"
               // />
               <View
-                style={{ flexDirection: "row", marginHorizontal: wp("4%") }}
+                style={{ flexDirection: "row",
+            marginTop: StatusBar.currentHeight, marginHorizontal: wp("4%") }}
               >
                 <TouchableOpacity onPress={() => navigation.push("My Event")}>
                   <Image
@@ -548,6 +541,21 @@ function addStackScreen({ navigation, route }) {
           }
         })} component={createEvent2} />
 
+
+        <addStack.Screen name="My Event" options={({ route }) => ({
+          title: route.name,
+          tabBarVisible: false,
+          headerStyle: {
+            backgroundColor: "#628DE7",
+            elevation: 0
+          },
+          headerTintColor: "white",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: hp("3%")
+          }
+        })} component={personalEventScreen} />
+
         <addStack.Screen name="travelFriend"  options={{ headerShown: false }} component={travelFriend} />
 
         </addStack.Navigator>
@@ -583,7 +591,7 @@ function communityTopTabs({ navigation, route }) {
         
       <topTabScreen1.Navigator
         name="Community"
-        style={{ marginTop: StatusBar.currentHeight }}
+        
       >
         <topTabScreen1.Screen name="nearYouScreen" component={nearYou} />
         <topTabScreen1.Screen
@@ -680,8 +688,12 @@ const searchStackScreen = () => (
     </searchStack.Navigator>
 )
 
+const state = createStore(reducers, {}, applyMiddleware(ReduxThunk))
+
 export default (navigation, route) => (
-    
+   
+
+  <Provider store={state}>
     <NavigationContainer>
 
         <screens.Navigator>
@@ -703,5 +715,6 @@ export default (navigation, route) => (
 
         </screens.Navigator>
     </NavigationContainer>
+  </Provider>
 );
 

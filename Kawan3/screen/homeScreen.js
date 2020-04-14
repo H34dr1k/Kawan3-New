@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   AppState,
   AsyncStorage,
+  StatusBar,
   BackHandler
 } from "react-native";
 import { createAppContainer } from "react-navigation";
@@ -64,6 +65,7 @@ export default class homeScreen extends React.Component {
         }else{
             return (
                 <View style={{ flex: 1, backgroundColor: "#E5E5E5" }}>
+                    <StatusBar barStyle="light-content"></StatusBar>
                     <ScrollView>
                     <View
                         style={{
@@ -73,7 +75,7 @@ export default class homeScreen extends React.Component {
                         paddingBottom: 10,
                         borderRadius: 15,
                         marginHorizontal: 17,
-                        backgroundColor: "#50A5D3"
+                        backgroundColor: "#50A5D3",
                         }}
                     >
                         <Image

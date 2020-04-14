@@ -118,8 +118,8 @@ export default class profilScreen extends React.Component {
         }
         else{
             return (
-                <View style={{ flex: 1, marginTop:StatusBar.currentHeight}}>
-                <StatusBar barStyle="dark-content"></StatusBar>
+                <View style={{ flex: 1}}>
+                <StatusBar barStyle="light-content"></StatusBar>
                     <ScrollView>
                         <View style={{ flex: 0, backgroundColor: '#49438D', height: 229, paddingTop: 26.5, }}>
                             <ImageBackground source={require('../src/image/decoStar.png')} style={{flex:1, width: '100%', height: '100%', flexDirection: 'row', paddingHorizontal:wp('2%')  }} />
