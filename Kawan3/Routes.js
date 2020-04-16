@@ -209,6 +209,8 @@ import communityDetail1Screen from './screen/communityDetail1'
 import communityFront from './screen/communityFront'
 
 import Home from './screen/MAP/routes/Home/components/Home'
+import { MapContainer } from './screen/MAP/routes/Home/components/MapContainer/index'
+
 import createComm from './screen/createComm'
 import createComm2 from './screen/createComm2'
 import createEvent from './screen/createEvent'
@@ -441,7 +443,7 @@ function homeStackScreen({ navigation, route }) {
           options={({ navigation, route }) => ({
             title: route.name
           })}
-          component={mapScreen}
+          component={Home}
         />
       </homeStack.Navigator>
     );

@@ -13,7 +13,6 @@ import { View } from "native-base";
 import MapView from "react-native-maps";
 
 export const MapContainer = ({ region }) => {
-
     return (
         <View style={styles.container}>
             <MapView
@@ -21,7 +20,8 @@ export const MapContainer = ({ region }) => {
                 style={styles.map}
                 region={region}
             >
-                <MapView.Marker coordinate={region}
+                <MapView.Marker 
+                    coordinate={region}
                     pinColor="blue"
                 />
             </MapView>

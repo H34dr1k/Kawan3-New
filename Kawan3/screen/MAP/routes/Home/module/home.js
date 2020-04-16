@@ -31,7 +31,7 @@ const ACTION_HANDLERS  = {
     GET_CURRENT_LOCATION:handleGetCurrentLocation
 }
 
-const initialState = {};
+const initialState = {region:{}};
 export function HomeReducer(state = initialState,action) {
     const handler = ACTION_HANDLERS[action.type];
 
