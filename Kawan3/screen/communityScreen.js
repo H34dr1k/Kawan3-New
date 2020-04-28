@@ -28,7 +28,7 @@ class communityScreen extends React.Component {
         return (
             <AppFontLoader>
                 <SafeAreaView style={s.container}>
-                    <StatusBar barStyle="light-content" barAnimation="slide" />
+                    <StatusBar barStyle="light-content"/>
                     <View style={s.atas}>
                         <View
                             style={{ flex: 1, flexDirection: "row", alignItems: "center" }}

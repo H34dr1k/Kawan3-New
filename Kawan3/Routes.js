@@ -196,7 +196,7 @@ import nearYouScreen from './screen/nearYouScreen'
 import trendingScreen from './screen/trendingScreen'
 import mostJoinedScreen from './screen/mostJoinedScreen'
 
-import { searchScreen } from './screen/searchScreen'
+import searchScreen from './screen/searchScreen'
 import addScreen from './screen/addScreen'
 import settingScreen from './screen/settingScreen'
 import settingPrivasi from './screen/settingPrivasi'

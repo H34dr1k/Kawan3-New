@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, ImageBackground, ScrollView,StatusBar, BackHandler, AsyncStorage, ActivityIndicator } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ImageBackground, ScrollView,StatusBar, BackHandler, AsyncStorage, ActivityIndicator, Alert } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
@@ -13,13 +13,21 @@ import {
     widthPercentageToDP as wp
 } from "react-native-responsive-screen";
 
+import * as IP from 'expo-image-picker';
+import a from 'expo-permissions';
+
 import dt from '../api';
 
 var data = new dt;
 
 var datauser = [];
 
+function re() {
+    
+}
+
 export default class profilScreen extends React.Component {
+
     static navigationOptions = {
         title: 'profilScreen',
         header: null
@@ -36,10 +44,33 @@ export default class profilScreen extends React.Component {
             datauser = JSON.parse(rd);
             this.setState({ loaded:true });
         });
+        this.getPermissionAsync();
+    }
+
+    getPermissionAsync = async () => {
+        const { status } = await a.askAsync(a.CAMERA_ROLL);
+        if(status !== 'granted'){
+            alert("Sorry, we need camera roll permissions to make this work!");
+        }
+    }
+
+    imagePress = async () => {
+        try{
+            let result = await IP.launchImageLibraryAsync({
+                mediaTypes: IP.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1
+            });
+            if(!result.cancelled){
+                Alert.alert('Image URI', result.uri);
+            }
+        }catch{
+
+        }
     }
 
     onLogOutPress = () => {
-        AsyncStorage.removeItem('datauser'); 
         datauser.loggedIn = 0;
 
         fetch(data.api() + "/api/user/" + datauser.kodeuser, {
@@ -53,10 +84,8 @@ export default class profilScreen extends React.Component {
             return rd.text();
         })
         .then(a => {
-            this.props.navigation.reset({
-                index: 0,
-                routes: [{ names: 'Login' }]
-            })
+            AsyncStorage.removeItem('datauser');
+            alert('Masih blom boy');
         });
     }
 
@@ -112,14 +141,14 @@ export default class profilScreen extends React.Component {
         if(!this.state.loaded){
             return (
                 <View>
-                    <ActivityIndicator />
+                    <ActivityIndicator size="large" style={{ alignContent: "center" }}/>
                 </View>
             )
         }
         else{
             return (
-                <View style={{ flex: 1}}>
-                <StatusBar barStyle="light-content"></StatusBar>
+                <View style={{ flex: 1 }}>
+                <StatusBar barStyle="light-content" barAnimation="slide"></StatusBar>
                     <ScrollView>
                         <View style={{ flex: 0, backgroundColor: '#49438D', height: 229, paddingTop: 26.5, }}>
                             <ImageBackground source={require('../src/image/decoStar.png')} style={{flex:1, width: '100%', height: '100%', flexDirection: 'row', paddingHorizontal:wp('2%')  }} />
@@ -138,7 +167,11 @@ export default class profilScreen extends React.Component {
 
                             
 
-                                <View style={{flex:2,alignItems:"center",marginTop:-75}}><Image source={require('../src/image/profilPic.png')} resizeMode='cover' style={{ width: 150, height: 150 }} /></View>
+                                <View style={{flex:2,alignItems:"center",marginTop:-75}}>
+                                    <TouchableOpacity onPress={() => this.imagePress()}>
+                                        <Image source={require('../src/image/profilPic.png')} resizeMode='cover' style={{ width: 150, height: 150 }} />
+                                    </TouchableOpacity>
+                                </View>
 
                                 <View style={{ flex: 1,width:'100%' }}>
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('editProfil')} style={{ height: 28, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F8B814', marginTop: 33, borderRadius: 7, flexDirection: 'row' }}>
