@@ -219,6 +219,12 @@ import travelFriend from './screen/travelFriend'
 import editProfil from './screen/editProfil'
 import personalEventScreen from './screen/personalEvent'
 
+
+import hobbyScreen from './screen/search/hobbyScreen'
+import eventScreen from './screen/search/eventScreen'
+import friendsScreen from './screen/search/friendsScreen'
+
+
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux'
 import ReduxThunk from 'redux-thunk';
@@ -245,7 +251,7 @@ const Tabs = createBottomTabNavigator();
 const introStack = createStackNavigator();
 const homeStack = createStackNavigator();
 const addStack = createStackNavigator();
-const searchStack = createStackNavigator();
+const searchStack = createMaterialTopTabNavigator();
 const profilStack = createStackNavigator();
 const editProfilStack = createStackNavigator();
 const communityStack = createStackNavigator();
@@ -610,6 +616,36 @@ function communityTopTabs({ navigation, route }) {
     );
 }
 
+function searchTopTabs({ navigation, route }) {
+   if (route.state && route.state.index > 0) {
+        navigation.setOptions({ tabBarVisible: false })
+    } else {
+        navigation.setOptions({ tabBarVisible: true })
+    }
+  return (
+    
+
+    <searchStack.Navigator
+      name="Search"
+
+    >
+      <searchStack.Screen name="searchScreen" component={hobbyScreen} />
+      <searchStack.Screen
+        name="trendingScreen"
+        options={{}}
+        component={eventScreen}
+      />
+      <searchStack.Screen
+        name="mostJoinedScreen"
+        options={{}}
+        component={friendsScreen}
+      />
+    </searchStack.Navigator>
+  );
+}
+
+
+
 function TabScreen({ navigation, route }) {
     if (route.state && route.state.index > 0) {
         navigation.setOptions({ tabBarVisible: false })
@@ -663,9 +699,9 @@ function TabScreen({ navigation, route }) {
         >
             <Tabs.Screen options={{ headerShown: false, }} name="Home" component={homeStackScreen} />
 
-            <Tabs.Screen options={{ headerShown: false }} name="Search" component={searchStackScreen} />
+            <Tabs.Screen options={{ headerShown: false }} name="Search" component={searchTopTabs} />
 
-            <Tabs.Screen options={{ headerShown: false }} name="Add" component={addStackScreen} />
+            <Tabs.Screen options={{ headerShown: false }} name="Add" component={addStackScreen}/>
 
             <Tabs.Screen name="Community" component={communityTopTabs} />
 
@@ -677,6 +713,8 @@ function TabScreen({ navigation, route }) {
 
 
 }
+
+
 
 // const homeStackScreen = (navigation, route) => (
 

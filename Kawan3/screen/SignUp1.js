@@ -283,7 +283,7 @@ class SignUp1 extends React.Component {
                                 style={s.btnlogin}>
 
                                 <LinearGradient start={[0, 1]} end={[1, 0]} colors={['#519BD1', '#38D1E6']} style={s.btngradien}>
-                                    <Text type="rmedium" style={s.btnloginisi}>Continue</Text>
+                                    <Text type="rmedium" style={s.btxnloginisi}>Continue</Text>
                                 </LinearGradient>
 
                             </TouchableOpacity>
