@@ -23,7 +23,22 @@ class UserController extends Controller
         }
     }
 
-    public function create(Request $request)
+    public function com()
+    {
+        
+    }
+
+    public function ev()
+    {
+
+    }
+
+    public function hob()
+    {
+        
+    }
+
+    public function createUser(Request $request)
     {
         $dataJSON = $request->getContent();
         $dataInsert = json_decode($dataJSON);

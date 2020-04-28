@@ -9,6 +9,7 @@ export default class addScreen extends React.Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
+                <StatusBar barStyle="light-content"></StatusBar>
                 <View style={{ flex: 1, height: 229, backgroundColor: '#3F3D56'}}>
                     <ImageBackground source={require('../src/image/banner2.png')} style={{ width: '115%', height: '115%' }}>
                         <Image source={require('../src/image/banner1.png')} />

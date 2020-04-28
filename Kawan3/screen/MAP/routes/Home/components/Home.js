@@ -2,17 +2,18 @@ import React from "react";
 import { Container } from "native-base";
 import MapContainer from "./MapContainer";
 
+
 class Home extends React.Component {
     componentDidMount(){
-        this.props.getCurrentLocation()
+        this.props.getCurrentLocation();
     }
     render() {
-    
+        
         const region = {
             latitude: -0.021250,
             longitude: 109.336929,
             latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421
+            longitudeDelta: 0.0421,
         }
         return (
             <Container>

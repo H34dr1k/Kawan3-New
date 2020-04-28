@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
     StyleSheet,
     SafeAreaView,
@@ -104,6 +103,11 @@ class Login extends React.Component {
                 return;
             }
             // alert(rd);
+            if(rd.indexOf("<html>") > 0){
+                Alert.alert("Error", "Sorry, the Server have some problems to solve");
+                return;
+            }
+
             var data = JSON.parse(rd);
             
             if(data.password != this.state.pass){
@@ -136,10 +140,6 @@ class Login extends React.Component {
                     routes: [{ names: 'homeScreen' }]
                 })
             });
-        })
-        .catch(er => {
-            Alert.alert("Error", er);
-            return;
         });
     };
 
@@ -153,7 +153,7 @@ class Login extends React.Component {
 
         return (
         <AppFontLoader>
-                <ScrollView contentContainerStyle={{ alignItems: "center",}} style={s.container}>
+                <ScrollView contentContainerStyle={{ alignItems: "center" }} style={s.container}>
             <StatusBar barStyle="light-content" barAnimation="slide" />
 
             <ImageBackground
@@ -278,7 +278,6 @@ class Login extends React.Component {
 const s = StyleSheet.create({
   container: {
     flex: 1,
-
     margin: -10,
     backgroundColor:"white"
   },
