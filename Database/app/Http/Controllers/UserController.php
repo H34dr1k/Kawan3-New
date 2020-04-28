@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Setting;
+use App\Hobby;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -16,6 +18,12 @@ class UserController extends Controller
     {
         $data = User::where("email", $email)->first();
         
+        $setting = Setting::where("kodeuser", $data->kodeuser)->first();
+
+        unset($data->setting);
+
+        $data->setting = $setting;
+
         if(is_null($data)){
             return "";
         }else{
@@ -75,6 +83,23 @@ class UserController extends Controller
 
             return "Data berhasil Diupdate";
         }
+    }
+
+    public function updateSetting(Request $request, $id){
+        $data = Setting::where('kodeuser', $id)->first();
+
+        $dataJSON = $request->getContent();
+        $dataInsert = json_decode($dataJSON);
+
+        if($dataInsert->settingOn == "privasi"){
+            $data->privacyBerbagiLokasi = $dataInsert->privacyBerbagiLokasi;
+            $data->privacyTampilkanFotoAnda = $dataInsert->privacyTampilkanFotoAnda;
+            $data->privacyTerimaTeman = $dataInsert->privacyTerimaTeman;
+        }
+        
+        $data->save();
+
+        return "berhasil";
     }
 
     public function delete($id)

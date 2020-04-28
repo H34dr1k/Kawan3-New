@@ -44,7 +44,7 @@ export default class profilScreen extends React.Component {
             datauser = JSON.parse(rd);
             this.setState({ loaded:true });
         });
-        this.getPermissionAsync();
+        // this.getPermissionAsync();
     }
 
     getPermissionAsync = async () => {
@@ -85,7 +85,7 @@ export default class profilScreen extends React.Component {
         })
         .then(a => {
             AsyncStorage.removeItem('datauser');
-            alert('Masih blom boy');
+            BackHandler.exitApp();
         });
     }
 
@@ -140,7 +140,7 @@ export default class profilScreen extends React.Component {
 
         if(!this.state.loaded){
             return (
-                <View>
+                <View style={{flex:1, alignItems: "center", justifyContent:"center"}}>
                     <ActivityIndicator size="large" style={{ alignContent: "center" }}/>
                 </View>
             )

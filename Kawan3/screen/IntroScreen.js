@@ -25,6 +25,11 @@ import {
     widthPercentageToDP as wp
 } from "react-native-responsive-screen";
 
+import dt from "../api";
+
+var data = new dt;
+var images = data.image();
+
 class Intro extends React.Component {
     // static navigationOptions = {
     //     title: "Intro",
@@ -74,8 +79,8 @@ class Intro extends React.Component {
                     <View style={{marginTop: StatusBar.currentHeight, flex:1, backgroundColor:"white"}}>
                         <View style={{flex:1, alignItems: "center", justifyContent:"center"}}>
                             
-                            <Image source={require("../src/image/logo.png")}/>
-                            <Text type="rbold" style={{color:"rgb(58,205,228)", fontSize:hp('4%')}}>Kawan</Text>
+                            <Image source={{uri: images + "/image/logo.png"}} style={{width: 200, height: 200}}/>
+                            <Text type="rbold" style={{color:"rgb(80,175,255)", fontSize:hp('4%')}}>Kawan</Text>
                             
                         </View>
                     </View>
@@ -87,7 +92,7 @@ class Intro extends React.Component {
                     <View style={styles.container}>
                         <Image
                             style={styles.img1}
-                            source={require("../src/img/header.png")}
+                            source={{ uri: images + "/img/header.png"}}
                         />
     
                         <View style={styles.isi}>

@@ -23,3 +23,5 @@ Route::get('user/{email}', 'UserController@getData');
 Route::post('user', 'UserController@create');
 Route::put('user/{kodeuser}', 'UserController@update');
 Route::delete('user/{kodeuser}', 'UserController@delete');
+
+Route::put('setting/{kodeuser}', 'UserController@updateSetting');
