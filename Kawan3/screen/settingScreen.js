@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import { Dimensions, View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler'
+import dt from '../api';
+
+var data = new dt;
+var images = data.image();
 
 class settingScreen extends React.Component {
     static navigationOptions= {
@@ -13,8 +17,8 @@ class settingScreen extends React.Component {
         return(
             <View style={{flex: 1, backgroundColor: '#E5E5E5'}}>
                 <View style={{flex: 0, marginTop: 35, flexDirection: 'row', marginHorizontal: 28}}>
-                    <TouchableOpacity onPress={()=> this.props.navigation.goBack()}>
-                        <Image source={require('../src/image/iconBack.png')} />
+                    <TouchableOpacity onPress={()=> this.props.navigation.goBack()} style={styles.icon}>
+                        <Image source={{ uri: images + '/image/iconBack.png'}} style={styles.icon}/>
                     </TouchableOpacity>
                     <Text style={{fontSize: 24, fontWeight: 'bold', color: '#626262', marginLeft: 28}}>Setting</Text>
                 </View>
@@ -44,3 +48,14 @@ class settingScreen extends React.Component {
 }
 
 export default settingScreen;
+
+const dimensions = Dimensions.get('window');
+const imageHeight = Math.round(dimensions.width * 0.07);
+
+const styles = StyleSheet.create({
+    icon: {
+        width: 15,
+        height: imageHeight,
+        resizeMode: "contain"
+    }
+});

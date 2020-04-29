@@ -80,14 +80,15 @@ export default class homeScreen extends React.Component {
                     >
                         <Image
                         source={require("../src/image/Prof1.png")}
-                        style={{ margin: 13 }}
+                        resizeMode="contain"
+                        style={{marginLeft:13, width:wp('12%'), height:hp('12%') }}
                         />
-                        <View style={{ marginLeft: 30, marginTop: 10 }}>
+                        <View style={{ marginLeft: 30, marginTop: 5 }}>
                         <Text
                             style={{ fontSize: 20, fontWeight: "bold", color: "white" }}
                         >
                             Hello, { datauser.name }!
-                        </Text>
+                        </Text> 
                         <Text style={{ fontSize: 16, marginTop: 10, color: "white" }}>
                             { fullDay }
                         </Text>
@@ -110,7 +111,7 @@ export default class homeScreen extends React.Component {
                             }}
                         >
                             <View style={{ alignItems: "center", paddingTop: 10 }}>
-                            <Image source={require("../src/image/Event1.png")} />
+                            <Image style={{width:wp('20%'), height:wp('20%')}} source={require("../src/image/Event1.png")} />
                             <Text>Pesta Kembang Api</Text>
                             </View>
                             <View
@@ -120,7 +121,7 @@ export default class homeScreen extends React.Component {
                                 justifyContent: "center"
                             }}
                             >
-                            <Image source={require("../src/image/Sign.png")} />
+                                        <Image resizeMode="contain" style={{ width: wp('3%'), height: wp('3%') }} source={require("../src/image/Sign.png")} />
                             <Text style={{ fontSize: 9, color: "gray" }}>
                                 Jl. Gajah Mada, Pontianak
                             </Text>
@@ -200,7 +201,7 @@ export default class homeScreen extends React.Component {
                             }}
                         >
                             <View style={{ alignItems: "center", paddingTop: 10 }}>
-                            <Image source={require("../src/image/Event1.png")} />
+                            <Image style={{width:wp('20%'), height:wp('20%')}} source={require("../src/image/Event1.png")} />
                             <Text>Pesta Tahun Baru</Text>
                             </View>
                             <View
@@ -210,7 +211,7 @@ export default class homeScreen extends React.Component {
                                 justifyContent: "center"
                             }}
                             >
-                            <Image source={require("../src/image/Sign.png")} />
+                                        <Image resizeMode="contain" style={{ width: wp('3%'), height: wp('3%') }} source={require("../src/image/Sign.png")} />
                             <Text style={{ fontSize: 9, color: "gray" }}>
                                 Jl. Gajah Mada, Pontianak
                             </Text>
@@ -290,7 +291,7 @@ export default class homeScreen extends React.Component {
                             }}
                         >
                             <View style={{ alignItems: "center", paddingTop: 10 }}>
-                            <Image source={require("../src/image/Event1.png")} />
+                                        <Image  style={{ width: wp('20%'), height: wp('20%') }} source={require("../src/image/Event1.png")} />
                             <Text>Pesta Petasan</Text>
                             </View>
                             <View
@@ -300,7 +301,7 @@ export default class homeScreen extends React.Component {
                                 justifyContent: "center"
                             }}
                             >
-                            <Image source={require("../src/image/Sign.png")} />
+                                        <Image resizeMode="contain" style={{ width: wp('3%'), height: wp('3%') }} source={require("../src/image/Sign.png")} />
                             <Text style={{ fontSize: 9, color: "gray" }}>
                                 Jl. Gajah Mada, Pontianak
                             </Text>
@@ -402,9 +403,9 @@ export default class homeScreen extends React.Component {
                             }}
                         >
                             <TouchableOpacity>
-                            <Image source={require("../src/image/btnAdd.png")} />
+                            <Image resizeMode="contain" style={{ width: wp('9%'), height: wp('9%') }} source={require("../src/image/btnAdd.png")} />
                             </TouchableOpacity>
-                            <Image source={require("../src/image/book1.png")} />
+                            <Image resizeMode="contain" style={{ width: wp('20%'), height: wp('20%') }} source={require("../src/image/book1.png")} />
                         </View>
                         <View
                             style={{
@@ -418,9 +419,9 @@ export default class homeScreen extends React.Component {
                             }}
                         >
                             <TouchableOpacity>
-                            <Image source={require("../src/image/btnAdd.png")} />
+                            <Image resizeMode="contain" style={{ width: wp('9%'), height: wp('9%') }} source={require("../src/image/btnAdd.png")} />
                             </TouchableOpacity>
-                            <Image source={require("../src/image/gitar1.png")} />
+                            <Image  resizeMode="contain" style={{ width: wp('20%'), height: wp('20%') }} source={require("../src/image/gitar1.png")} />
                         </View>
                         <View
                             style={{
@@ -434,9 +435,9 @@ export default class homeScreen extends React.Component {
                             }}
                         >
                             <TouchableOpacity>
-                            <Image source={require("../src/image/btnAdd.png")} />
+                            <Image resizeMode="contain" style={{ width: wp('9%'), height: wp('9%') }} source={require("../src/image/btnAdd.png")} />
                             </TouchableOpacity>
-                            <Image source={require("../src/image/brain1.png")} />
+                            <Image  resizeMode="contain" style={{ width: wp('20%'), height: wp('20%') }} source={require("../src/image/brain1.png")} />
                         </View>
                         <View
                             style={{
@@ -450,12 +451,12 @@ export default class homeScreen extends React.Component {
                             }}
                         >
                             <TouchableOpacity>
-                            <Image source={require("../src/image/btnAdd.png")} />
+                            <Image resizeMode="contain" style={{ width: wp('9%'), height: wp('9%') }} source={require("../src/image/btnAdd.png")} />
                             </TouchableOpacity>
-                            <Image source={require("../src/image/blood1.png")} />
+                            <Image resizeMode="contain" style={{ width: wp('20%'), height: wp('20%') }} source={require("../src/image/blood1.png")} />
                         </View>
                         <TouchableOpacity>
-                            <Image source={require("../src/image/btnNext.png")} />
+                            <Image style={{ width: wp('20%'), height: wp('20%') }} source={require("../src/image/btnNext.png")} />
                         </TouchableOpacity>
                         </View>
                     </View>

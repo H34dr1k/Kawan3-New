@@ -44,7 +44,7 @@ export default class profilScreen extends React.Component {
             datauser = JSON.parse(rd);
             this.setState({ loaded:true });
         });
-        this.getPermissionAsync();
+        // this.getPermissionAsync();
     }
 
     getPermissionAsync = async () => {
@@ -85,7 +85,7 @@ export default class profilScreen extends React.Component {
         })
         .then(a => {
             AsyncStorage.removeItem('datauser');
-            alert('Masih blom boy');
+            BackHandler.exitApp();
         });
     }
 
@@ -140,7 +140,7 @@ export default class profilScreen extends React.Component {
 
         if(!this.state.loaded){
             return (
-                <View>
+                <View style={{flex:1, alignItems: "center", justifyContent:"center"}}>
                     <ActivityIndicator size="large" style={{ alignContent: "center" }}/>
                 </View>
             )
@@ -175,7 +175,7 @@ export default class profilScreen extends React.Component {
 
                                 <View style={{ flex: 1,width:'100%' }}>
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('editProfil')} style={{ height: 28, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F8B814', marginTop: 33, borderRadius: 7, flexDirection: 'row' }}>
-                                    <Image style={{marginLeft: -7}} source={require('../src/image/iconEdit.png')} />
+                                    <Image style={{width:10, height:10}} style={{marginLeft: -7}} source={require('../src/image/iconEdit.png')} />
                                     <Text style={{ fontWeight: 'bold', color: 'white' }}>Edit</Text>
                                 </TouchableOpacity>
                                 </View>
@@ -258,12 +258,12 @@ export default class profilScreen extends React.Component {
                             <ScrollView horizontal={true} style={{ flexDirection: 'row' }}>
                                 <View style={{ marginBottom: 20, marginRight: 15, width: 235, height: 96, borderRadius: 10, backgroundColor: '#E5E5E5', flexDirection: 'row' }}>
                                     <View style={{ flex: 1 }}>
-                                        <Image source={require('../src/image/Community1.png')} style={{ margin: 10 }} />
+                                        <Image source={require('../src/image/Community1.png')} style={{ margin: 10, width:wp('10%'), height:hp('5%') }} />
                                     </View>
                                     <View style={{ flex: 2 }}>
                                         <View style={{ marginTop: 15, flexDirection: 'row' }}>
                                             <Text style={{ fontSize: 10, fontWeight: 'bold' }}>KOMUNITAS KARATE</Text>
-                                            <Image source={require('../src/image/Check1.png')} />
+                                            
                                         </View>
                                         <View style={{ width: 51, height: 19, backgroundColor: '#21D348', borderRadius: 19 }}>
                                             <Text style={{ color: 'white', fontSize: 11, textAlign: 'center' }}>37 Chat</Text>
@@ -274,18 +274,18 @@ export default class profilScreen extends React.Component {
                                     </View>
                                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                         <TouchableOpacity>
-                                            <Image source={require('../src/image/Arrow.png')} />
+                                            <Image style={{ width: wp('2%'), height: hp('2%')}} source={require('../src/image/Arrow.png')} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                                 <View style={{ width: 235, height: 96, borderRadius: 10, backgroundColor: '#E5E5E5', flexDirection: 'row' }}>
                                     <View style={{ flex: 1 }}>
-                                        <Image source={require('../src/image/Community2.png')} style={{ margin: 10 }} />
+                                        <Image source={require('../src/image/Community2.png')} style={{ margin: 10, width: wp('10%'), height: hp('5%') }} />
                                     </View>
                                     <View style={{ flex: 2 }}>
                                         <View style={{ marginTop: 15, flexDirection: 'row' }}>
                                             <Text style={{ fontSize: 10, fontWeight: 'bold' }}>POINT BLANK</Text>
-                                            <Image source={require('../src/image/Check1.png')} />
+                                            
                                         </View>
                                         <View style={{ width: 51, height: 19, backgroundColor: '#21D348', borderRadius: 19 }}>
                                             <Text style={{ color: 'white', fontSize: 11, textAlign: 'center' }}>37 Chat</Text>
@@ -296,7 +296,7 @@ export default class profilScreen extends React.Component {
                                     </View>
                                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                         <TouchableOpacity>
-                                            <Image source={require('../src/image/Arrow.png')} />
+                                            <Image style={{ width: wp('2%'), height: hp('2%') }} source={require('../src/image/Arrow.png')} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>

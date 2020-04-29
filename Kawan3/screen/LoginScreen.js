@@ -88,6 +88,14 @@ class Login extends React.Component {
     }
 
     onLoginPress = () => {
+        // fetch(dat.api() + "/api/user/" + this.state.email)
+        // .then((rs) => {
+        //     return rs.text();
+        // })
+        // .then(rd => {
+        //     alert(rd);
+        // })
+        // return;
         if(this.state.email == "" || this.state.pass == ""){
             Alert.alert('Error', 'Please, fill all the field');
             return;
@@ -137,7 +145,7 @@ class Login extends React.Component {
             .then(a => {
                 this.props.navigation.reset({
                     index: 0,
-                    routes: [{ names: 'homeScreen' }]
+                    routes: [{ name: 'homeScreen' }]
                 })
             });
         });
@@ -158,7 +166,7 @@ class Login extends React.Component {
 
             <ImageBackground
                 style={s.img1}
-                source={require("../src/img/header2.png")}
+                source={{ uri: images + "/img/header2.png"}}
             >
                 <Text type="rbold" style={s.judul}>
                     Log In

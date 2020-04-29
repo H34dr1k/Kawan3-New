@@ -69,7 +69,7 @@ export default class eventDetail extends React.Component {
             <Text type="rbold" style={{ fontSize: hp("4%"), marginBottom: 20, color:"#526EDD" }}>Seminar Logitech</Text>
 
           <View style={{flex:1, flexDirection:"row"}}>
-            <View style={{marginRight:15}}><Image source={require('../src/img/logoevent.png')} /></View>
+              <View style={{ marginRight: 15, }}><Image style={{ width: 72, height: 72}} source={require('../src/img/logoevent.png')} /></View>
             <View style={{justifyContent:"space-around"}}>
               <Text type="rmedium" style={{fontSize:hp("2%")}}>Pecinta Logitech</Text>
                 <Text type="rmedium" style={{ marginBottom: 2, fontSize: hp("1.5%"), color: 'rgba(0, 0, 0 ,0.5)'}}>Since 2018</Text>
@@ -94,8 +94,8 @@ export default class eventDetail extends React.Component {
               </View>
             </View>
 
-            <View style={{marginVertical:20}}>
-              <Image source={require('../src/image/foto1.png')} />
+            <View style={{marginVertical:20, justifyContent:"center" ,alignItems:"center"}}>
+              <Image style={{width:wp('86%'), height:hp('20%')}} source={require('../src/image/foto1.png')} />
             </View>
 
             <View>
@@ -162,7 +162,8 @@ export default class eventDetail extends React.Component {
 
             <View style={{ padding:12 ,borderRadius:10, justifyContent: "center", backgroundColor: "#526EDD"}}>
               <View style={{flexDirection:"row"}}>
-                <View style={{marginRight:10}}><Image source={require('../src/img/lokFrom.png')} /></View>
+                <View style={{marginRight:10}}>
+                  <Image style={{width:48, height:48}} source={require('../src/img/lokFrom.png')} /></View>
                 <View>
                   <Text type="rmedium" style={{color:"white"}}>From</Text>
                     <Text style={{ color: "white", fontSize:hp("2%") }}>Jl. Tanjung Pura No.3, Pontianak</Text>

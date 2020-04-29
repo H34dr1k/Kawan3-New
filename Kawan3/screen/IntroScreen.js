@@ -9,6 +9,7 @@ import {
     Alert,
     AsyncStorage,
     StatusBar,
+    Dimensions
 
 } from "react-native";
 import "react-native-gesture-handler";
@@ -24,6 +25,11 @@ import {
     heightPercentageToDP as hp,
     widthPercentageToDP as wp
 } from "react-native-responsive-screen";
+
+import dt from "../api";
+
+var data = new dt;
+var images = data.image();
 
 class Intro extends React.Component {
     // static navigationOptions = {
@@ -49,6 +55,7 @@ class Intro extends React.Component {
                 }
             });
         }, 2000);
+        
     }
 
     checkId = () => {
@@ -74,8 +81,8 @@ class Intro extends React.Component {
                     <View style={{marginTop: StatusBar.currentHeight, flex:1, backgroundColor:"white"}}>
                         <View style={{flex:1, alignItems: "center", justifyContent:"center"}}>
                             
-                            <Image source={require("../src/image/logo.png")}/>
-                            <Text type="rbold" style={{color:"rgb(58,205,228)", fontSize:hp('4%')}}>Kawan</Text>
+                            <Image source={{ uri: "http://192.168.1.6:8000/src/image/logo.png"}} style={{width: 200, height: 200}}/>
+                            <Text type="rbold" style={{color:"rgb(80,175,255)", fontSize:hp('4%')}}>Kawan</Text>
                             
                         </View>
                     </View>
@@ -87,7 +94,7 @@ class Intro extends React.Component {
                     <View style={styles.container}>
                         <Image
                             style={styles.img1}
-                            source={require("../src/img/header.png")}
+                            source={{ uri: "http://192.168.1.6:8000/src/img/header.png"}}
                         />
     
                         <View style={styles.isi}>
@@ -123,6 +130,10 @@ class Intro extends React.Component {
 
 export default Intro;
 
+
+const dimensions = Dimensions.get('window');
+const imageHeight = Math.round(dimensions.width * 0.07);
+
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#fff",
@@ -136,8 +147,11 @@ const styles = StyleSheet.create({
         marginHorizontal: 40
     },
     img1: {
-        flex: 2
-        // height: hp("65%"),
+        flex: 2,
+        height: hp("65%"),
+        width: wp('100%'),
+        // height: imageHeight,
+        // resizeMode: "contain"
     },
     judul: {
         marginVertical: hp("2%"),

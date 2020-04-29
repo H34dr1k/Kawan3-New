@@ -344,7 +344,7 @@ function homeStackScreen({ navigation, route }) {
                 <TouchableOpacity onPress={() => navigation.push("My Event")}>
                   <Image
                     resizeMode="contain"
-                    style={{ marginRight: 13 }}
+                    style={{ marginRight: 13, width:48, height:48 }}
                     source={require("./src/img/MyEvent.png")}
                   />
                 </TouchableOpacity>
@@ -353,13 +353,16 @@ function homeStackScreen({ navigation, route }) {
                 >
                   <Image
                     source={require("./src/image/History.png")}
-                    style={{ marginRight: 13 }}
+                    style={{ marginRight: 13, width: 48, height: 48 }}
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => navigation.push("Notification")}
                 >
-                  <Image source={require("./src/image/Notif.png")} />
+                  
+                  <Image 
+                    style={{ width: 48, height: 48}}
+                  source={require("./src/image/Notif.png")} />
                 </TouchableOpacity>
               </View>
             )

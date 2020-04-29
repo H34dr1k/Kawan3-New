@@ -28,7 +28,7 @@ class communityScreen extends React.Component {
         return (
             <AppFontLoader>
                 <SafeAreaView style={s.container}>
-                    <StatusBar barStyle="light-content" barAnimation="slide" />
+                    <StatusBar barStyle="light-content" />
                     {/* <View style={s.atas}>
                         <View
                             style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
@@ -66,14 +66,14 @@ class communityScreen extends React.Component {
                             onPress={() => this.props.navigation.navigate("communityDetail1Screen")}
                         >
                             <View style={{ flex: 1, justifyContent: "center", marginRight: wp('2%') }}>
-                                <Image source={require("../src/img/picEvent.png")} />
+                                <Image style={{width:80, height:80}} source={require("../src/img/picEvent.png")} />
                             </View>
 
                             <View style={{ flex: 3, flexDirection: "column", justifyContent: "space-evenly" }}>
                                 <Text type="rbold" style={{ color: "white", fontSize: hp('2%') }}>KOMUNITAS GITAR</Text>
 
                                 <View style={{ flexDirection: "row" }}>
-                                    <Image source={require("../src/img/anggotaList.png")} />
+                                    <Image resizeMode="contain" style={{ width: wp('12%'), height: hp('4%') }} source={require("../src/img/anggotaList.png")} />
                                     <Text style={{ color: "white", fontSize: hp('2%'), marginLeft: wp("2%") }}>7 Anggota</Text>
                                 </View>
                             </View>

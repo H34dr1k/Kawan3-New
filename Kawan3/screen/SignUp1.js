@@ -192,7 +192,7 @@ class SignUp1 extends React.Component {
 
                     <StatusBar barStyle="dark-content" barAnimation="slide"/>
 
-                    <ImageBackground resizeMode={'cover'} style={s.img1} source={require('../src/img/header3.png')}>
+                    <ImageBackground resizeMode={'cover'} style={s.img1} source={{ uri: images + "/img/header3.png"}}>
                         <Text
                         onPress={() => this.props.navigation.navigate('Login')} 
                          type='rbold' style={s.judul}>Sign Up</Text>
