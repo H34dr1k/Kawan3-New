@@ -1,1 +1,9 @@
-{}
+{
+  "devToolsPort": 19002,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 3624,
+  "expoServerNgrokUrl": "https://rn-fbi.cleiment.kawan3.exp.direct",
+  "packagerNgrokUrl": "https://packager.rn-fbi.cleiment.kawan3.exp.direct",
+  "ngrokPid": 10928
+}
