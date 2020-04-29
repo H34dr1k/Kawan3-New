@@ -1,4 +1,4 @@
-var ip = "http://192.168.1.4:8000"
+var ip = "http://192.168.1.6:8000"
 
 class data {
     api = () => {
