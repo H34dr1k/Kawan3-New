@@ -35,6 +35,8 @@ var datauser = [];
 
 var data = new dt();
 
+var images = data.image();
+
 const validate = (email) => {
     const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
     return expression.test(String(email));
@@ -181,16 +183,16 @@ class SignUp1 extends React.Component {
    
     render() {
 
-        if (Platform.OS === 'android') {
-            const hasNotch = StatusBar.currentHeight > 24;
-        }
-        console.log('statusBarHeight: ', StatusBar.currentHeight);
+        // if (Platform.OS === 'android') {
+        //     const hasNotch = StatusBar.currentHeight > 24;
+        // }
+        // console.log('statusBarHeight: ', StatusBar.currentHeight);
 
         return (
              <AppFontLoader>
                 <View style={s.container}>
 
-                    <StatusBar barStyle="dark-content" barAnimation="slide"/>
+                    <StatusBar barStyle="light-content" />
 
                     <ImageBackground resizeMode={'cover'} style={s.img1} source={{ uri: images + "/img/header3.png"}}>
                         <Text
@@ -283,7 +285,7 @@ class SignUp1 extends React.Component {
                                 style={s.btnlogin}>
 
                                 <LinearGradient start={[0, 1]} end={[1, 0]} colors={['#519BD1', '#38D1E6']} style={s.btngradien}>
-                                    <Text type="rmedium" style={s.btxnloginisi}>Continue</Text>
+                                    <Text type="rmedium" style={s.btnloginisi}>Continue</Text>
                                 </LinearGradient>
 
                             </TouchableOpacity>
@@ -305,7 +307,7 @@ const s = StyleSheet.create({
     container: {
         alignItems: "center",
         flex: 1,
-        marginTop: StatusBar.currentHeight,
+        // marginTop: StatusBar.currentHeight,
         margin: -10,
         backgroundColor:"white"
     },
