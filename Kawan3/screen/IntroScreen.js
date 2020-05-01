@@ -46,15 +46,15 @@ class Intro extends React.Component {
     }
 
     componentDidMount() {
-        setTimeout(() => {
-            AsyncStorage.getItem('introScreen').then((data) => {
-                if(data != null){
-                    this.checkId();
-                }else{
-                    this.setState({ notyet: true });
-                }
-            });
-        }, 2000);
+        // setTimeout(() => {
+        //     AsyncStorage.getItem('introScreen').then((data) => {
+        //         if(data != null){
+        //             this.checkId();
+        //         }else{
+        //             this.setState({ notyet: true });
+        //         }
+        //     });
+        // }, 2000);
         
     }
 
@@ -81,7 +81,7 @@ class Intro extends React.Component {
                     <View style={{marginTop: StatusBar.currentHeight, flex:1, backgroundColor:"white"}}>
                         <View style={{flex:1, alignItems: "center", justifyContent:"center"}}>
                             
-                            <Image source={{ uri: "http://192.168.1.6:8000/src/image/logo.png"}} style={{width: 200, height: 200}}/>
+                            <Image source={{ uri: images + "/image/logo.png"}} style={{width: 200, height: 200}}/>
                             <Text type="rbold" style={{color:"rgb(80,175,255)", fontSize:hp('4%')}}>Kawan</Text>
                             
                         </View>
@@ -94,7 +94,7 @@ class Intro extends React.Component {
                     <View style={styles.container}>
                         <Image
                             style={styles.img1}
-                            source={{ uri: "http://192.168.1.6:8000/src/img/header.png"}}
+                            source={{ uri: images + "/img/header.png"}}
                         />
     
                         <View style={styles.isi}>

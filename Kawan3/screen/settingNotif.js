@@ -44,9 +44,6 @@ class settingNotif extends React.Component {
         if(datauser.setting.notifikasi == 1){
             this.setState({switchValue1: true});
         }
-        else{
-            
-        }
 
         if(datauser.setting.notifikasiDariTeman == 1){
             this.setState({switchValue2: true});

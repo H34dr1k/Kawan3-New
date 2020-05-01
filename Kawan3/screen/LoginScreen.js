@@ -40,6 +40,7 @@ import {
 import dt from "../api";
 
 var dat = new dt;
+var images = dat.image();
 
 class Login extends React.Component {
     componentWillUnmount() {
