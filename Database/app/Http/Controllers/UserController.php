@@ -21,7 +21,7 @@ class UserController extends Controller
     {
         $data = User::where("email", $email)->first();
         
-        $setting = Setting::where("kodeuser", $data->kodeuser)->first();
+        $setting = Setting::where("kodeuser", $data['kodeuser'])->first();
 
         unset($data->setting);
 
