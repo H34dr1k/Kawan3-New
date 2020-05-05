@@ -112,7 +112,7 @@ class Login extends React.Component {
                 return;
             }
             
-            if(rd.length() > 20){
+            if(rd.indexOf('{"kodeuser"') == -1){
                 Alert.alert("Error", rd);
                 return;
             }
