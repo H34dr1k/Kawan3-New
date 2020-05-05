@@ -55,6 +55,7 @@ class Intro extends React.Component {
                 }
             });
         }, 2000);
+        
     }
 
     checkId = () => {
