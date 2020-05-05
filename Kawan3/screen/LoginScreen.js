@@ -111,9 +111,9 @@ class Login extends React.Component {
                 Alert.alert("Wrong Email!", "Can't find the email");
                 return;
             }
-            // alert(rd);
-            if(rd.indexOf("<html>") > 0){
-                Alert.alert("Error", "Sorry, the Server have some problems to solve");
+            
+            if(rd.length() > 20){
+                Alert.alert("Error", rd);
                 return;
             }
 
