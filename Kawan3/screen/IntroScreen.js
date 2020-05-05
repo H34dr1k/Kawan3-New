@@ -46,33 +46,33 @@ class Intro extends React.Component {
     }
 
     componentDidMount() {
-        // setTimeout(() => {
-        //     AsyncStorage.getItem('introScreen').then((data) => {
-        //         if(data != null){
-        //             this.checkId();
-        //         }else{
-        //             this.setState({ notyet: true });
-        //         }
-        //     });
-        // }, 2000);
+        setTimeout(() => {
+            AsyncStorage.getItem('introScreen').then((data) => {
+                if(data != null){
+                    this.checkId();
+                }else{
+                    this.setState({ notyet: true });
+                }
+            });
+        }, 2000);
         
     }
 
-    checkId = () => {
-        AsyncStorage.getItem('datauser').then((data) => {
-            if(data == null){
-                this.props.navigation.reset({
-                    index: 0,
-                    routes: [{ name: 'Login' }],
-                });
-            }else{
-                this.props.navigation.reset({
-                    index: 0,
-                    routes: [{ name: 'homeScreen' }],
-                });
-            }
-        });
-    }
+    // checkId = () => {
+    //     AsyncStorage.getItem('datauser').then((data) => {
+    //         if(data == null){
+    //             this.props.navigation.reset({
+    //                 index: 0,
+    //                 routes: [{ name: 'Login' }],
+    //             });
+    //         }else{
+    //             this.props.navigation.reset({
+    //                 index: 0,
+    //                 routes: [{ name: 'homeScreen' }],
+    //             });
+    //         }
+    //     });
+    // }
 
     render() {
         if(!this.state.notyet){
@@ -106,7 +106,7 @@ class Intro extends React.Component {
                             </Text>
     
                             <TouchableOpacity
-                                onPress={() => this.checkId()}
+                                onPress={() => this.props.navigation.navigate('homeScreen')}
                                 style={styles.btnmulai}
                             >
                                 <LinearGradient

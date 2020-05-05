@@ -28,21 +28,21 @@ export default class addScreen extends React.Component {
                     
                     <View style={{ width: '100%', height: 50, backgroundColor: '#526EDD', marginBottom: 15, borderRadius: 10, justifyContent: 'center' }}>
                         <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}} onPress={()=> this.props.navigation.navigate("createComm")} >
-                            <Image source={require('../src/image/comm1.png')} />
+                            <Image source={require('../src/image/comm1.png')}  style={{width:42, height:42}}/>
                             <Text style={{ fontSize: 18, color: 'white', marginLeft: 15, fontWeight: 'bold' }}>Create a Community</Text>
                         </TouchableOpacity>
                     </View>
 
                     <View style={{ width: '100%', height: 50, backgroundColor: '#F8B814', marginBottom: 15, borderRadius: 10, justifyContent: 'center' }}>
                         <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }} onPress={()=> this.props.navigation.navigate("Create Event")} >
-                            <Image source={require('../src/image/comm2.png')} style={{ marginLeft: -45 }} />
+                            <Image source={require('../src/image/comm2.png')} style={{ width: 42, height: 42, marginLeft: -45 }} />
                             <Text style={{ fontSize: 18, color: 'white', marginLeft: 15, fontWeight: 'bold' }}>Create a Event</Text>
                         </TouchableOpacity>
                     </View>
 
                     <View style={{ width: '100%', height: 50, backgroundColor: '#49438D', marginBottom: 15, borderRadius: 10, justifyContent: 'center' }}>
                         <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }} onPress={()=> this.props.navigation.navigate("travelFriend")} >
-                            <Image source={require('../src/image/comm3.png')} style={{ marginLeft: -60 }} />
+                            <Image source={require('../src/image/comm3.png')} style={{ width: 42, height: 42, marginLeft: -60 }} />
                             <Text style={{ fontSize: 18, color: 'white', marginLeft: 15, fontWeight: 'bold' }}>Travel Friend</Text>
                         </TouchableOpacity>
                     </View>
