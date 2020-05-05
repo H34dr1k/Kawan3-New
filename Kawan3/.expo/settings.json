@@ -1,8 +1,8 @@
 {
+  "urlRandomness": "mk-2b5",
   "hostType": "lan",
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "pc-mzp",
   "https": false
 }

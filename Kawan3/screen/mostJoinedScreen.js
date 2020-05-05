@@ -28,7 +28,7 @@ class mostJoinedScreen extends React.Component {
         return (
             <AppFontLoader>
                 <SafeAreaView style={s.container}>
-                    <StatusBar barStyle="dark-content" barAnimation="slide" />
+                    <StatusBar barStyle="light-content" />
                     <View style={s.tengah}>
                         <Text>Screen mostJoined</Text>
                     </View>

@@ -58,21 +58,21 @@ class Intro extends React.Component {
         
     }
 
-    // checkId = () => {
-    //     AsyncStorage.getItem('datauser').then((data) => {
-    //         if(data == null){
-    //             this.props.navigation.reset({
-    //                 index: 0,
-    //                 routes: [{ name: 'Login' }],
-    //             });
-    //         }else{
-    //             this.props.navigation.reset({
-    //                 index: 0,
-    //                 routes: [{ name: 'homeScreen' }],
-    //             });
-    //         }
-    //     });
-    // }
+    checkId = () => {
+        AsyncStorage.getItem('datauser').then((data) => {
+            if(data == null){
+                this.props.navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Login' }],
+                });
+            }else{
+                this.props.navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'homeScreen' }],
+                });
+            }
+        });
+    }
 
     render() {
         if(!this.state.notyet){
@@ -106,7 +106,7 @@ class Intro extends React.Component {
                             </Text>
     
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('homeScreen')}
+                                onPress={() => this.checkId()}
                                 style={styles.btnmulai}
                             >
                                 <LinearGradient
