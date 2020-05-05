@@ -1,5 +1,5 @@
 import React,  {Component} from 'react';
-import {View, Modal,Text, Image,Button, TouchableOpacity, ImageBackground, ScrollView, TextInput, StyleSheet} from 'react-native';
+import {View, Modal,Text, Image,Button, TouchableOpacity, ImageBackground, ScrollView, TextInput, StyleSheet, AsyncStorage, ActivityIndicator, Alert} from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
@@ -8,31 +8,93 @@ import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'reac
 import {postBlogs} from './CRUD(percobaan)'
 import {connect} from 'react-redux'
 
+import dt from '../api'
+
 var memberset = [
     { label: "Invite Only", value: 0 },
     { label: "Public", value: 1 },
     { label: "Closed", value: 2 }
 ];
+
+var dat = new dt;
+var dataUser = [];
+
 class createEvent extends React.Component {
     static navigationOptions= {
         title: 'createEvent',
         header: null
     }
-
+    
     state = {
         eventName:"",
-        eventDescription:""
+        eventDescription:"",
+        loaded: false
     }
-    submit = () =>{
-        this.props.postBlogs(this.state.eventName, this.state.eventDescription)
-        this.setState({
-            eventName:'',
-            eventDescription:''
+
+    componentDidMount() {
+        AsyncStorage.getItem('datauser').then( t =>{
+            dataUser = JSON.parse(t);
+            this.setState({ loaded: true });
+            this.render;
+        });
+    }
+
+    async submit(){
+        // alert('a');
+        console.log('Before');
+
+        // var response = [];
+        var response = "";
+
+        var dataBaru = '{' + 
+            '"nama":"' + this.state.eventName + '", ' +
+            '"desc":"' + this.state.eventDescription + '", ' +
+            '"creator":"' + dataUser.kodeuser + '"' +
+        '}';
+
+        await fetch(dat.api() + "/api/event",
+        {
+            method: "POST",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(dataBaru)
         })
-        this.props.navigation.navigate('My Event')
+        .then(rs => {
+            return rs.text();
+        })
+        .then(rd => {
+            response = rd;
+        })
+
+        console.log("After");
+        if(response != 'berhasil'){
+            Alert.alert('Error', response);
+            return;
+        }
+        console.log(response);
+        // console.log(a);
+        // if(a != 'berhasil'){
+        //     Alert.alert('Error', a);
+        //     return;
+        // }
+
+        // this.setState({
+        //     eventName:'',
+        //     eventDescription:''
+        // })
+        
+        // this.props.navigation.navigate('My Event')
     }
 
     render(){
+        if(!this.state.loaded){
+            return(
+                <View style={style.container}>
+                    <ActivityIndicator size="large"/>
+                </View>
+            );
+        }else{
         return(
 
 
@@ -70,8 +132,7 @@ class createEvent extends React.Component {
                     </View>
                 </View>
 
-                <Button title="COBA" onPress={this.submit}>
-
+                <Button title="Submit" onPress={a => this.submit()}>
                 </Button>
 
                 {/* <View style={{marginHorizontal: 26}}>
@@ -85,6 +146,7 @@ class createEvent extends React.Component {
                 
             </View>
         );
+        }
     }
 }
 

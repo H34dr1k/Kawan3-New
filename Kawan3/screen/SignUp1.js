@@ -132,6 +132,11 @@ class SignUp1 extends React.Component {
             return rs.text();
         })
         .then((rd) => {
+            if(rd.indexOf('U', 0)){
+                Alert.alert('Error', rd);
+                return;
+            }
+            
             var dataSignUp = 
                 "{"+
                     "\"kodeuser\":\"" + newId + "\", " +

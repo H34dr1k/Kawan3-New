@@ -46,16 +46,15 @@ class Intro extends React.Component {
     }
 
     componentDidMount() {
-        // setTimeout(() => {
-        //     AsyncStorage.getItem('introScreen').then((data) => {
-        //         if(data != null){
-        //             this.checkId();
-        //         }else{
-        //             this.setState({ notyet: true });
-        //         }
-        //     });
-        // }, 2000);
-        
+        setTimeout(() => {
+            AsyncStorage.getItem('introScreen').then((data) => {
+                if(data != null){
+                    this.checkId();
+                }else{
+                    this.setState({ notyet: true });
+                }
+            });
+        }, 2000);
     }
 
     checkId = () => {

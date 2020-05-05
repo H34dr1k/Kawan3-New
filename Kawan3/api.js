@@ -1,4 +1,4 @@
-var ip = "http://cleiment.000webhostapp.com"
+var ip = "http://192.168.1.5:8000";
 
 class data {
     api = () => {

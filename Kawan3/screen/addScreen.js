@@ -3,6 +3,11 @@ import { View, Text, Image, TouchableOpacity, ImageBackground, ScrollView, BackH
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
+import dt from "../api";
+
+var dat = new dt;
+var image = dat.image();
+var data = dat.api();
 
 export default class addScreen extends React.Component {
     
@@ -11,8 +16,9 @@ export default class addScreen extends React.Component {
             <View style={{ flex: 1 }}>
                 <StatusBar barStyle="light-content"></StatusBar>
                 <View style={{ flex: 1, height: 229, backgroundColor: '#3F3D56'}}>
-                    <ImageBackground source={require('../src/image/banner2.png')} style={{ width: '115%', height: '115%' }}>
-                        <Image source={require('../src/image/banner1.png')} />
+                    <ImageBackground source={{ uri : image + "/image/banner2.png" }} style={{ width: '115%', height: '115%' }}>
+                        {/* <Image source={require('../src/image/banner1.png')} /> */}
+                        <Image source={{ uri : image + "/image/banner1.png" }} style={{ width: '83%', height: '83%' }} />
                     </ImageBackground>
                 </View>
 
