@@ -134,13 +134,19 @@ class UserController extends Controller
     public function updateSetting(Request $request, $id){
         $data = Setting::where('kodeuser', $id)->first();
 
-        $dataJSON = $request->json()->all();
-        $dataInsert = json_decode($dataJSON[0], true);
+        $dataInsert = $request->json()->all();
 
-        if($dataInsert->settingOn == "privasi"){
+        if($dataInsert['settingOn'] == "privasi"){
             $data->privacyBerbagiLokasi = $dataInsert['privacyBerbagiLokasi'];
             $data->privacyTampilkanFotoAnda = $dataInsert['privacyTampilkanFotoAnda'];
             $data->privacyTerimaTeman = $dataInsert['privacyTerimaTeman'];
+        }
+        else{
+            $data->notifikasi = $dataInsert['notifikasi'];
+            $data->notifikasiDariTeman = $dataInsert['notifikasiDariTeman'];
+            $data->notifikasiDariOrangTerdekat = $dataInsert['notifikasiDariOrangTerdekat'];
+            $data->postinganDariTeman = $dataInsert['postinganDariTeman'];
+            $data->postinganDariOrangTerdekat = $dataInsert['postinganDariOrangTerdekat'];
         }
         
         $data->save();
