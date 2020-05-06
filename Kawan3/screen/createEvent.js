@@ -4,11 +4,14 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'react-native-gesture-handler';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {postBlogs} from './CRUD(percobaan)'
 import {connect} from 'react-redux'
 
 import dt from '../api'
+import { Date } from 'core-js';
+import { DatePicker } from 'native-base';
 
 var memberset = [
     { label: "Invite Only", value: 0 },
@@ -46,11 +49,11 @@ class createEvent extends React.Component {
         // var response = [];
         var response = "";
 
-        var dataBaru = '{' + 
-            '"nama":"' + this.state.eventName + '", ' +
-            '"desc":"' + this.state.eventDescription + '", ' +
-            '"creator":"' + dataUser.kodeuser + '"' +
-        '}';
+        var dataBaru = JSON.parse("{ }");
+        dataBaru.name = this.state.eventName;
+        dataBaru.desc = this.state.eventDescription;
+        dataBaru.desc = this.state.date;
+        dataBaru.creator = datauser.kodeuser;
 
         await fetch(dat.api() + "/api/event",
         {
@@ -121,14 +124,21 @@ class createEvent extends React.Component {
                         <TextInput 
                         onChangeText={eventName => this.setState({eventName})}
                         value={this.state.eventName}
- style={{height: 45, backgroundColor: 'white', paddingLeft: 15, paddingRight: 20, borderRadius: 5}} />
+                        placeholder="Name of the Event"
+                        style={{height: 45, backgroundColor: 'white', paddingLeft: 15, paddingRight: 20, borderRadius: 5}} />
+                    </View>
+                    <View stle={{ marginTop: 20 }}>
+                        <DateTimePicker>
+                            
+                        </DateTimePicker>
                     </View>
                     <View style={{marginTop: 20}}>
                         <Text style={{fontSize: 14, color: '#49438D', marginBottom: 5}}>Event Description</Text>
                         <TextInput 
                             onChangeText={eventDescription => this.setState({eventDescription})}
                             value={this.state.eventDescription}
-                        multiline={true} placeholder="What the description" style={{height: 200, backgroundColor: 'white', paddingLeft: 15, paddingRight: 20, borderRadius: 5}} />
+                            multiline={true} placeholder="What's the description" style={{height: 200, backgroundColor: 'white', paddingLeft: 13, paddingRight: 15, paddingTop: 13, borderRadius: 5}} 
+                            textAlignVertical="top" />
                     </View>
                 </View>
 

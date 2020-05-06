@@ -105,6 +105,7 @@ class UserController extends Controller
         $data = new Event;
         $data->name = $dataInsert['name'];
         $data->desc = $dataInsert['desc'];
+        $data->date = $dataInsert['date'];
         $data->creator = $dataInsert['creator'];
         $data->save();
 
@@ -117,17 +118,19 @@ class UserController extends Controller
         if(is_null($data)){
             return "Data Tidak Ditemukan";
         }else{
-            $dataJSON = $request->json()->all();
-            $dataInsert = json_decode($dataJSON[0], true);
+            $dataInsert = $request->json()->all();
 
-            $data->name = $dataInsert['name'];
-            $data->password = $dataInsert['password'];
-            $data->email = $dataInsert['email'];
-            $data->gender = $dataInsert['gender'];
-            $data->loggedIn = $dataInsert['loggedIn'];
+            if($dataInsert['status'] == "profile"){
+                $data->name = $dataInsert['name'];
+                $data->desc = $dataInsert['desc'];
+                // $data->gender = $dataInsert['gender'];
+            }
+            else{
+                $data->loggedIn = $dataInsert['loggedIn'];
+            }
             $data->save();
 
-            return "Data berhasil Diupdate";
+            return "berhasil";
         }
     }
 

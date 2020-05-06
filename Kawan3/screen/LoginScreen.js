@@ -131,19 +131,26 @@ class Login extends React.Component {
 
             AsyncStorage.setItem('datauser', JSON.stringify(data));
 
-            data.loggedIn = 1;
+            var dataBaru = JSON.parse("{ }");
+            dataBaru.loggedIn = 1;
+            dataBaru.status = "login";
 
             fetch(dat.api() + "/api/user/" + data.kodeuser, {
                 method: 'PUT',
                 headers: {
                     'Content-Type' : 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(dataBaru)
             })
             .then(rd => {
                 return rd.text();
             })
             .then(a => {
+                if(a != "berhasil"){
+                    Alert.alert('Error', a);
+                    return;
+                }
+
                 this.props.navigation.reset({
                     index: 0,
                     routes: [{ name: 'homeScreen' }]
