@@ -44,6 +44,9 @@ class settingPrivasi extends React.Component {
 
         fetch(dat.api() + "/api/setting/" + datauser.kodeuser, {
             method: "PUT",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
             body: JSON.stringify(dataBaru)
         })
         .then(rs => {

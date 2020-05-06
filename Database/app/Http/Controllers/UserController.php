@@ -105,6 +105,7 @@ class UserController extends Controller
         $data = new Event;
         $data->name = $dataInsert['name'];
         $data->desc = $dataInsert['desc'];
+        $data->date = $dataInsert['date'];
         $data->creator = $dataInsert['creator'];
         $data->save();
 
@@ -117,30 +118,38 @@ class UserController extends Controller
         if(is_null($data)){
             return "Data Tidak Ditemukan";
         }else{
-            $dataJSON = $request->json()->all();
-            $dataInsert = json_decode($dataJSON[0], true);
+            $dataInsert = $request->json()->all();
 
-            $data->name = $dataInsert['name'];
-            $data->password = $dataInsert['password'];
-            $data->email = $dataInsert['email'];
-            $data->gender = $dataInsert['gender'];
-            $data->loggedIn = $dataInsert['loggedIn'];
+            if($dataInsert['status'] == "profile"){
+                $data->name = $dataInsert['name'];
+                $data->desc = $dataInsert['desc'];
+                // $data->gender = $dataInsert['gender'];
+            }
+            else{
+                $data->loggedIn = $dataInsert['loggedIn'];
+            }
             $data->save();
 
-            return "Data berhasil Diupdate";
+            return "berhasil";
         }
     }
 
     public function updateSetting(Request $request, $id){
         $data = Setting::where('kodeuser', $id)->first();
 
-        $dataJSON = $request->json()->all();
-        $dataInsert = json_decode($dataJSON[0], true);
+        $dataInsert = $request->json()->all();
 
-        if($dataInsert->settingOn == "privasi"){
+        if($dataInsert['settingOn'] == "privasi"){
             $data->privacyBerbagiLokasi = $dataInsert['privacyBerbagiLokasi'];
             $data->privacyTampilkanFotoAnda = $dataInsert['privacyTampilkanFotoAnda'];
             $data->privacyTerimaTeman = $dataInsert['privacyTerimaTeman'];
+        }
+        else{
+            $data->notifikasi = $dataInsert['notifikasi'];
+            $data->notifikasiDariTeman = $dataInsert['notifikasiDariTeman'];
+            $data->notifikasiDariOrangTerdekat = $dataInsert['notifikasiDariOrangTerdekat'];
+            $data->postinganDariTeman = $dataInsert['postinganDariTeman'];
+            $data->postinganDariOrangTerdekat = $dataInsert['postinganDariOrangTerdekat'];
         }
         
         $data->save();
