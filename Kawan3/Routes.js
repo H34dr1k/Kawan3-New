@@ -188,6 +188,7 @@ import { homeScreen1 } from './screen/homeScreen1'
 import homeScreen from './screen/homeScreen'
 import eventDetail from './screen/eventDetailScreen'
 import myEvent from './screen/myEventScreen'
+import editEvent from './screen/editEvent'
 import profilScreen from './screen/profilScreen'
 import editProfilScreen from './screen/editProfil'
 
@@ -282,12 +283,6 @@ function editProfilStackScreen({ navigation, route}) {
 }
 
 function introStackScreen({ navigation, route }) {
-    if (route.state && route.state.index > 0) {
-        navigation.setOptions({ tabBarVisible: true })
-    } else {
-        navigation.setOptions({ tabBarVisible: false })
-    }
-
     return (
         <introStack.Navigator>
 
@@ -302,20 +297,12 @@ function introStackScreen({ navigation, route }) {
                 headerShown: false,
                 tabBarVisible: false,
             }} component={TabScreen} />
-
-
         </introStack.Navigator>
     )
 }
 
 
 function homeStackScreen({ navigation, route }) {
-    if (route.state && route.state.index > 0) {
-        navigation.setOptions({ tabBarVisible: false })
-    } else {
-        navigation.setOptions({ tabBarVisible: true })
-    }
-
     return (
       <homeStack.Navigator>
         <homeStack.Screen
@@ -445,6 +432,24 @@ function homeStackScreen({ navigation, route }) {
             }
           })}
           component={eventDetail}
+        />
+
+        <homeStack.Screen
+          name="Edit Event"
+          options={({ route }) => ({
+            title: route.name,
+            tabBarVisible: false,
+            headerStyle: {
+              backgroundColor: "#E5E5E5",
+              elevation: 0
+            },
+            headerTintColor: "grey",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              fontSize: hp("3%")
+            }
+          })}
+          component={editEvent}
         />
 
         <homeStack.Screen
@@ -650,24 +655,15 @@ function searchTopTabs({ navigation, route }) {
 
 
 function TabScreen({ navigation, route }) {
-    if (route.state && route.state.index > 0) {
-        navigation.setOptions({ tabBarVisible: false })
-    } else {
-        navigation.setOptions({ tabBarVisible: true })
-    }
-
     return (
         <Tabs.Navigator
-            
             initialRouteName="Home"
-
             activeColor='cyan'
             inactiveColor='black'
             barStyle={{ backgroundColor: 'white' }}
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
-
                     if (route.name === 'Home') {
                         iconName = focused
                             ? require('./src/img/home.png')
@@ -689,7 +685,6 @@ function TabScreen({ navigation, route }) {
                             ? require('./src/img/user.png')
                             : require('./src/img/user-normal.png');
                     }
-
                     // You can return any component that you like here!
                     return <Image source={iconName} style={{ width: 25, height: 25, }} resizeMode="contain" />
                 },
@@ -707,7 +702,6 @@ function TabScreen({ navigation, route }) {
             <Tabs.Screen options={{ headerShown: false }} name="Add" component={addStackScreen}/>
 
             <Tabs.Screen name="Community" component={communityTopTabs} />
-
 
             <Tabs.Screen options={{ headerShown: false }} name="Profile" component={profilStackScreen} />
 
