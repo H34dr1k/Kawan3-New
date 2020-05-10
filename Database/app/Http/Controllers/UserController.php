@@ -6,6 +6,7 @@ use App\User;
 use App\Setting;
 use App\Hobby;
 use App\Event;
+use App\EventDetail;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -51,12 +52,18 @@ class UserController extends Controller
 
     public function getEventByCreator($creator)
     {
-        return Event::where('creator', '=', $creator)->get();
+        $dataEvent = Event::where('creator', $creator)->get();
+        for ($i=0; $i < $dataEvent->count(); $i++) { 
+            $jumlahAnggota = EventDetail::where('idEvent', $dataEvent[$i]->id)->count();
+            $dataEvent[$i]->memberCount = $jumlahAnggota + 1;
+        }
+
+        return $dataEvent;
     }
 
-    public function getEventRec()
+    public function getEventRec($creator)
     {
-        return Event::inRandomOrder()->take(3)->get();
+        return Event::where('creator', '!=', $creator)->inRandomOrder()->take(3)->get();
     }
 
     public function hob()
@@ -99,17 +106,17 @@ class UserController extends Controller
 
     public function createEvent(Request $request)
     {
-        $dataJSON = $request->json()->all();
-        $dataInsert = json_decode($dataJSON[0], true);
+        $dataInsert = $request->json()->all();
 
         $data = new Event;
         $data->name = $dataInsert['name'];
         $data->desc = $dataInsert['desc'];
-        $data->date = $dataInsert['date'];
+        $data->category = $dataInsert['category'];
+        $data->datetime = $dataInsert['datetime'];
         $data->creator = $dataInsert['creator'];
         $data->save();
 
-        return $request;
+        return "berhasil";
     }
 
     public function update(Request $request, $id)

@@ -13,18 +13,19 @@ import {
     widthPercentageToDP as wp
 } from "react-native-responsive-screen";
 
+import { useIsFocused } from "@react-navigation/native";
+
 import * as IP from 'expo-image-picker';
-import a from 'expo-permissions';
 
 import dt from '../api';
 
 var data = new dt;
+var image = data.image();
 
 var datauser = [];
 
-function re() {
-    
-}
+var events = [];
+var eventList = [];
 
 export default class profilScreen extends React.Component {
 
@@ -39,19 +40,32 @@ export default class profilScreen extends React.Component {
     }
 
     componentDidMount(){
-        AsyncStorage.getItem('datauser')
-        .then(rd => {
-            datauser = JSON.parse(rd);
-            this.setState({ loaded:true });
+        this.props.navigation.addListener('focus', () => {
+            this.setState({ loaded: false });
+            this.load();
         });
-        // this.getPermissionAsync();
     }
 
-    getPermissionAsync = async () => {
-        const { status } = await a.askAsync(a.CAMERA_ROLL);
-        if(status !== 'granted'){
-            alert("Sorry, we need camera roll permissions to make this work!");
-        }
+    async load(){
+        await AsyncStorage.getItem('datauser')
+        .then(rd => {
+            datauser = JSON.parse(rd);
+        });
+
+        await fetch(data.api() + '/api/event/creator/' + datauser.kodeuser)
+        .then(rs => {
+            return rs.text();
+        })
+        .then(rd => {
+            // console.log(rd);
+            if(rd.indexOf('[{"id":') == -1){
+                Alert.alert('Error', rd);
+                return;
+            }
+            events = JSON.parse(rd);
+        })
+        this.setState({ loaded: true });
+        this.render();
     }
 
     imagePress = async () => {
@@ -85,7 +99,7 @@ export default class profilScreen extends React.Component {
         })
         .then(a => {
             AsyncStorage.removeItem('datauser');
-            BackHandler.exitApp();
+            this.navigation.navigate('LoginScreen');
         });
     }
 
@@ -146,10 +160,12 @@ export default class profilScreen extends React.Component {
             )
         }
         else{
+            const { navigate } = this.props.navigation;
             return (
                 <View style={{ flex: 1 }}>
                 <StatusBar barStyle="light-content" barAnimation="slide"></StatusBar>
                     <ScrollView>
+
                         <View style={{ flex: 0, backgroundColor: '#49438D', height: 229, paddingTop: 26.5, }}>
                             <ImageBackground source={require('../src/image/decoStar.png')} style={{flex:1, width: '100%', height: '100%', flexDirection: 'row', paddingHorizontal:wp('2%')  }} />
                         </View>
@@ -300,6 +316,52 @@ export default class profilScreen extends React.Component {
                                         </TouchableOpacity>
                                     </View>
                                 </View>
+                            </ScrollView>
+                        </View>
+                        <View style={{borderWidth: 1, borderColor: '#E8E8E8', marginTop: 20, marginBottom: 15}}></View>
+                        <View style={{ marginHorizontal: 26 }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={{ color: '#526EDD', fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>My Events</Text>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('My Event')  }>
+                                    <Text style={{ color: '#FBB429', fontWeight: 'bold', fontSize: 12, marginTop: 5 }}>Show All</Text>
+                                </TouchableOpacity>
+                            </View>
+                            
+                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ flexDirection: 'row'  }}>
+                                {
+                                    eventList = events.map(eventData => (
+                                        <TouchableOpacity>
+                                            <View style={{ marginBottom: 20, marginRight: 15, width: 235, height: 80, borderRadius: 10, backgroundColor: '#E5E5E5', flexDirection: 'row' }}>
+                                                <View style={{ flex: 1, alignSelf: 'center' }}>
+                                                    <Image source={{ uri : image + '/event/' + eventData.profile}} style={{ margin: 10, width:wp('10%'), height:hp('5%'), borderRadius: 45 }} />
+                                                </View>
+                                                <View style={{ flex: 2 }}>
+                                                    <View style={{ marginTop: 15 }}>
+                                                        <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
+                                                            { eventData.name }
+                                                        </Text>
+                                                    </View>
+                                                    {/* <View style={{ width: 51, height: 19, backgroundColor: '#21D348', borderRadius: 19 }}>
+                                                        <Text style={{ color: 'white', fontSize: 11, textAlign: 'center' }}>37 Chat</Text>
+                                                    </View> */}
+                                                    <View style={{ marginTop: 2 }}>
+                                                        <Text style={{ color: 'gray', fontSize: 12 }}>
+                                                            { eventData.desc }
+                                                        </Text>
+                                                    </View>
+                                                    <View style={{ marginTop: 3 }}>
+                                                        <Text style={{ color: 'gray', fontSize: 12 }}>
+                                                            { eventData.memberCount } Anggota
+                                                        </Text>
+                                                    </View>
+                                                </View>
+                                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                                    <Image style={{ width: wp('2%') + 2, height: hp('2%')}} source={{ uri: image + '/image/Arrow.png'}} />
+                                                </View>
+                                            </View>
+                                        </TouchableOpacity>
+                                    ))
+                                }
                             </ScrollView>
                         </View>
                     </ScrollView>

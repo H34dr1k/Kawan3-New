@@ -405,16 +405,16 @@ function homeStackScreen({ navigation, route }) {
             title: route.name,
             tabBarVisible: false,
             headerStyle: {
-              backgroundColor: "#E5E5E5",
+              backgroundColor: "#628DE7",
               elevation: 0
             },
-            headerTintColor: "grey",
+            headerTintColor: "white",
             headerTitleStyle: {
               fontWeight: "bold",
               fontSize: hp("3%")
             }
           })}
-          component={myEvent}
+          component={personalEventScreen}
         />
         <homeStack.Screen
           name="Event Detail"
@@ -474,9 +474,8 @@ function profilStackScreen({ navigation, route }) {
         <profilStack.Navigator>
             <profilStack.Screen name="Profile"  options={({ route, navigation }) => ({
                 title: route.name,
-                headerTransparent:true,
                 headerStyle: {
-                    backgroundColor: 'transparent',
+                    backgroundColor: '#49438D',
                     elevation: 0,
                     borderBottomWidth:0,
                 },

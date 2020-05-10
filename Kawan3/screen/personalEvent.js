@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, StyleSheet, Button, FlatList, TouchableHighlight } from 'react-native';
+import { View, StyleSheet, Button, FlatList, TouchableOpacity, AsyncStorage, ActivityIndicator } from 'react-native';
 
 import { getBlogs } from './CRUD(percobaan)'
 import { connect } from 'react-redux'
@@ -17,49 +17,91 @@ import {
     widthPercentageToDP as wp
 } from "react-native-responsive-screen";
 
+import dt from '../api'
+
+var dat = new dt;
+var api = dat.api();
+
+var dataUser = [];
+var events = [];
+
 // create a component
 class personalEventScreen extends Component {
 
+    state = {
+        loaded: false
+    }
+
     componentDidMount(){
-        this.props.getBlogs()
+        this.props.navigation.addListener('focus', () => {
+            this.setState({ loaded: false });
+            this.load();
+        })
+    }
+
+    async load() {
+        await AsyncStorage.getItem('datauser')
+        .then(rd => {
+            dataUser = JSON.parse(rd);
+        });
+
+        await fetch(api + "/api/event/creator/" + dataUser.kodeuser)
+        .then(rd => {
+            return rd.text()
+        })
+        .then(rs => {
+            if(rs.indexOf('[{"id":') == -1){
+                Alert.alert('Error', rs);
+                return;
+            }
+            events = JSON.parse(rs);
+        });
+        this.setState({ loaded: true });
+        this.render();
     }
 
     render() {
-        console.log('personalEvent.js', this.props.listOfBlogs)
-        return (
-            <View style={styles.container}>
-                <Text>personalEventScreen</Text>
-                <FlatList
-                    style={{width:'100%'}}
-                    data={this.props.listOfBlogs}
-                    keyExtractor={(item) => item.key}
-                    renderItem={({item}) => {
-                        return(
-                            <View style={{ marginHorizontal: 26, marginVertical: 20, backgroundColor:"#628DE7", borderRadius:10, padding:20,}}>
-                                
-                                <Text type="rbold" style={{fontSize:hp('3%'), color:"white"}}>{item.eventName}</Text>
-                                <Text style={{color:"white"}}>{item.eventDescription}</Text>
+        if(!this.state.loaded){
+            return(
+                <View style={styles.container}>
+                    <ActivityIndicator size="large" />
+                </View>
+            )
+        }else{
+            return (
+                <View style={styles.container}>
+                    <FlatList
+                        style={{width:'100%'}}
+                        data={events}
+                        keyExtractor={(item) => item.key}
+                        renderItem={({item}) => {
+                            return(
+                                <View style={{ marginHorizontal: 26, marginVertical: 20, backgroundColor:"#628DE7", borderRadius:10, padding:20,}}>
+                                    
+                                    <Text type="rbold" style={{fontSize:hp('3%'), color:"white"}}>{item.name}</Text>
+                                    <Text style={{color:"white"}}>{item.desc}</Text>
 
-                                <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
-                                    <TouchableHighlight onPress={() => this.props.navigation.navigate}>
-                                        <View style={{marginRight:20}}>
-                                            <Text>Edit</Text>
-                                        </View>
-                                    </TouchableHighlight>
+                                    <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
+                                        <TouchableOpacity>
+                                            <View style={{marginRight:20}}>
+                                                <Text style={{ color: "lightgrey" }} >Edit</Text>
+                                            </View>
+                                        </TouchableOpacity>
 
-                                    <TouchableHighlight>
-                                        <View>
-                                            <Text>Delete</Text>
-                                        </View>
-                                    </TouchableHighlight>
+                                        <TouchableOpacity>
+                                            <View>
+                                                <Text  style={{ color: "lightgrey" }} >Delete</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
-                            </View>
-                        )
-                    }}
-                />
+                            )
+                        }}
+                    />
 
-            </View>
-        );
+                </View>
+            );
+        }
     }
 }
 
