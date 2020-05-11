@@ -55,7 +55,6 @@ export default class homeScreen extends React.Component {
         this.props.navigation.addListener('focus', () => {
             this.setState({ loaded: false });
             this.load();
-            this.render();
         });
     }
 
@@ -70,19 +69,45 @@ export default class homeScreen extends React.Component {
         })
         .then(rd => {
             // console.log(rd);
-            if(rd.indexOf('[{"id":') == -1){
+            if(rd.indexOf('"id":') == -1 && rd.indexOf('"name":') == -1 && rd.indexOf('"desc":') == -1){
                 Alert.alert('Error', rd);
                 return;
             }
             events = JSON.parse(rd);
+            // console.log(events);
         })
         
         this.setState({ loaded:true });
         this.render();
     }
+
+    async joinEvent(id){
+        var dataBaru = JSON.parse('{ }');
+        dataBaru.idEvent = id;
+        dataBaru.attendees = datauser.kodeuser;
+
+        await fetch(api + '/api/joinEvent/' + id + '/' + datauser.kodeuser, {
+            method: "POST",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(dataBaru)
+        })
+        .then(rd => {
+            return rd.text();
+        })
+        .then(rs => {
+            if(rs != "berhasil"){
+                Alert.alert('Error', rs);
+                return;
+            }
+        })
+            
+        this.setState({ loaded: false });
+        this.load();
+    }
     
     render() {
-
         if(!this.state.loaded){
             return (
                 <View style={{ flex:1, alignItems: "center", justifyContent:"center"}}>
@@ -140,7 +165,8 @@ export default class homeScreen extends React.Component {
                                         borderRadius: 15,
                                         alignItems: "center",
                                         justifyContent: "center"
-                                        }}>
+                                        }}
+                                        key={item.id}>
 
                                         <View style={{ alignItems: "center", paddingTop: 10 }}>
                                             <Image style={{width:wp('20%'), height:wp('20%')}} source={{ uri: images + "/image/Event1.png"}} />
@@ -192,7 +218,7 @@ export default class homeScreen extends React.Component {
                                             alignItems: "center"
                                         }}>
                                             <TouchableOpacity
-                                                onPress={() => this._onPressButton()}
+                                                onPress={() => this.joinEvent(item.id)}
                                                 style={{
                                                 width: 70,
                                                 height: 30,

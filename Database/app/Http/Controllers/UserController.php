@@ -72,11 +72,52 @@ class UserController extends Controller
         return $dataEvent;
     }
 
-    public function getEventRec($creator)
+    public function getJoinedEvent($attendees)
     {
-        $dataEvent = Event::where('creator', '!=', $creator)->inRandomOrder()->take(3)->get();
+        $joinedEvent = EventDetail::where('attendees', $attendees);
+        $dataEventDetail = $joinedEvent->get();
+
+        $idEvents = [];
+        // return $joinedEvent->get();
+        for ($i=0; $i < $joinedEvent->count(); $i++) { 
+            $idEvent = $dataEventDetail[$i]->idEvent;
+
+            array_push($idEvents, $idEvent);
+        }
+        
+        $dataEvent = Event::whereIn('id', $idEvents)->get();
         for ($i=0; $i < $dataEvent->count(); $i++) { 
             $jumlahAnggota = EventDetail::where('idEvent', $dataEvent[$i]->id)->count();
+            $dataEvent[$i]->memberCount = $jumlahAnggota + 1;
+        }
+
+        return $dataEvent;
+    }
+
+    public function getEventRec($creator)
+    {
+        $e = Event::where('creator', '!=', $creator)->take(10)->get();
+
+        $idEvents = [];
+
+        for ($i=0; $i < $e->count(); $i++) { 
+            $eventDetail = EventDetail::where('idEvent', $e[$i]->id);
+            $jumlahAnggota = $eventDetail->count();
+            if($jumlahAnggota > 0){
+                foreach ($eventDetail->get() as $key => $value) {
+                    if($value['attendees'] == $creator){
+                        array_push($idEvents, $value['idEvent']);
+                        break;
+                    }
+                }
+            }
+        }
+
+        $dataEvent = Event::where('creator', '!=', $creator)->whereNotIn('id', $idEvents)->inRandomOrder()->take(3)->get();
+
+        for ($i=0; $i < $dataEvent->count(); $i++) { 
+            $eventDetail = EventDetail::where('idEvent', $dataEvent[$i]->id);
+            $jumlahAnggota = $eventDetail->count();
             $dataEvent[$i]->memberCount = $jumlahAnggota + 1;
         }
 
@@ -132,6 +173,18 @@ class UserController extends Controller
         $data->alamat = $dataInsert['alamat'];
         $data->datetime = $dataInsert['datetime'];
         $data->creator = $dataInsert['creator'];
+        $data->save();
+
+        return "berhasil";
+    }
+
+    public function joinEvent(Request $request, $idEvent, $attendees)
+    {
+        $dataInsert = $request->json()->all();
+
+        $data = new EventDetail;
+        $data->idEvent = $dataInsert['idEvent'];
+        $data->attendees = $dataInsert['attendees'];
         $data->save();
 
         return "berhasil";

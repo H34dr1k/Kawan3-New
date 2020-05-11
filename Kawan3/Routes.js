@@ -426,6 +426,25 @@ function homeStackScreen({ navigation, route }) {
           })}
           component={personalEventScreen}
         />
+
+        <homeStack.Screen
+          name="Joined Event"
+          options={({ route }) => ({
+            title: route.name,
+            tabBarVisible: false,
+            headerStyle: {
+              backgroundColor: "#628DE7",
+              elevation: 0
+            },
+            headerTintColor: "white",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              fontSize: hp("3%")
+            }
+          })}
+          component={myEvent}
+        />
+
         <homeStack.Screen
           name="Event Detail"
           options={({ route }) => ({
