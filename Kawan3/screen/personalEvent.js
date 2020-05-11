@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, StyleSheet, Button, FlatList, TouchableOpacity, AsyncStorage, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Image, Alert, FlatList, TouchableOpacity, AsyncStorage, ActivityIndicator } from 'react-native';
 
 import { getBlogs } from './CRUD(percobaan)'
 import { connect } from 'react-redux'
@@ -21,6 +21,7 @@ import dt from '../api'
 
 var dat = new dt;
 var api = dat.api();
+var image = dat.image();
 
 var dataUser = [];
 var events = [];
@@ -37,6 +38,26 @@ class personalEventScreen extends Component {
             this.setState({ loaded: false });
             this.load();
         })
+    }
+
+    async delete(id){
+        this.setState({ loaded: false });
+        this.render();
+
+        await fetch(api + '/api/event/' + id, {
+            method: "DELETE"
+        })
+        .then(rd => {
+            return rd.text()
+        })
+        .then(rs => {
+            if(rs != "berhasil"){
+                Alert.alert('Error', rs);
+                return;
+            }
+            // alert(rs);
+            this.load();
+        });
     }
 
     async load() {
@@ -76,19 +97,28 @@ class personalEventScreen extends Component {
                         keyExtractor={(item) => item.key}
                         renderItem={({item}) => {
                             return(
-                                <View style={{ marginHorizontal: 26, marginVertical: 10, backgroundColor:"#628DE7", borderRadius:10, padding:20,}}>
-                                    
-                                    <Text type="rbold" style={{fontSize:hp('3%'), color:"white"}}>{item.name}</Text>
-                                    <Text style={{color:"white"}}>{item.desc}</Text>
+                                <View key={item.id} style={{ marginHorizontal: 26, marginVertical: 10, backgroundColor:"#628DE7", borderRadius:10, padding:20,}}>    
+                                    <View style={{ flexDirection:"row" }}>
+                                        <Image source={{ uri : image + item.profile}} style={{ marginRight: 10, width:wp('10%'), height:hp('5%'), borderRadius: 45 }} />
+
+                                        <View>
+                                            <Text type="rbold" style={{fontSize:hp('3%'), color:"white"}}>{item.name}</Text>
+                                            <Text style={{color:"white"}}>{item.desc}</Text>
+                                        </View>
+                                    </View>
 
                                     <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
-                                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Edit Event')}>
+                                        <TouchableOpacity onPress={() => {
+                                            AsyncStorage.setItem('editEvent', JSON.stringify(item)).then(rs => {
+                                                this.props.navigation.navigate('Edit Event');
+                                            });
+                                        }}>
                                             <View style={{marginRight:20}}>
                                                 <Text style={{ color: "lightgrey" }} >Edit</Text>
                                             </View>
                                         </TouchableOpacity>
 
-                                        <TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.delete(item.id)} >
                                             <View>
                                                 <Text  style={{ color: "lightgrey" }} >Delete</Text>
                                             </View>
