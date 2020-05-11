@@ -283,6 +283,11 @@ function editProfilStackScreen({ navigation, route}) {
 }
 
 function introStackScreen({ navigation, route }) {
+  if (route.state && route.state.index > 0) {
+    navigation.setOptions({ tabBarVisible: true })
+  } else {
+    navigation.setOptions({ tabBarVisible: false })
+  }
     return (
         <introStack.Navigator>
 
@@ -303,6 +308,12 @@ function introStackScreen({ navigation, route }) {
 
 
 function homeStackScreen({ navigation, route }) {
+  if (route.state && route.state.index > 0) {
+    navigation.setOptions({ tabBarVisible: false })
+  } else {
+    navigation.setOptions({ tabBarVisible: true })
+  }
+
     return (
       <homeStack.Navigator>
         <homeStack.Screen
@@ -361,7 +372,6 @@ function homeStackScreen({ navigation, route }) {
           name="History"
           options={({ route }) => ({
             title: route.name,
-
             headerBackImage: () => (
               <Image
                 resizeMode="contain"
@@ -654,6 +664,12 @@ function searchTopTabs({ navigation, route }) {
 
 
 function TabScreen({ navigation, route }) {
+  if (route.state && route.state.index > 0) {
+    navigation.setOptions({ tabBarVisible: false })
+  } else {
+    navigation.setOptions({ tabBarVisible: true })
+  }
+
     return (
         <Tabs.Navigator
             initialRouteName="Home"
@@ -692,7 +708,6 @@ function TabScreen({ navigation, route }) {
                 activeColor: 'cyan',
                 inactiveColor: 'black',
             }}
-
         >
             <Tabs.Screen options={{ headerShown: false, }} name="Home" component={homeStackScreen} />
 
@@ -706,8 +721,6 @@ function TabScreen({ navigation, route }) {
 
         </Tabs.Navigator>
     )
-
-
 }
 
 
@@ -728,7 +741,6 @@ const state = createStore(reducers, {}, applyMiddleware(ReduxThunk))
 
 export default (navigation, route) => (
    
-
   <Provider store={state}>
     <NavigationContainer>
 

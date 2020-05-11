@@ -76,13 +76,13 @@ class personalEventScreen extends Component {
                         keyExtractor={(item) => item.key}
                         renderItem={({item}) => {
                             return(
-                                <View style={{ marginHorizontal: 26, marginVertical: 20, backgroundColor:"#628DE7", borderRadius:10, padding:20,}}>
+                                <View style={{ marginHorizontal: 26, marginVertical: 10, backgroundColor:"#628DE7", borderRadius:10, padding:20,}}>
                                     
                                     <Text type="rbold" style={{fontSize:hp('3%'), color:"white"}}>{item.name}</Text>
                                     <Text style={{color:"white"}}>{item.desc}</Text>
 
                                     <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
-                                        <TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Edit Event')}>
                                             <View style={{marginRight:20}}>
                                                 <Text style={{ color: "lightgrey" }} >Edit</Text>
                                             </View>
