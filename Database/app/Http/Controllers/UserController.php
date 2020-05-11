@@ -60,10 +60,27 @@ class UserController extends Controller
 
         return $dataEvent;
     }
+    
+    public function getEventByCreatorCount($creator, $count)
+    {
+        $dataEvent = Event::where('creator', $creator)->take($count)->get();
+        for ($i=0; $i < $dataEvent->count(); $i++) { 
+            $jumlahAnggota = EventDetail::where('idEvent', $dataEvent[$i]->id)->count();
+            $dataEvent[$i]->memberCount = $jumlahAnggota + 1;
+        }
+
+        return $dataEvent;
+    }
 
     public function getEventRec($creator)
     {
-        return Event::where('creator', '!=', $creator)->inRandomOrder()->take(3)->get();
+        $dataEvent = Event::where('creator', '!=', $creator)->inRandomOrder()->take(3)->get();
+        for ($i=0; $i < $dataEvent->count(); $i++) { 
+            $jumlahAnggota = EventDetail::where('idEvent', $dataEvent[$i]->id)->count();
+            $dataEvent[$i]->memberCount = $jumlahAnggota + 1;
+        }
+
+        return $dataEvent;
     }
 
     public function hob()
@@ -112,6 +129,7 @@ class UserController extends Controller
         $data->name = $dataInsert['name'];
         $data->desc = $dataInsert['desc'];
         $data->category = $dataInsert['category'];
+        $data->alamat = $dataInsert['alamat'];
         $data->datetime = $dataInsert['datetime'];
         $data->creator = $dataInsert['creator'];
         $data->save();
@@ -139,6 +157,21 @@ class UserController extends Controller
 
             return "berhasil";
         }
+    }
+
+    public function updateEvent(Request $request, $id)
+    {
+        $dataInsert = $request->json()->all();
+
+        $data = Event::find($id);
+        $data->name = $dataInsert['name'];
+        $data->desc = $dataInsert['desc'];
+        $data->category = $dataInsert['category'];
+        $data->alamat = $dataInsert['alamat'];
+        $data->datetime = $dataInsert['datetime'];
+        $data->save();
+
+        return "berhasil";
     }
 
     public function updateSetting(Request $request, $id){
@@ -173,5 +206,18 @@ class UserController extends Controller
             $data->delete();
             return "Data Berhasil Dihapus";
         }
+    }
+
+    public function deleteEvent($id)
+    {
+        // return $id;
+        $data = EventDetail::where('idEvent', $id);
+        if(!is_null($data)){
+            $data->delete();
+        }
+
+        $event = Event::find($id)->delete();
+
+        return "berhasil";
     }
 }

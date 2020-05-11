@@ -36,6 +36,7 @@ Route::put('setting/{kodeuser}', 'UserController@updateSetting');
 Route::get('event', 'UserController@getEvents');
 Route::get('event/{id}', 'UserController@getEvent');
 Route::get('event/creator/{creator}', 'UserController@getEventByCreator');
+Route::get('event/creator/{creator}/{count}', 'UserController@getEventByCreatorCount');
 Route::get('eventRec/{creator}', 'UserController@getEventRec');
 Route::post('event', 'UserController@createEvent');
 Route::put('event/{id}', 'UserController@updateEvent');

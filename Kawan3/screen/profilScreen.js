@@ -21,6 +21,7 @@ import dt from '../api';
 
 var data = new dt;
 var image = data.image();
+var api = data.api();
 
 var datauser = [];
 
@@ -52,7 +53,7 @@ export default class profilScreen extends React.Component {
             datauser = JSON.parse(rd);
         });
 
-        await fetch(data.api() + '/api/event/creator/' + datauser.kodeuser)
+        await fetch(data.api() + '/api/event/creator/' + datauser.kodeuser + '/3')
         .then(rs => {
             return rs.text();
         })
@@ -84,23 +85,42 @@ export default class profilScreen extends React.Component {
         }
     }
 
-    onLogOutPress = () => {
-        datauser.loggedIn = 0;
+    async onLogOutPress() {
+        var dataBaru = JSON.parse("{ }");
+        dataBaru.loggedIn = 0;
+        dataBaru.status = "logout";
 
-        fetch(data.api() + "/api/user/" + datauser.kodeuser, {
+        fetch(api + "/api/user/" + datauser.kodeuser, {
             method: 'PUT',
             headers: {
                 'Content-Type' : 'application/json'
             },
-            body: JSON.stringify(datauser)
+            body: JSON.stringify(dataBaru)
         })
         .then(rd => {
             return rd.text();
         })
         .then(a => {
             AsyncStorage.removeItem('datauser');
-            this.navigation.navigate('LoginScreen');
         });
+        
+        this.props.navigation.reset({
+            index: 0,
+            routes: [{ name: 'Login' }],
+        });
+    }
+
+    renderDesc(desc){
+        if(desc.length > 15){
+            var a = "";
+            for (let i = 0; i < 15; i++) {
+                a += desc[i];
+            }
+            a += "...";
+
+            return a
+        }
+        return desc
     }
 
     render() {
@@ -154,8 +174,8 @@ export default class profilScreen extends React.Component {
 
         if(!this.state.loaded){
             return (
-                <View style={{flex:1, alignItems: "center", justifyContent:"center"}}>
-                    <ActivityIndicator size="large" style={{ alignContent: "center" }}/>
+                <View style={{ flex:1, alignItems: "center", justifyContent:"center"}}>
+                    <ActivityIndicator size="large"/>
                 </View>
             )
         }
@@ -165,7 +185,19 @@ export default class profilScreen extends React.Component {
                 <View style={{ flex: 1 }}>
                 <StatusBar barStyle="light-content" barAnimation="slide"></StatusBar>
                     <ScrollView>
+                        <View style={{ 
+                            flexDirection: 'row', 
+                            justifyContent: 'space-between',
+                            backgroundColor: '#49438D',}}>
 
+                            <Text style={{ fontWeight: 'bold', fontSize: hp('3%'), color: 'white', marginTop: hp('2%'), marginLeft: wp('5%') }}>
+                                Profile
+                            </Text>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate("settingScreen")} >
+                                <Image source={require('../src/image/btnSetting.png')}
+                                    style={{marginTop:hp('1.5%'), marginRight:wp('1.5%')}}/>
+                            </TouchableOpacity>
+                        </View>
                         <View style={{ flex: 0, backgroundColor: '#49438D', height: 229, paddingTop: 26.5, }}>
                             <ImageBackground source={require('../src/image/decoStar.png')} style={{flex:1, width: '100%', height: '100%', flexDirection: 'row', paddingHorizontal:wp('2%')  }} />
                         </View>
@@ -330,14 +362,14 @@ export default class profilScreen extends React.Component {
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ flexDirection: 'row'  }}>
                                 {
                                     eventList = events.map(eventData => (
-                                        <TouchableOpacity>
+                                        <TouchableOpacity key={eventData.id}>
                                             <View style={{ marginBottom: 20, marginRight: 15, width: 235, height: 80, borderRadius: 10, backgroundColor: '#E5E5E5', flexDirection: 'row' }}>
                                                 <View style={{ flex: 1, alignSelf: 'center' }}>
-                                                    <Image source={{ uri : image + '/event/' + eventData.profile}} style={{ margin: 10, width:wp('10%'), height:hp('5%'), borderRadius: 45 }} />
+                                                    <Image source={{ uri : image + eventData.profile}} style={{ margin: 10, width:wp('10%'), height:hp('5%'), borderRadius: 45 }} />
                                                 </View>
                                                 <View style={{ flex: 2 }}>
                                                     <View style={{ marginTop: 15 }}>
-                                                        <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
+                                                        <Text style={{ fontSize: 12, fontWeight: 'bold' }}>
                                                             { eventData.name }
                                                         </Text>
                                                     </View>
@@ -346,12 +378,12 @@ export default class profilScreen extends React.Component {
                                                     </View> */}
                                                     <View style={{ marginTop: 2 }}>
                                                         <Text style={{ color: 'gray', fontSize: 12 }}>
-                                                            { eventData.desc }
+                                                            { this.renderDesc(eventData.desc) }
                                                         </Text>
                                                     </View>
                                                     <View style={{ marginTop: 3 }}>
                                                         <Text style={{ color: 'gray', fontSize: 12 }}>
-                                                            { eventData.memberCount } Anggota
+                                                            { eventData.memberCount } Member
                                                         </Text>
                                                     </View>
                                                 </View>

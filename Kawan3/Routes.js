@@ -450,10 +450,10 @@ function homeStackScreen({ navigation, route }) {
             title: route.name,
             tabBarVisible: false,
             headerStyle: {
-              backgroundColor: "#E5E5E5",
+              backgroundColor: "#628DE7",
               elevation: 0
             },
-            headerTintColor: "grey",
+            headerTintColor: "white",
             headerTitleStyle: {
               fontWeight: "bold",
               fontSize: hp("3%")
@@ -461,6 +461,11 @@ function homeStackScreen({ navigation, route }) {
           })}
           component={editEvent}
         />
+
+        <homeStack.Screen name="Login" options={{
+                headerShown: false,
+                tabBarVisible: false
+            }} component={Login} />
 
         <homeStack.Screen
           name="Map"
@@ -483,34 +488,34 @@ function profilStackScreen({ navigation, route }) {
     return (
         <profilStack.Navigator>
             <profilStack.Screen name="Profile"  options={({ route, navigation }) => ({
-                title: route.name,
-                headerStyle: {
-                    backgroundColor: '#49438D',
-                    elevation: 0,
-                    borderBottomWidth:0,
-                },
-                headerTintColor: '#526EDD',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                    fontSize: hp('3%'),
-                    color:'white',
-                }, headerRight: () => (
+                headerShown: false
+                // headerStyle: {
+                //     backgroundColor: '#49438D',
+                //     elevation: 0,
+                //     borderBottomWidth:0,
+                // },
+                // headerTintColor: '#526EDD',
+                // headerTitleStyle: {
+                //     fontWeight: 'bold',
+                //     fontSize: hp('3%'),
+                //     color:'white',
+                // }, headerRight: () => (
 
-                    // <Button
-                    //     onPress={() => navigation.navigate('historyScreen')}
-                    //     title="Info"
-                    //     color="#00cc00"
-                    // />
-                    <View style={{ flexDirection: 'row',}}>
-                        <TouchableOpacity onPress={() => navigation.navigate("settingScreen")} >
+                //     // <Button
+                //     //     onPress={() => navigation.navigate('historyScreen')}
+                //     //     title="Info"
+                //     //     color="#00cc00"
+                //     // />
+                //     <View style={{ flexDirection: 'row',}}>
+                //         <TouchableOpacity onPress={() => navigation.navigate("settingScreen")} >
                             
-                        <Image source={require('./src/image/btnSetting.png')}
-                                style={{marginTop:hp('1.5%'), marginRight:wp('1.5%')}}
-                            />
-                        </TouchableOpacity>
-                    </View>
+                //         <Image source={require('./src/image/btnSetting.png')}
+                //                 style={{marginTop:hp('1.5%'), marginRight:wp('1.5%')}}
+                //             />
+                //         </TouchableOpacity>
+                //     </View>
 
-                ),
+                // ),
             })} component={profilScreen} />
             <profilStack.Screen name="settingScreen" options={{ headerShown: false }} component={settingScreen} />
             <profilStack.Screen name="settingAbout" options={{ headerShown: false }} component={settingAbout} />

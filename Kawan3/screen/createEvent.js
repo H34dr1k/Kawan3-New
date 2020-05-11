@@ -66,6 +66,7 @@ class createEvent extends React.Component {
         eventName:"",
         eventDescription:"",
         eventCategory:'Public',
+        alamat:'',
         loaded: false,
         showDate: false,
         showTime: false,
@@ -122,6 +123,7 @@ class createEvent extends React.Component {
         dataBaru.name = this.state.eventName;
         dataBaru.desc = this.state.eventDescription;
         dataBaru.category = this.state.eventCategory;
+        dataBaru.alamat = this.state.alamat;
         dataBaru.datetime = this.finalDate("full");
         dataBaru.creator = dataUser.kodeuser;
         console.log(dataBaru);
@@ -151,6 +153,7 @@ class createEvent extends React.Component {
             eventName:"",
             eventDescription:"",
             eventCategory:'Public',
+            alamat: '',
             loaded: false,
             showDate: false,
             showTime: false,
@@ -186,19 +189,21 @@ class createEvent extends React.Component {
                     </View>
                 </View>  */}
                  <View style={{flex: 1, marginHorizontal: 26, marginTop: 20}}>
-                    <Text style={{fontSize: 18, color: '#628DE7', fontWeight: 'bold'}}>Step 1</Text>
-                    <View style={{marginTop: 20}}>
-                        <Text style={{fontSize: 14, color: '#49438D', marginBottom: 5}}>Location</Text>
-                        <TextInput
-                        
-                        placeholder="Choose the location" style={{height: 45, backgroundColor: 'white', paddingLeft: 15, paddingRight: 20, borderRadius: 5}} />
-                    </View>
+                    {/* <Text style={{fontSize: 18, color: '#628DE7', fontWeight: 'bold'}}>Step 1</Text> */}
                     <View style={{marginTop: 20}}>
                         <Text style={{fontSize: 14, color: '#49438D', marginBottom: 5}}>Event Name</Text>
                         <TextInput 
                         onChangeText={eventName => this.setState({eventName})}
                         value={this.state.eventName}
                         placeholder="Name of the Event"
+                        style={{height: 45, backgroundColor: 'white', paddingLeft: 15, paddingRight: 20, borderRadius: 5}} />
+                    </View>
+                    <View style={{marginTop: 20}}>
+                        <Text style={{fontSize: 14, color: '#49438D', marginBottom: 5}}>Location</Text>
+                        <TextInput
+                        onChangeText={alamat => this.setState({alamat})}
+                        value={this.state.alamat}
+                        placeholder="Location of the Event" 
                         style={{height: 45, backgroundColor: 'white', paddingLeft: 15, paddingRight: 20, borderRadius: 5}} />
                     </View>
                     <View style={{ marginTop: 20, display: "flex", flexDirection: "row"}}>
@@ -268,7 +273,7 @@ class createEvent extends React.Component {
                         <TextInput 
                             onChangeText={eventDescription => this.setState({eventDescription})}
                             value={this.state.eventDescription}
-                            multiline={true} placeholder="What's the description" style={{height: 200, backgroundColor: 'white', paddingLeft: 13, paddingRight: 15, paddingTop: 13, borderRadius: 5}} 
+                            multiline={true} placeholder="What's the Description" style={{height: 200, backgroundColor: 'white', paddingLeft: 13, paddingRight: 15, paddingTop: 13, borderRadius: 5}} 
                             textAlignVertical="top" />
                     </View>
                 </View>
