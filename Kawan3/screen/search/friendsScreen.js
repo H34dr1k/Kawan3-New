@@ -38,17 +38,30 @@ export default class friendsScreen extends Component {
             Alert.alert('Error', rd);
 
             users = JSON.parse(rd);
+            this.setState({ data: users });
         });
 
         this.setState({ loaded: true });
         this.render();
+    }
 
-        users.filter()
+    onSearch(value){
+        const newData = users.filter(item => {
+            const itemData = `${item.name.toUpperCase()}`;
+
+            const textData = value.toUpperCase();
+
+            return itemData.indexOf(textData) > -1;
+        })
+
+        this.setState({ data: newData });
+        // this.render;
     }
 
     state = {
         loaded: false,
-        username: ''
+        username: '',
+        data: []
     }
 
     render() {
@@ -63,23 +76,27 @@ export default class friendsScreen extends Component {
             return (
                 <View style={{ marginVertical: 20, marginHorizontal: 5 }}>
                     <View style={{ marginBottom: 10 , marginHorizontal: 15 }}>
-                        <Text style={{fontSize: 14, color: '#49438D', marginBottom: 5}}>Search : </Text>
+                        <Text style={{fontSize: 14, color: '#49438D', marginBottom: 5}}>
+                            Search : 
+                        </Text>
+
                         <TextInput 
-                        onChangeText={value => this.setState({username})}
+                        onChangeText={value => this.setState({username: value}, this.onSearch(value))}
                         value={this.state.username}
                         placeholder="Search..."
                         style={{height: 45, backgroundColor: 'white', paddingLeft: 15, paddingRight: 20, borderRadius: 5}} />
+
                     </View>
 
                     <FlatList
                         style={{width:'100%'}}
-                        data={users}
+                        data={this.state.data}
                         keyExtractor={(item) => item.key}
                         renderItem={({item}) => {
                             return(
-                                <View style={{ marginHorizontal: 15, marginVertical: 5, backgroundColor:"#628DE7", borderRadius:10, padding:20,}} key={item.id} >    
+                                <View key={item.kodeuser} style={{ marginHorizontal: 15, marginVertical: 5, backgroundColor:"#628DE7", borderRadius:10, padding:20,}} >    
                                     <View style={{ flexDirection:"row" }}>
-                                        <Image source={{ uri : user + item.picture}} style={{ marginRight: 10, width:wp('10%'), height:hp('5%'), borderRadius: 45 }} />
+                                        <Image resizeMode="center" source={{ uri : user + item.picture}} style={{ marginRight: 10, width:wp('10%'), height:hp('5%'), borderRadius: 75 }} />
 
                                         <View>
                                             <Text type="rbold" style={{fontSize:hp('3%'), color:"white"}}>{item.name}</Text>

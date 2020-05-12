@@ -36,6 +36,7 @@ Route::put('setting/{kodeuser}', 'UserController@updateSetting');
 
 Route::get('event', 'UserController@getEvents');
 Route::get('event/{id}', 'UserController@getEvent');
+Route::get('eventNotCreator/{id}', 'UserController@getEventNotCreator');
 Route::get('event/creator/{creator}', 'UserController@getEventByCreator');
 Route::get('event/creator/{creator}/{count}', 'UserController@getEventByCreatorCount');
 Route::get('eventRec/{creator}', 'UserController@getEventRec');
@@ -59,3 +60,7 @@ Route::get('joinedComm/{attendees}', 'UserController@getJoinedComm');
 Route::post('comm', 'UserController@createComm');
 Route::put('comm/{id}', 'UserController@updateComm');
 Route::delete('comm/{id}', 'UserController@deleteComm');
+
+// Hobby
+
+Route::get('hobby', 'UserController@hobby');

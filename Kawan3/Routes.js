@@ -529,7 +529,7 @@ function profilStackScreen({ navigation, route }) {
                 //     // />
                 //     <View style={{ flexDirection: 'row',}}>
                 //         <TouchableOpacity onPress={() => navigation.navigate("settingScreen")} >
-                            
+                      // pak herman dan karyawannya blom ad yg bisa react native. jadi ku pikir kek gitu
                 //         <Image source={require('./src/image/btnSetting.png')}
                 //                 style={{marginTop:hp('1.5%'), marginRight:wp('1.5%')}}
                 //             />
@@ -668,16 +668,20 @@ function searchTopTabs({ navigation, route }) {
       name="Search"
 
     >
-      <searchStack.Screen name="Hobby" component={hobbyScreen} />
-      <searchStack.Screen
-        name="Event"
-        options={{ tabBarVisible: true }}
-        component={eventScreen}
-      />
       <searchStack.Screen
         name="Friends"
         options={{ tabBarVisible: true }}
         component={friendsScreen}
+      />
+      <searchStack.Screen 
+        name="Events" 
+        options={{ tabBarVisible: true }}
+        component={eventScreen} 
+      />
+      <searchStack.Screen
+        name="Hobby"
+        options={{ tabBarVisible: true }}
+        component={hobbyScreen}
       />
     </searchStack.Navigator>
   );
