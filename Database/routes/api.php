@@ -22,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('user', 'UserController@all');
 Route::get('user/{email}', 'UserController@getData');
+Route::get('userBB/{kodeuser}', 'UserController@getUser');
 Route::post('user', 'UserController@createUser');
 Route::put('user/{kodeuser}', 'UserController@update');
 Route::delete('user/{kodeuser}', 'UserController@delete');
@@ -46,3 +47,15 @@ Route::delete('event/{id}', 'UserController@deleteEvent');
 // Event Detail
 
 Route::post('joinEvent/{idEvent}/{attendees}', 'UserController@joinEvent');
+
+// Community
+
+Route::get('comm', 'UserController@getComms');
+Route::get('comm/{id}', 'UserController@getComm');
+Route::get('comm/creator/{creator}', 'UserController@getCommByCreator');
+Route::get('comm/creator/{creator}', 'UserController@getCommByCreatorCount');
+Route::get('comm/{creator}', 'UserController@getCommRec');
+Route::get('joinedComm/{attendees}', 'UserController@getJoinedComm');
+Route::post('comm', 'UserController@createComm');
+Route::put('comm/{id}', 'UserController@updateComm');
+Route::delete('comm/{id}', 'UserController@deleteComm');

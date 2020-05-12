@@ -219,7 +219,8 @@ export default class profilScreen extends React.Component {
                             flexDirection: 'row', 
                             justifyContent: 'space-between',
                             backgroundColor: '#49438D',}}>
-
+                                
+                                
                             <Text style={{ fontWeight: 'bold', fontSize: hp('3%'), color: 'white', marginTop: hp('2%'), marginLeft: wp('5%') }}>
                                 Profile
                             </Text>
@@ -247,7 +248,7 @@ export default class profilScreen extends React.Component {
 
                                 <View style={{flex:2,alignItems:"center",marginTop:-75}}>
                                     <TouchableOpacity onPress={() => this.imagePress()}>
-                                        <Image source={{ uri : user + datauser.picture }} resizeMode='cover' style={{ width: 150, height: 150 }} />
+                                        <Image source={{ uri : user + datauser.picture }} resizeMode='center' style={{ width: 150, height: 150, borderRadius: 75 }} />
                                     </TouchableOpacity>
                                 </View>
 

@@ -659,11 +659,6 @@ function communityTopTabs({ navigation, route }) {
 }
 
 function searchTopTabs({ navigation, route }) {
-   if (route.state && route.state.index > 0) {
-        navigation.setOptions({ tabBarVisible: false })
-    } else {
-        navigation.setOptions({ tabBarVisible: true })
-    }
   return (
     
 
@@ -671,15 +666,15 @@ function searchTopTabs({ navigation, route }) {
       name="Search"
 
     >
-      <searchStack.Screen name="searchScreen" component={hobbyScreen} />
+      <searchStack.Screen name="Hobby" component={hobbyScreen} />
       <searchStack.Screen
-        name="trendingScreen"
-        options={{}}
+        name="Event"
+        options={{ tabBarVisible: true }}
         component={eventScreen}
       />
       <searchStack.Screen
-        name="mostJoinedScreen"
-        options={{}}
+        name="Friends"
+        options={{ tabBarVisible: true }}
         component={friendsScreen}
       />
     </searchStack.Navigator>
