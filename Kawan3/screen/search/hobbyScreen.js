@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, TextInput, AsyncStorage, StyleSheet, FlatList, TouchableOpacity, Alert, ScrollView, ActivityIndicator, Image } from 'react-native';
+import { View, Text, TextInput, Picker, AsyncStorage, StyleSheet, FlatList, TouchableOpacity, Alert, ScrollView, ActivityIndicator, Image } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 
 import dt from '../../api'
@@ -10,7 +10,7 @@ var api = dat.api();
 var user = dat.user();
 var image = dat.image();
 
-var users = [];
+var hobby = [];
 var datauser = [];
 
 // create a component
@@ -23,6 +23,7 @@ export default class hobbyScreen extends Component {
     }
 
     async load(){
+        console.log('Before');
         this.setState({ loaded: false });
 
         await AsyncStorage.getItem('hobby').then(rd => {
@@ -36,47 +37,52 @@ export default class hobbyScreen extends Component {
                         Alert.alert(rd);
                         return;
                     }
-                    AsyncStorage.setItem('hobby', JSON.stringify(rd));
-                    users = JSON.parse(rd);
+                    AsyncStorage.setItem('hobby', rd);
+                    hobby = JSON.parse(rd);
                 })
             }else{
-                users = JSON.parse(rd);
+                hobby = JSON.parse(rd);
             }
-
-            const type1 = [];
-            users.forEach(item => {
-                if(type1.indexOf(item.type1) == -1)
-                type1.push(item.type1);
-            })
-            console.log(type1);
         })
 
         await AsyncStorage.getItem('datauser').then(rd => {
             datauser = JSON.parse(rd);
         })
+        await this.loadHobby();
 
         this.setState({ loaded: true });
         this.render();
     }
 
-    onSearch(value){
-        const newData = users.filter(item => {
-            const itemData = `${item.name.toUpperCase()}`;
+    loadHobby(){
+        const newData = hobby.filter(item => {
+            return item.type1 == this.state.type1 && item.type2 == this.state.type2
+        });
+        
+        this.setState({ hobby: newData });
+    }
 
-            const textData = value.toUpperCase();
+    loadBy1(value){
+        const newData = hobby.filter(item => {
+            return item.type1 == value && item.type2 == this.state.type2
+        });
+        
+        this.setState({ hobby: newData });
+    }
 
-            return itemData.indexOf(textData) > -1;
-        })
-
-        this.setState({ data: newData });
-        // this.render;
+    loadBy2(value){
+        const newData = hobby.filter(item => {
+            return item.type1 == this.state.type1 && item.type2 == value
+        });
+        
+        this.setState({ hobby: newData });
     }
 
     state = {
         loaded: false,
-        username: '',
-        data: [],
-        hobby: []
+        hobby: [],
+        type1: 'General',
+        type2: 'Indoors'
     }
 
     render() {
@@ -90,44 +96,42 @@ export default class hobbyScreen extends Component {
         else{
             return (
                 <View style={{ marginVertical: 20, marginHorizontal: 5 }}>
-                    <View style={{ marginBottom: 10 , marginHorizontal: 15 }}>
-                        <Text style={{fontSize: 14, color: '#49438D', marginBottom: 5}}>
-                            Search : 
+                    <View style={{ marginBottom: 10 , marginHorizontal: 15, flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={{fontSize: 16, color: '#49438D', marginTop: -2, marginRight: 10 }}>
+                            Category : 
                         </Text>
 
-                        <TextInput 
-                        onChangeText={value => this.setState({username: value}, this.onSearch(value))}
-                        value={this.state.username}
-                        placeholder="Search..."
-                        style={{height: 45, backgroundColor: 'white', paddingLeft: 15, paddingRight: 20, borderRadius: 5}} />
+                        <View style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                            <Picker
+                                selectedValue={this.state.type1}
+                                style={{ height: 50, width: 150 }}
+                                onValueChange={value => { this.setState({ type1: value }),  this.loadBy1(value) }}
+                            >
+                                <Picker.Item label="General" value="General" />
+                                <Picker.Item label="Collection" value="Collection" />
+                                <Picker.Item label="Competitive" value="Competitive" />
+                                <Picker.Item label="Observation" value="Observation" />
+                            </Picker>
+                            <Picker
+                                selectedValue={this.state.type2}
+                                style={{ height: 50, width: 150 }}
+                                onValueChange={value => { this.setState({ type2: value }), this.loadBy2(value) }}
+                            >
+                                <Picker.Item label="Indoors" value="Indoors" />
+                                <Picker.Item label="Outdoors" value="Outdoors" />
+                            </Picker>
+                        </View>
 
                     </View>
 
                     <FlatList
-                        style={{width:'100%'}}
+                        style={{width:'100%', marginBottom: hp('5%')}}
                         data={this.state.hobby}
                         keyExtractor={(item) => item.key}
                         renderItem={({item}) => {
                             return(
-                                <View key={item.kodeuser} style={{ marginHorizontal: 15, marginVertical: 5, backgroundColor:"#628DE7", borderRadius:10, padding:20,}} >    
-                                    <View style={{ flexDirection:"row" }}>
-                                        <Image resizeMode="center" source={{ uri : image + item.preview}} style={{ marginRight: 10, width:wp('10%'), height:hp('5%'), borderRadius: 75 }} />
-
-                                        <View>
-                                            <Text type="rbold" style={{fontSize:hp('3%'), color:"white"}}>{item.name}</Text>
-                                            <Text style={{color:"white"}}>{item.desc}</Text>
-                                        </View>
-                                    </View>
-
-                                    <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
-                                        <TouchableOpacity onPress={() => {
-                                            
-                                        }}>
-                                            <View style={{marginRight:20}}>
-                                                <Text style={{ color: "lightgrey" }} >Join</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                    </View>
+                                <View key={item.kodeuser} style={{ marginHorizontal: 15, marginVertical: 5, backgroundColor:"#628DE7", borderRadius: 10, padding: 20 }} >    
+                                    <Text type="rbold" style={{fontSize:hp('3%'), color:"white"}}>{item.name}</Text>
                                 </View>
                             )
                         }}
