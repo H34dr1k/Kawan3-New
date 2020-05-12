@@ -1,10 +1,10 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 14072,
+  "expoServerNgrokUrl": "https://2w-vbr.cleiment.kawan3.exp.direct",
+  "packagerNgrokUrl": "https://packager.2w-vbr.cleiment.kawan3.exp.direct",
+  "ngrokPid": 11404,
   "webpackServerPort": null,
   "devToolsPort": 19002
 }
