@@ -38,6 +38,11 @@ Route::get('event/{id}', 'UserController@getEvent');
 Route::get('event/creator/{creator}', 'UserController@getEventByCreator');
 Route::get('event/creator/{creator}/{count}', 'UserController@getEventByCreatorCount');
 Route::get('eventRec/{creator}', 'UserController@getEventRec');
+Route::get('joinedEvent/{attendees}', 'UserController@getJoinedEvent');
 Route::post('event', 'UserController@createEvent');
 Route::put('event/{id}', 'UserController@updateEvent');
 Route::delete('event/{id}', 'UserController@deleteEvent');
+
+// Event Detail
+
+Route::post('joinEvent/{idEvent}/{attendees}', 'UserController@joinEvent');

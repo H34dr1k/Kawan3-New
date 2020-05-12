@@ -22,11 +22,12 @@ import dt from '../api';
 var data = new dt;
 var image = data.image();
 var api = data.api();
+var user = data.user();
 
 var datauser = [];
 
 var events = [];
-var eventList = [];
+var joinedEvent = [];
 
 export default class profilScreen extends React.Component {
 
@@ -59,12 +60,41 @@ export default class profilScreen extends React.Component {
         })
         .then(rd => {
             // console.log(rd);
+            
+            if(rd == "[]"){
+                this.setState({ loaded: true });
+                this.render();
+                return;
+            }
+
             if(rd.indexOf('[{"id":') == -1){
                 Alert.alert('Error', rd);
                 return;
             }
             events = JSON.parse(rd);
         })
+
+        await fetch(api + '/api/joinedEvent/' + datauser.kodeuser)
+        .then(rs => {
+            return rs.text();
+        })
+        .then(rd => {
+            if(rd == "[]"){
+                this.setState({ loaded: true });
+                this.render();
+                return;
+            }
+
+            if(rd.indexOf('[{"id":') == -1){
+                Alert.alert('Error', rd);
+                return;
+            }
+            
+            joinedEvent = JSON.parse(rd);
+        })
+        // console.log(joinedEvent);
+        // return;
+
         this.setState({ loaded: true });
         this.render();
     }
@@ -217,7 +247,7 @@ export default class profilScreen extends React.Component {
 
                                 <View style={{flex:2,alignItems:"center",marginTop:-75}}>
                                     <TouchableOpacity onPress={() => this.imagePress()}>
-                                        <Image source={require('../src/image/profilPic.png')} resizeMode='cover' style={{ width: 150, height: 150 }} />
+                                        <Image source={{ uri : user + datauser.picture }} resizeMode='cover' style={{ width: 150, height: 150 }} />
                                     </TouchableOpacity>
                                 </View>
 
@@ -303,7 +333,7 @@ export default class profilScreen extends React.Component {
                                     <Text style={{ color: '#FBB429', fontWeight: 'bold', fontSize: 12, marginTop: 5 }}>Show All</Text>
                                 </TouchableOpacity>
                             </View>
-                            <ScrollView horizontal={true} style={{ flexDirection: 'row' }}>
+                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ flexDirection: 'row' }}>
                                 <View style={{ marginBottom: 20, marginRight: 15, width: 235, height: 96, borderRadius: 10, backgroundColor: '#E5E5E5', flexDirection: 'row' }}>
                                     <View style={{ flex: 1 }}>
                                         <Image source={require('../src/image/Community1.png')} style={{ margin: 10, width:wp('10%'), height:hp('5%') }} />
@@ -353,15 +383,15 @@ export default class profilScreen extends React.Component {
                         <View style={{borderWidth: 1, borderColor: '#E8E8E8', marginTop: 20, marginBottom: 15}}></View>
                         <View style={{ marginHorizontal: 26 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={{ color: '#526EDD', fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>My Events</Text>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('My Event')  }>
+                                <Text style={{ color: '#526EDD', fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>Joined Events</Text>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('Joined Event')  }>
                                     <Text style={{ color: '#FBB429', fontWeight: 'bold', fontSize: 12, marginTop: 5 }}>Show All</Text>
                                 </TouchableOpacity>
                             </View>
                             
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ flexDirection: 'row'  }}>
                                 {
-                                    eventList = events.map(eventData => (
+                                    eventList = joinedEvent.map(eventData => (
                                         <TouchableOpacity key={eventData.id}>
                                             <View style={{ marginBottom: 20, marginRight: 15, width: 235, height: 80, borderRadius: 10, backgroundColor: '#E5E5E5', flexDirection: 'row' }}>
                                                 <View style={{ flex: 1, alignSelf: 'center' }}>
@@ -396,6 +426,52 @@ export default class profilScreen extends React.Component {
                                 }
                             </ScrollView>
                         </View>
+                        {/* <View style={{borderWidth: 1, borderColor: '#E8E8E8', marginTop: 20, marginBottom: 15}}></View>
+                        <View style={{ marginHorizontal: 26 }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={{ color: '#526EDD', fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>My Events</Text>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('My Event')  }>
+                                    <Text style={{ color: '#FBB429', fontWeight: 'bold', fontSize: 12, marginTop: 5 }}>Show All</Text>
+                                </TouchableOpacity>
+                            </View>
+                            
+                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ flexDirection: 'row'  }}>
+                                {
+                                    eventList = events.map(eventData => (
+                                        <TouchableOpacity key={eventData.id}>
+                                            <View style={{ marginBottom: 20, marginRight: 15, width: 235, height: 80, borderRadius: 10, backgroundColor: '#E5E5E5', flexDirection: 'row' }}>
+                                                <View style={{ flex: 1, alignSelf: 'center' }}>
+                                                    <Image source={{ uri : image + eventData.profile}} style={{ margin: 10, width:wp('10%'), height:hp('5%'), borderRadius: 45 }} />
+                                                </View>
+                                                <View style={{ flex: 2 }}>
+                                                    <View style={{ marginTop: 15 }}>
+                                                        <Text style={{ fontSize: 12, fontWeight: 'bold' }}>
+                                                            { eventData.name }
+                                                        </Text>
+                                                    </View>
+                                                    {/* <View style={{ width: 51, height: 19, backgroundColor: '#21D348', borderRadius: 19 }}>
+                                                        <Text style={{ color: 'white', fontSize: 11, textAlign: 'center' }}>37 Chat</Text>
+                                                    </View> 
+                                                    <View style={{ marginTop: 2 }}>
+                                                        <Text style={{ color: 'gray', fontSize: 12 }}>
+                                                            { this.renderDesc(eventData.desc) }
+                                                        </Text>
+                                                    </View>
+                                                    <View style={{ marginTop: 3 }}>
+                                                        <Text style={{ color: 'gray', fontSize: 12 }}>
+                                                            { eventData.memberCount } Member
+                                                        </Text>
+                                                    </View>
+                                                </View>
+                                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                                    <Image style={{ width: wp('2%') + 2, height: hp('2%')}} source={{ uri: image + '/image/Arrow.png'}} />
+                                                </View>
+                                            </View>
+                                        </TouchableOpacity>
+                                    ))
+                                }
+                            </ScrollView>
+                        </View> */}
                     </ScrollView>
 
                 </View>
