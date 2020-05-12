@@ -271,7 +271,7 @@ export default class profilScreen extends React.Component {
                         <View style={{ marginHorizontal: 26 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={{ color: '#526EDD', fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>Friends</Text>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('All Friends')}>
                                     <Text style={{ color: '#FBB429', fontWeight: 'bold', fontSize: 12, marginTop: 5 }}>Show All</Text>
                                 </TouchableOpacity>
                             </View>

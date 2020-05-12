@@ -191,6 +191,7 @@ import myEvent from './screen/myEventScreen'
 import editEvent from './screen/editEvent'
 import profilScreen from './screen/profilScreen'
 import editProfilScreen from './screen/editProfil'
+import viewAllFriend from './screen/viewAllFriend'
 
 import communityScreen from './screen/communityScreen'
 import nearYouScreen from './screen/nearYouScreen'
@@ -542,6 +543,7 @@ function profilStackScreen({ navigation, route }) {
             <profilStack.Screen name="settingNotif" options={{ headerShown: false }} component={settingNotif} />
             <profilStack.Screen name="settingPrivasi" options={{ headerShown: false }} component={settingPrivasi} />
             <profilStack.Screen name="editProfil" options={{ headerShown: false }} component={editProfil} />
+            <profilStack.Screen name="All Friends" component={viewAllFriend} />
 
         </profilStack.Navigator>
     )
