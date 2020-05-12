@@ -189,6 +189,8 @@ import homeScreen from './screen/homeScreen'
 import eventDetail from './screen/eventDetailScreen'
 import myEvent from './screen/myEventScreen'
 import editEvent from './screen/editEvent'
+import eventProfileDetail from './screen/eventProfileDetail'
+
 import profilScreen from './screen/profilScreen'
 import editProfilScreen from './screen/editProfil'
 import viewAllFriend from './screen/viewAllFriend'
@@ -320,23 +322,23 @@ function homeStackScreen({ navigation, route }) {
         <homeStack.Screen
           name="Home"
           options={({ route, navigation }) => ({
-            headerShown: false
-            // title: route.name,
-            // headerStyle: {
-            //   backgroundColor: "#E5E5E5",
-            //   elevation: 0
-            // },
-            // headerTintColor: "#526EDD",
-            // headerTitleStyle: {
-            //   fontWeight: "bold",
-            //   fontSize: hp("3%")
-            // },
+            headerShown: false,
+            title: route.name,
+            headerStyle: {
+              backgroundColor: "#E5E5E5",
+              elevation: 0
+            },
+            headerTintColor: "#526EDD",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              fontSize: hp("3%")
+            },
             // headerRight: () => (
-              // <Button
-              //     onPress={() => navigation.navigate('historyScreen')}
-              //     title="Info"
-              //     color="#00cc00"
-              // />
+            //   <Button
+            //       onPress={() => navigation.navigate('historyScreen')}
+            //       title="Info"
+            //       color="#00cc00"
+            //   />
             //   <View
             //     style={{ flexDirection: "row",
             // marginTop: StatusBar.currentHeight, marginHorizontal: wp("4%") }}
@@ -365,7 +367,7 @@ function homeStackScreen({ navigation, route }) {
             //       source={require("./src/image/Notif.png")} />
             //     </TouchableOpacity>
             //   </View>
-            // )
+            //)
           })}
           component={homeScreen}
         />
@@ -487,6 +489,29 @@ function homeStackScreen({ navigation, route }) {
                 headerShown: false,
                 tabBarVisible: false
             }} component={Login} />
+
+        <homeStack.Screen name="Event Profile" options={({route}) => ({
+          title: route.name,
+          headerStyle:  {
+            backgroundColor: "white",
+            elevation:0,
+          },
+          headerTintColor: "black",
+          headerTitleStyle: {
+            fontSize: hp("3%")
+          }, headerRight: () => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Edit Event')}
+          title="Edit Event"
+          color="#00cc00"
+          style={{ backgroundColor: "#526EDD", marginRight:28, paddingHorizontal:20, paddingVertical:10,borderRadius:12, justifyContent:"center", alignItems:"center"}}
+        >
+          <Text style={{color:"white", fontWeight:"bold", fontSize:14, textAlign:"center"}}>Edit</Text>
+        </TouchableOpacity>
+            )
+        })}
+        component={eventProfileDetail}
+        />
 
         <homeStack.Screen
           name="Map"

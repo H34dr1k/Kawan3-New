@@ -130,7 +130,7 @@ export default class homeScreen extends React.Component {
                             Home
                         </Text>
                         <View style={{ flexDirection: "row", marginTop: StatusBar.currentHeight, marginHorizontal: wp("4%") }}>
-                            <TouchableOpacity onPress={() => this.props.navigation.push("My Event")}>
+                            <TouchableOpacity onPress={() => this.props.navigation.push("Event Profile")}>
                             <Image
                                 resizeMode="contain"
                                 style={{ marginRight: 13, width:48, height:48 }}
