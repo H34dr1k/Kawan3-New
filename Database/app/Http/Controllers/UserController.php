@@ -18,6 +18,16 @@ class UserController extends Controller
         return User::all();
     }
 
+    public function hobby()
+    {
+        return Hobby::all();
+    }
+
+    public function getUser($kodeuser)
+    {
+        return User::where('kodeuser', '!=', $kodeuser)->get();
+    }
+
     public function getData($email)
     {
         $data = User::where("email", $email)->first();
@@ -43,6 +53,28 @@ class UserController extends Controller
     public function getEvents()
     {
         return Event::get();
+    }
+
+    public function getEventNotCreator($id)
+    {
+        $joinedEvent = EventDetail::where('attendees', $id);
+        $dataEventDetail = $joinedEvent->get();
+
+        $idEvents = [];
+        // return $joinedEvent->get();
+        for ($i=0; $i < $joinedEvent->count(); $i++) { 
+            $idEvent = $dataEventDetail[$i]->idEvent;
+
+            array_push($idEvents, $idEvent);
+        }
+        
+        $dataEvent = Event::where('creator', '!=', $id)->whereNotIn('id', $idEvents)->get();
+        for ($i=0; $i < $dataEvent->count(); $i++) { 
+            $jumlahAnggota = EventDetail::where('idEvent', $dataEvent[$i]->id)->count();
+            $dataEvent[$i]->memberCount = $jumlahAnggota + 1;
+        }
+
+        return $dataEvent;
     }
 
     public function getEvent($id)

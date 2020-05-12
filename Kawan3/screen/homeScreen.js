@@ -11,7 +11,8 @@ import {
   AppState,
   AsyncStorage,
   StatusBar,
-  BackHandler
+  BackHandler,
+  ActivityIndicator
 } from "react-native";
 import { createAppContainer } from "react-navigation";
 
@@ -23,7 +24,6 @@ import {
 import * as firebase from 'firebase';
 import homeScreen1 from "./homeScreen1";
 import dt from "../api";
-import { ActivityIndicator } from "react-native-paper";
 
 var datauser = [];
 var events = [];

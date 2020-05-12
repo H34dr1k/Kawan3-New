@@ -554,7 +554,7 @@ function profilStackScreen({ navigation, route }) {
                 //     // />
                 //     <View style={{ flexDirection: 'row',}}>
                 //         <TouchableOpacity onPress={() => navigation.navigate("settingScreen")} >
-                            
+                
                 //         <Image source={require('./src/image/btnSetting.png')}
                 //                 style={{marginTop:hp('1.5%'), marginRight:wp('1.5%')}}
                 //             />
@@ -686,11 +686,6 @@ function communityTopTabs({ navigation, route }) {
 }
 
 function searchTopTabs({ navigation, route }) {
-   if (route.state && route.state.index > 0) {
-        navigation.setOptions({ tabBarVisible: false })
-    } else {
-        navigation.setOptions({ tabBarVisible: true })
-    }
   return (
     
 
@@ -698,16 +693,20 @@ function searchTopTabs({ navigation, route }) {
       name="Search"
 
     >
-      <searchStack.Screen name="searchScreen" component={hobbyScreen} />
       <searchStack.Screen
-        name="trendingScreen"
-        options={{}}
-        component={eventScreen}
+        name="Friends"
+        options={{ tabBarVisible: true }}
+        component={friendsScreen}
+      />
+      <searchStack.Screen 
+        name="Events" 
+        options={{ tabBarVisible: true }}
+        component={eventScreen} 
       />
       <searchStack.Screen
-        name="mostJoinedScreen"
-        options={{}}
-        component={friendsScreen}
+        name="Hobby"
+        options={{ tabBarVisible: true }}
+        component={hobbyScreen}
       />
     </searchStack.Navigator>
   );
