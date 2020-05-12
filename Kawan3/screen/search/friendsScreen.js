@@ -64,6 +64,22 @@ export default class friendsScreen extends Component {
         data: []
     }
 
+    async requestFriend(user1, user2){
+        // await fetch(api + '/api/rf/'+ user1 + '/' + user2, { method: 'POST' })
+        // .then(rs => {
+        //     return rs.text();
+        // })
+        // .then(rd => {
+        //     if(rd == 'requested'){
+        //         var newData = users.filter(item => {
+        //             return item.kodeuser != user2;
+        //         })
+        //         users = newData;
+        //         this.setState({ data: newData, username: '' });
+        //     }
+        // })
+    }
+
     render() {
         if(!this.state.loaded){
             return (
@@ -105,11 +121,11 @@ export default class friendsScreen extends Component {
                                     </View>
 
                                     <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
-                                        <TouchableOpacity onPress={() => {
-                                            
-                                        }}>
+                                        <TouchableOpacity onPress={() => this.requestFriend(datauser.kodeuser, item.kodeuser)}>
                                             <View style={{marginRight:20}}>
-                                                <Text style={{ color: "lightgrey" }} >Add</Text>
+                                                <Text style={{ color: "lightgrey" }} > 
+                                                    Add 
+                                                </Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>

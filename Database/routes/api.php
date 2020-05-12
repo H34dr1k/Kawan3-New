@@ -64,3 +64,7 @@ Route::delete('comm/{id}', 'UserController@deleteComm');
 // Hobby
 
 Route::get('hobby', 'UserController@hobby');
+
+// Friend
+
+// Route::get('rf/{user1}/{user2}', 'UserController@req');

@@ -7,6 +7,7 @@ use App\Setting;
 use App\Hobby;
 use App\Event;
 use App\EventDetail;
+use App\Friend;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,6 +23,19 @@ class UserController extends Controller
     {
         return Hobby::all();
     }
+
+    // public function req($user1, $user2)
+    // {
+    //     $data = Friend::where('user1', $user1)->where('user2', $user2)->get();
+    //     if(is_null($data))
+    //     {
+    //         $data = Friend::where('user1', $user2)->where('user2', $user1)->get();
+
+    //         if(is_null($data)){
+    //             $data = new Friend;
+    //         }
+    //     }
+    // }
 
     public function getUser($kodeuser)
     {
