@@ -529,7 +529,7 @@ function profilStackScreen({ navigation, route }) {
                 //     // />
                 //     <View style={{ flexDirection: 'row',}}>
                 //         <TouchableOpacity onPress={() => navigation.navigate("settingScreen")} >
-                      // pak herman dan karyawannya blom ad yg bisa react native. jadi ku pikir kek gitu
+                
                 //         <Image source={require('./src/image/btnSetting.png')}
                 //                 style={{marginTop:hp('1.5%'), marginRight:wp('1.5%')}}
                 //             />
