@@ -22,6 +22,7 @@ import dt from '../api';
 var data = new dt;
 var image = data.image();
 var api = data.api();
+var user = data.user();
 
 var datauser = [];
 
@@ -246,7 +247,7 @@ export default class profilScreen extends React.Component {
 
                                 <View style={{flex:2,alignItems:"center",marginTop:-75}}>
                                     <TouchableOpacity onPress={() => this.imagePress()}>
-                                        <Image source={require('../src/image/profilPic.png')} resizeMode='cover' style={{ width: 150, height: 150 }} />
+                                        <Image source={{ uri : user + datauser.picture }} resizeMode='cover' style={{ width: 150, height: 150 }} />
                                     </TouchableOpacity>
                                 </View>
 
@@ -425,7 +426,7 @@ export default class profilScreen extends React.Component {
                                 }
                             </ScrollView>
                         </View>
-                        <View style={{borderWidth: 1, borderColor: '#E8E8E8', marginTop: 20, marginBottom: 15}}></View>
+                        {/* <View style={{borderWidth: 1, borderColor: '#E8E8E8', marginTop: 20, marginBottom: 15}}></View>
                         <View style={{ marginHorizontal: 26 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={{ color: '#526EDD', fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>My Events</Text>
@@ -450,7 +451,7 @@ export default class profilScreen extends React.Component {
                                                     </View>
                                                     {/* <View style={{ width: 51, height: 19, backgroundColor: '#21D348', borderRadius: 19 }}>
                                                         <Text style={{ color: 'white', fontSize: 11, textAlign: 'center' }}>37 Chat</Text>
-                                                    </View> */}
+                                                    </View> 
                                                     <View style={{ marginTop: 2 }}>
                                                         <Text style={{ color: 'gray', fontSize: 12 }}>
                                                             { this.renderDesc(eventData.desc) }
@@ -470,7 +471,7 @@ export default class profilScreen extends React.Component {
                                     ))
                                 }
                             </ScrollView>
-                        </View>
+                        </View> */}
                     </ScrollView>
 
                 </View>

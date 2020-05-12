@@ -31,6 +31,7 @@ var events = [];
 var dat = new dt;
 var api = dat.api();
 var images = dat.image();
+var user = dat.user();
 
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -119,34 +120,69 @@ export default class homeScreen extends React.Component {
                 <View style={{ flex: 1, backgroundColor: "#E5E5E5" }}>
                     <StatusBar barStyle="light-content"></StatusBar>
                     <ScrollView>
+                    
+                    <View style={{ 
+                        flexDirection: 'row', 
+                        justifyContent: 'space-between',
+                        backgroundColor: '#E5E5E5',}}>
+
+                        <Text style={{ fontWeight: 'bold', fontSize: hp('3%'), color: '#526EDD', marginTop: hp('2%'), marginLeft: wp('5%') }}>
+                            Home
+                        </Text>
+                        <View style={{ flexDirection: "row", marginTop: StatusBar.currentHeight, marginHorizontal: wp("4%") }}>
+                            <TouchableOpacity onPress={() => this.props.navigation.push("My Event")}>
+                            <Image
+                                resizeMode="contain"
+                                style={{ marginRight: 13, width:48, height:48 }}
+                                source={require("../src/img/MyEvent.png")}
+                            />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate("History")}
+                            >
+                            <Image
+                                source={require("../src/image/History.png")}
+                                style={{ marginRight: 13, width: 48, height: 48 }}
+                            />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                            onPress={() => this.props.navigation.push("Notification")}
+                            >
+                            
+                            <Image 
+                                style={{ width: 48, height: 48}}
+                            source={require("../src/image/Notif.png")} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
                     <View
                         style={{
                         flex: 0,
                         flexDirection: "row",
                         marginTop: 20,
-                        paddingBottom: 10,
                         borderRadius: 15,
                         marginHorizontal: 17,
                         backgroundColor: "#50A5D3",
                         }}
                     >
-                        <Image
-                        source={{ uri: images + "/image/Prof1.png"}}
-                        resizeMode="contain"
-                        style={{marginLeft:13, width:wp('12%'), height:hp('12%') }}
-                        />
-                        <View style={{ marginLeft: 30, marginTop: 5 }}>
-                        <Text
-                            style={{ fontSize: 20, fontWeight: "bold", color: "white" }}
-                        >
-                            Hello, { datauser.name }!
-                        </Text> 
-                        <Text style={{ fontSize: 18, marginTop: 10, color: "white" }}>
-                            { fullDay }
-                        </Text> 
-                        <Text style={{ fontSize: 16, marginTop: 10, color: "#f0f0f0" }}>
-                            { datauser.desc }
-                        </Text>
+                        {/* <View style={{ borderRadius: '50%', overflow: 'hidden', width:wp('12%'), height:hp('12%') }} > */}
+                            <Image
+                            source={{ uri: user + datauser.picture }}
+                            resizeMode="center"
+                            style={{marginLeft:15, width:wp('12%'), height:hp('12%'), borderRadius: 75 }}
+                            />
+                        {/* </View> */}
+                        <View style={{ marginLeft: 15, marginTop: 10 }}>
+                            <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
+                                Hello, { datauser.name }!
+                            </Text> 
+                            <Text style={{ fontSize: 18, marginTop: 5, color: "white" }}>
+                                { fullDay }
+                            </Text> 
+                            <Text style={{ fontSize: 16, marginTop: 5, color: "#f0f0f0" }}>
+                                { datauser.desc }
+                            </Text>
                         </View>
                     </View>
                     <View style={{ flex: 0, marginHorizontal: 17, marginTop: 30 }}>

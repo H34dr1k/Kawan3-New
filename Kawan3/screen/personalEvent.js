@@ -97,7 +97,7 @@ class personalEventScreen extends Component {
                         keyExtractor={(item) => item.key}
                         renderItem={({item}) => {
                             return(
-                                <View key={item.id} style={{ marginHorizontal: 26, marginVertical: 10, backgroundColor:"#628DE7", borderRadius:10, padding:20,}}>    
+                                <View style={{ marginHorizontal: 26, marginVertical: 10, backgroundColor:"#628DE7", borderRadius:10, padding:20,}} key={item.id} >    
                                     <View style={{ flexDirection:"row" }}>
                                         <Image source={{ uri : image + item.profile}} style={{ marginRight: 10, width:wp('10%'), height:hp('5%'), borderRadius: 45 }} />
 

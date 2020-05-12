@@ -8,7 +8,7 @@ class data {
         return ip + "/src";
     }
     user = () => {
-        return ip + "/users";
+        return ip + "/src/users";
     }
 }
 

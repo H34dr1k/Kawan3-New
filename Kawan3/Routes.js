@@ -319,51 +319,52 @@ function homeStackScreen({ navigation, route }) {
         <homeStack.Screen
           name="Home"
           options={({ route, navigation }) => ({
-            title: route.name,
-            headerStyle: {
-              backgroundColor: "#E5E5E5",
-              elevation: 0
-            },
-            headerTintColor: "#526EDD",
-            headerTitleStyle: {
-              fontWeight: "bold",
-              fontSize: hp("3%")
-            },
-            headerRight: () => (
+            headerShown: false
+            // title: route.name,
+            // headerStyle: {
+            //   backgroundColor: "#E5E5E5",
+            //   elevation: 0
+            // },
+            // headerTintColor: "#526EDD",
+            // headerTitleStyle: {
+            //   fontWeight: "bold",
+            //   fontSize: hp("3%")
+            // },
+            // headerRight: () => (
               // <Button
               //     onPress={() => navigation.navigate('historyScreen')}
               //     title="Info"
               //     color="#00cc00"
               // />
-              <View
-                style={{ flexDirection: "row",
-            marginTop: StatusBar.currentHeight, marginHorizontal: wp("4%") }}
-              >
-                <TouchableOpacity onPress={() => navigation.push("My Event")}>
-                  <Image
-                    resizeMode="contain"
-                    style={{ marginRight: 13, width:48, height:48 }}
-                    source={require("./src/img/MyEvent.png")}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("History")}
-                >
-                  <Image
-                    source={require("./src/image/History.png")}
-                    style={{ marginRight: 13, width: 48, height: 48 }}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => navigation.push("Notification")}
-                >
+            //   <View
+            //     style={{ flexDirection: "row",
+            // marginTop: StatusBar.currentHeight, marginHorizontal: wp("4%") }}
+            //   >
+            //     <TouchableOpacity onPress={() => navigation.push("My Event")}>
+            //       <Image
+            //         resizeMode="contain"
+            //         style={{ marginRight: 13, width:48, height:48 }}
+            //         source={require("./src/img/MyEvent.png")}
+            //       />
+            //     </TouchableOpacity>
+            //     <TouchableOpacity
+            //       onPress={() => navigation.navigate("History")}
+            //     >
+            //       <Image
+            //         source={require("./src/image/History.png")}
+            //         style={{ marginRight: 13, width: 48, height: 48 }}
+            //       />
+            //     </TouchableOpacity>
+            //     <TouchableOpacity
+            //       onPress={() => navigation.push("Notification")}
+            //     >
                   
-                  <Image 
-                    style={{ width: 48, height: 48}}
-                  source={require("./src/image/Notif.png")} />
-                </TouchableOpacity>
-              </View>
-            )
+            //       <Image 
+            //         style={{ width: 48, height: 48}}
+            //       source={require("./src/image/Notif.png")} />
+            //     </TouchableOpacity>
+            //   </View>
+            // )
           })}
           component={homeScreen}
         />
