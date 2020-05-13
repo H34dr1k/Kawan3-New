@@ -22,7 +22,7 @@ export default class addScreen extends React.Component {
                     </ImageBackground>
                 </View>
 
-                <View style={{ flex: 1, width: '100%', height: '100%',paddingHorizontal:50 ,backgroundColor: '#EFEEEE', borderTopLeftRadius: 25, borderTopRightRadius: 25, marginTop: 0, paddingTop:5, }}>                 
+                <View style={{ flex: 1, width: '100%', height: '100%',paddingHorizontal:50 ,backgroundColor: '#EFEEEE', borderTopLeftRadius: 25, borderTopRightRadius: 25, marginBottom:-150, paddingTop:5, }}>                 
                     <View style={{ marginTop: 15, marginBottom:15 }}>
                         <Text style={{ textAlign:"center", fontSize: 28, fontWeight: 'bold', color: '#526EDD' }}>Create something today!</Text>
                     </View>
@@ -46,7 +46,7 @@ export default class addScreen extends React.Component {
                         </TouchableOpacity>
                     </View>
 
-                    <View style={{ width: '100%', height: 50, backgroundColor: '#49438D', marginBottom: 15, borderRadius: 10, justifyContent: 'center' }}>
+                    <View style={{ width: '100%', height: 50, backgroundColor: '#49438D', borderRadius: 10, justifyContent: 'center' }}>
                         <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }} onPress={()=> this.props.navigation.navigate("travelFriend")} >
                             <Image source={require('../src/image/comm3.png')} resizeMode="contain" style={{ width: 32, height: 32, marginLeft: -60 }} />
                             <Text style={{ fontSize: 18, color: 'white', marginLeft: 15, fontWeight: 'bold' }}>Travel Friend</Text>

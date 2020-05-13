@@ -76,7 +76,7 @@ export default class eventScreen extends Component {
             return (
                 <View style={{ marginVertical: 20, marginHorizontal: 5 }}>
                     <View style={{ marginBottom: 10 , marginHorizontal: 15 }}>
-                        <Text style={{fontSize: 14, color: '#49438D', marginBottom: 5}}>
+                        <Text style={{ fontWeight: "bold", fontSize: 16, color: '#49438D', marginBottom: 5}}>
                             Search : 
                         </Text>
 
@@ -94,22 +94,21 @@ export default class eventScreen extends Component {
                         keyExtractor={(item) => item.key}
                         renderItem={({item}) => {
                             return(
-                                <View key={item.kodeuser} style={{ marginHorizontal: 15, marginVertical: 5, backgroundColor:"#628DE7", borderRadius:10, padding:20,}} >    
-                                    <View style={{ flexDirection:"row" }}>
-                                        <Image resizeMode="center" source={{ uri : image + item.preview}} style={{ marginRight: 10, width:wp('10%'), height:hp('5%'), borderRadius: 75 }} />
+                                <View key={item.kodeuser} style={{ marginHorizontal: 15, marginVertical: 10, backgroundColor:"#628DE7", borderRadius:10, paddingHorizontal:15, paddingBottom:10,}} >    
+                                    <View style={{flex:1, alignItems:"center", flexDirection:"row", }}>
+                                        <Image resizeMode="contain" source={{ uri : image + item.preview}} style={{flex:1,marginRight:15, width:wp('20%'), height:hp('15%'), borderRadius: 75 }} />
 
-                                        <View>
-                                            <Text type="rbold" style={{fontSize:hp('3%'), color:"white"}}>{item.name}</Text>
+                                        <View style={{flex:4}}>
+                                            <Text style={{fontSize:hp('3%'), fontWeight:"bold", color:"white", marginBottom:7}}>{item.name}</Text>
                                             <Text style={{color:"white"}}>{item.desc}</Text>
                                         </View>
                                     </View>
 
                                     <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
-                                        <TouchableOpacity onPress={() => {
-                                            
-                                        }}>
-                                            <View style={{marginRight:20}}>
-                                                <Text style={{ color: "lightgrey" }} >Join</Text>
+                                        <TouchableOpacity onPress={() => {}}
+                                            >
+                                            <View style={{marginTop:-10, width: 80, height: 30, borderRadius: 6, paddingVertical: 5, paddingHorizontal: 10, backgroundColor: "white", justifyContent: "center", alignItems: "center" }}>
+                                                <Text style={{ color: "black" }} >Join</Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>
