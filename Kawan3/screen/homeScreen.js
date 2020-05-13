@@ -70,6 +70,11 @@ export default class homeScreen extends React.Component {
         })
         .then(rd => {
             // console.log(rd);
+            if(rd == "[]"){
+                this.setState({ loaded:true });
+                this.render();
+                return;
+            }
             if(rd.indexOf('"id":') == -1 && rd.indexOf('"name":') == -1 && rd.indexOf('"desc":') == -1){
                 Alert.alert('Error', rd);
                 return;
