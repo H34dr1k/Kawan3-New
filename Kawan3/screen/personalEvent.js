@@ -71,7 +71,12 @@ class personalEventScreen extends Component {
             return rd.text()
         })
         .then(rs => {
-            if(rs.indexOf('[{"id":') == -1){
+            if(rs == "[]"){
+                this.setState({ loaded: true });
+                this.render();
+                return;
+            }
+            if(rs.indexOf('"id":') == -1 || rs.indexOf('"name":') == -1){
                 Alert.alert('Error', rs);
                 return;
             }
