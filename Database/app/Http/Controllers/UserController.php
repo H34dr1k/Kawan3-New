@@ -177,8 +177,7 @@ class UserController extends Controller
 
     public function createUser(Request $request)
     {
-        $dataJSON = $request->json()->all();
-        $dataInsert = json_decode($dataJSON[0], true);
+        $dataInsert = $request->json()->all();
         
         $data = new User;
         $data->kodeuser = $dataInsert['kodeuser'];
@@ -197,8 +196,7 @@ class UserController extends Controller
 
     public function createSetting(Request $request)
     {
-        $dataJSON = $request->json()->all();
-        $dataInsert = json_decode($dataJSON[0], true);
+        $dataInsert = $request->json()->all();
 
         $data = new Setting;
         $data->kodeuser = $dataInsert['kodeuser'];
