@@ -176,7 +176,7 @@ class SignUp1 extends React.Component {
                 Alert.alert("Success", "You've successfully signed up. Login to continue");
                 this.props.navigation.reset({
                     index: 0,
-                    routes: [{ names: 'Login' }]
+                    routes: [{ name: 'Login' }]
                 });
             });
         });

@@ -203,7 +203,7 @@ class UserController extends Controller
         $data->save();
 
         $dataBaru = Setting::where('kodeuser', $dataInsert['kodeuser'])->first();
-        return $dataBaru->kodeuser;
+        return $dataBaru->id;
     }
 
     public function createEvent(Request $request)
