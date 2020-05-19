@@ -129,7 +129,7 @@ class SignUp1 extends React.Component {
             headers: {
                 'Content-Type' : 'application/json'
             },
-            body: JSON.stringify(a)
+            body: JSON.stringify(dataSetting)
         })
         .then((rs) => {
             return rs.text();
@@ -170,7 +170,7 @@ class SignUp1 extends React.Component {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(t)
+                body: JSON.stringify(dataSignUp)
             }).then(rs => { return rs.text() })
             .then(rd => {
                 Alert.alert("Success", "You've successfully signed up. Login to continue");
