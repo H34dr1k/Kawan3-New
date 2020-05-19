@@ -41,6 +41,7 @@ class personalEventScreen extends Component {
     }
 
     async delete(id){
+        
         this.setState({ loaded: false });
         this.render();
 

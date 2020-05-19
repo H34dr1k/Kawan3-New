@@ -301,6 +301,9 @@ function introStackScreen({ navigation, route }) {
             <introStack.Screen name="Login" options={{
                 headerShown: false,
             }} component={Login} />
+        <introStack.Screen name="SignUp1" options={{
+          headerShown: false,
+        }} component={SignUp1} />
             <introStack.Screen name="homeScreen" options={{
                 headerShown: false,
                 tabBarVisible: false,
@@ -648,7 +651,7 @@ function nearYou({ navigation, route }) {
 
     return (
         <communityStack.Navigator >
-            <communityStack.Screen name="nearYouScreen" options={{ headerShown:false}} component={nearYouScreen} />
+            <communityStack.Screen name="Near You" options={{ headerShown:false}} component={nearYouScreen} />
             <communityStack.Screen name="communityDetail1Screen" options={{ }} component={communityDetail1Screen} />
         </communityStack.Navigator>
     )
@@ -670,15 +673,17 @@ function communityTopTabs({ navigation, route }) {
         name="Community"
         
       >
-        <topTabScreen1.Screen name="nearYouScreen" component={nearYou} />
+        <topTabScreen1.Screen name="Near You" component={nearYou} />
         <topTabScreen1.Screen
-          name="trendingScreen"
-          options={{}}
+          name="Trending"
+          options={({ route }) => ({
+            title:route.name
+          })}
           component={trendingScreen}
         />
         <topTabScreen1.Screen
           name="mostJoinedScreen"
-          options={{}}
+          options={{ title: route.name}}
           component={mostJoinedScreen}
         />
       </topTabScreen1.Navigator>

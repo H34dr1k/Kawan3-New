@@ -129,8 +129,7 @@ export default class homeScreen extends React.Component {
                     <View style={{ 
                         flexDirection: 'row', 
                         justifyContent: 'space-between',
-                        backgroundColor: '#E5E5E5',}}>
-
+                        backgroundColor: '#E5E5E5',alignItems:"center", marginTop:-10}}>
                         <Text style={{ fontWeight: 'bold', fontSize: hp('3%'), color: '#526EDD', marginTop: hp('2%'), marginLeft: wp('5%') }}>
                             Home
                         </Text>
@@ -171,27 +170,30 @@ export default class homeScreen extends React.Component {
                         backgroundColor: "#50A5D3",
                         }}
                     >
+                        <View  style={{flex:1, flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
                         {/* <View style={{ borderRadius: '50%', overflow: 'hidden', width:wp('12%'), height:hp('12%') }} > */}
                             <Image
                             source={{ uri: user + datauser.picture }}
                             resizeMode="center"
-                            style={{marginLeft:15, width:wp('12%'), height:hp('12%'), borderRadius: 75 }}
+                            style={{flex:1, marginLeft:15, width:wp('12%'), height:hp('12%'), borderRadius: 75 }}
                             />
                         {/* </View> */}
-                        <View style={{ marginLeft: 15, marginTop: 10 }}>
+                        <View style={{flex:5, marginLeft: 15, marginTop: 20,  }}>
                             <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
                                 Hello, { datauser.name }!
                             </Text> 
-                            <Text style={{ fontSize: 18, marginTop: 5, color: "white" }}>
-                                { fullDay }
-                            </Text> 
-                            <Text style={{ fontSize: 16, marginTop: 5, color: "#f0f0f0" }}>
-                                { datauser.desc }
-                            </Text>
+                            
+                                <Text style={{ fontSize: 18, marginTop: 5, color: "white" }}>
+                                    { fullDay }
+                                </Text> 
+                                <Text style={{ fontSize: 16, marginTop: 5, color: "#f0f0f0" }}>
+                                    { datauser.desc }
+                                </Text>
+                            </View>
                         </View>
-                    </View>
+                        </View>
                     <View style={{ flex: 0, marginHorizontal: 17, marginTop: 30 }}>
-                        <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 8 }}>
+                        <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 15 }}>
                         Event you might like
                         </Text>
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ flexDirection: "row" }}>
@@ -199,8 +201,9 @@ export default class homeScreen extends React.Component {
                                 eventList = events.map(item => (
                                     <View
                                         style={{
+                                        paddingHorizontal:10,
                                         marginRight: 18,
-                                        height: 230,
+                                        height: 280,
                                         width: 183,
                                         backgroundColor: "white",
                                         borderRadius: 15,
@@ -209,9 +212,10 @@ export default class homeScreen extends React.Component {
                                         }}
                                         key={item.id}>
 
-                                        <View style={{ alignItems: "center", paddingTop: 10 }}>
-                                            <Image style={{width:wp('20%'), height:wp('20%')}} source={{ uri: images + "/image/Event1.png"}} />
-                                            <Text>
+                                    <View style={{Flex:1}}>
+                                        <View style={{ alignItems: "center", }}>
+                                            <Image style={{width:wp('24%'), height:wp('24%')}} source={{ uri: images + "/image/Event1.png"}} />
+                                            <Text style={{textAlign:"center", fontSize:16, fontWeight:"bold",marginVertical:10}}>
                                                 { item.name }
                                             </Text>
                                         </View>
@@ -221,8 +225,8 @@ export default class homeScreen extends React.Component {
                                             flex: 0,
                                             justifyContent: "center"
                                         }}>
-                                            <Image resizeMode="contain" style={{ width: wp('3%'), height: wp('3%') }} source={{ uri: images + "/image/Sign.png"}} />
-                                            <Text style={{ fontSize: 11, color: "gray" }}>
+                                            <Image resizeMode="contain" style={{flex:1, width: wp('3%'), height: wp('3%'), marginTop:3 }} source={{ uri: images + "/image/Sign.png"}} />
+                                            <Text style={{flex:4, fontSize: 11, color: "gray" }}>
                                                 { item.alamat }
                                             </Text>
                                         </View>
@@ -256,7 +260,8 @@ export default class homeScreen extends React.Component {
                                         style={{
                                             flexDirection: "row",
                                             justifyContent: "space-between",
-                                            alignItems: "center"
+                                            alignItems: "center",
+                                            marginTop: -12,
                                         }}>
                                             <TouchableOpacity
                                                 onPress={() => this.joinEvent(item.id)}
@@ -271,20 +276,28 @@ export default class homeScreen extends React.Component {
                                                 <Text
                                                 style={{
                                                     textAlign: "center",
-                                                    marginTop: 5,
                                                     fontSize: 12,
                                                     fontWeight: "bold",
-                                                    color: "white"
+                                                    color: "white",
+                                                    marginTop:5,
                                                 }}>
                                                     Join Now
                                                 </Text>
                                             </TouchableOpacity>
 
-                                            <TouchableOpacity>
-                                                <Text style={{ fontSize: 11, color: "gray", marginRight: 10 }}>
+                                                <TouchableOpacity style={{
+                                                    width: 70,
+                                                    height: 30,
+                                                    backgroundColor: "#F8B814",
+                                                    borderRadius: 4,
+                                                    justifyContent:"center",
+                                                    alignItems:"center"
+                                                }}>
+                                                <Text style={{fontWeight:"bold" ,fontSize: 11, color: "white",}}>
                                                     View More
                                                 </Text>
                                             </TouchableOpacity>
+                                        </View>
                                         </View>
                                     </View>
                                 ))
@@ -299,7 +312,7 @@ export default class homeScreen extends React.Component {
                             marginBottom: 15
                         }}
                         >
-                        <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+                        <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom:10 }}>
                             May You Like Community
                         </Text>
                         <TouchableOpacity>
