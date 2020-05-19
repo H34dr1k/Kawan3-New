@@ -115,11 +115,14 @@ class SignUp1 extends React.Component {
             gender = "Female";
         }
 
-        var dataSetting = 
-            "{" +
-                "\"kodeuser\":\"" + newId + "\"" +
-            "}";
-        var a = JSON.parse(dataSetting);
+        // var dataSetting = 
+        //     "{" +
+        //         "\"kodeuser\":\"" + newId + "\"" +
+        //     "}";
+        // var a = JSON.parse(dataSetting);
+
+        var dataSetting = JSON.parse("{ }");
+        dataSetting.kodeuser = newId;
 
         fetch(data.api() + "/api/setting", {
             method: "POST",
@@ -136,20 +139,31 @@ class SignUp1 extends React.Component {
                 Alert.alert('Error', rd);
                 return;
             }
-            
-            var dataSignUp = 
-                "{"+
-                    "\"kodeuser\":\"" + newId + "\", " +
-                    "\"name\":\"" + this.state.username + "\", " +
-                    "\"email\":\"" + this.state.email + "\", "+
-                    "\"password\":\"" + this.state.pass + "\", "+
-                    "\"gender\":\"" + gender + "\", "+
-                    "\"loggedIn\":0, "+
-                    "\"desc\":\"\", "+
-                    "\"hobby\":\"\", "+
-                    "\"setting\":" + rd + ""+
-                "}";
-            var t = JSON.parse(dataSignUp);
+
+            var dataSignUp = JSON.parse("{ }");
+            dataSignUp.kodeuser = newId;
+            dataSignUp.name = this.state.username;
+            dataSignUp.email = this.state.email;
+            dataSignUp.password = this.state.pass;
+            dataSignUp.gender = gender;
+            dataSignUp.loggedIn = 0;
+            dataSignUp.desc = "";
+            dataSignUp.hobby = "";
+            dataSignUp.setting = rd;
+
+            // var dataSignUp = 
+            //     "{"+
+            //         "\"kodeuser\":\"" + newId + "\", " +
+            //         "\"name\":\"" + this.state.username + "\", " +
+            //         "\"email\":\"" + this.state.email + "\", "+
+            //         "\"password\":\"" + this.state.pass + "\", "+
+            //         "\"gender\":\"" + gender + "\", "+
+            //         "\"loggedIn\":0, "+
+            //         "\"desc\":\"\", "+
+            //         "\"hobby\":\"\", "+
+            //         "\"setting\":" + rd + ""+
+            //     "}";
+            // var t = JSON.parse(dataSignUp);
             
             fetch(data.api() + "/api/user", {
                 method: "POST",
