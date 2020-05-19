@@ -55,18 +55,20 @@ class SignUp1 extends React.Component {
           pass: "",
           confPass: "",
           username: "",
-          gender: 0
+          gender: 0,
+          loaded: false
         };
     }
 
-    componentDidMount(){
-        fetch(data.api() + "/api/user")
+    async componentDidMount(){
+        await fetch(data.api() + "/api/user")
         .then(rs => {
             return rs.text();
         })
         .then(rd => {
             datauser = JSON.parse(rd);
         });
+        this.setState({ loaded: true });
     }
 
     onSignUpPress = () => {
@@ -105,6 +107,7 @@ class SignUp1 extends React.Component {
         }
 
         var lastId = datauser[datauser.length - 1].kodeuser;
+        console.log(lastId);
         var newIdNumber = parseInt(lastId.substring(1)) + 1;
         var newId = "U" + newIdNumber.toString().padStart(4, '0');
 
@@ -135,20 +138,20 @@ class SignUp1 extends React.Component {
             return rs.text();
         })
         .then((rd) => {
-            if(rd.indexOf('U', 0)){
+            if(rd.length > 5){
                 Alert.alert('Error', rd);
                 return;
             }
 
             var dataSignUp = JSON.parse("{ }");
             dataSignUp.kodeuser = newId;
-            dataSignUp.name = this.state.username;
+            dataSignUp.nama = this.state.username;
             dataSignUp.email = this.state.email;
             dataSignUp.password = this.state.pass;
             dataSignUp.gender = gender;
             dataSignUp.loggedIn = 0;
-            dataSignUp.desc = "";
-            dataSignUp.hobby = "";
+            dataSignUp.desc = " ";
+            dataSignUp.hobby = " ";
             dataSignUp.setting = rd;
 
             // var dataSignUp = 
@@ -173,10 +176,14 @@ class SignUp1 extends React.Component {
                 body: JSON.stringify(dataSignUp)
             }).then(rs => { return rs.text() })
             .then(rd => {
+                if (rd != "Data Berhasil Ditambah"){
+                    Alert.alert('Error', rd);
+                    return;
+                }
                 Alert.alert("Success", "You've successfully signed up. Login to continue");
                 this.props.navigation.reset({
                     index: 0,
-                    routes: [{ names: 'Login' }]
+                    routes: [{ name: 'Login' }]
                 });
             });
         });
@@ -206,71 +213,77 @@ class SignUp1 extends React.Component {
         //     const hasNotch = StatusBar.currentHeight > 24;
         // }
         // console.log('statusBarHeight: ', StatusBar.currentHeight);
-
-        return (
-             <AppFontLoader>
+        if(!this.state.loaded){
+            return(
                 <View style={s.container}>
+                    <ActivityIndicator size="large" />
+                </View>
+            )
+        }else{
+            return (
+                <AppFontLoader>
+                    <View style={s.container}>
 
-                    <StatusBar barStyle="light-content" />
+                        <StatusBar barStyle="light-content" />
 
-                    <ImageBackground resizeMode={'cover'} style={s.img1} source={{ uri: images + "/img/header3.png"}}>
-                        <Text
-                        onPress={() => this.props.navigation.navigate('Login')} 
-                         type='rbold' style={s.judul}>Sign Up</Text>
-                        <Text style={s.subjudul}>Fill the details & create your account!</Text>
-                    </ImageBackground>
+                        <ImageBackground resizeMode={'cover'} style={s.img1} source={{ uri: images + "/img/header3.png" }}>
+                            <Text
+                                onPress={() => this.props.navigation.navigate('Login')}
+                                type='rbold' style={s.judul}>Sign Up</Text>
+                            <Text style={s.subjudul}>Fill the details & create your account!</Text>
+                        </ImageBackground>
 
-                    <View style={s.form}>
+                        <View style={s.form}>
 
-                        <View>
-                            <Text type='rmedium' style={s.tusername}>Username</Text>
-                            <TextInput style={s.fusername}
-                                placeholder='Username'
-                                underlineColorAndroid={'transparent'} 
-                                onChangeText={value => this.setState({ username: value })}
-                            />
-                        </View>
-
-                        <View>
-                            <Text type='rmedium' style={s.temail}>Email Address</Text>
-                            <TextInput style={s.femail}
-                                placeholder='Email Address'
-                                keyboardType="email-address"
-                                underlineColorAndroid={'transparent'}
-                                value={this.state.email}
-                                onChangeText={(text) => {this.setState({email: text})}}
-                            />
-                        </View>
-
-                        <View>
-                            <Text type='rmedium' style={s.tpw}>Password</Text>
-                            <View style={s.fpw}>
-                                <TextInput style={{ flex: 1 }}
-                                    placeholder='Password'
-                                    secureTextEntry={this.state.secureTextEntry}
-                                    value={this.state.pass}
-                                    onChangeText={(text) => {this.setState({pass: text}) }}/>
-                                <TouchableOpacity style={{}} onPress={this.onIconPress}>
-                                    <Icon name={this.state.iconName} style={{ paddingTop: 0, justifyContent: "center" }} size={wp('8%')} color="black" />
-                                </TouchableOpacity>
+                            <View>
+                                <Text type='rmedium' style={s.tusername}>Username</Text>
+                                <TextInput style={s.fusername}
+                                    placeholder='Username'
+                                    underlineColorAndroid={'transparent'}
+                                    onChangeText={value => this.setState({ username: value })}
+                                />
                             </View>
-                        </View>
 
-                        <View>
-                            <Text type='rmedium' style={s.tcpw}> Confirm Password</Text>
-                            <View style={s.fpw}>
-                                <TextInput style={{ flex: 1 }}
-                                    placeholder='Confirm your password'
-                                    secureTextEntry={this.state.secureTextEntry2}
-                                    value={this.state.confPass}
-                                    onChangeText={(text) => {this.setState({confPass: text}) }}/>
-                                <TouchableOpacity style={{}} onPress={this.onIconPress2}>
-                                    <Icon name={this.state.iconName2} style={{ paddingTop: 0, justifyContent: "center" }} size={wp('8%')} color="black" />
-                                </TouchableOpacity>
+                            <View>
+                                <Text type='rmedium' style={s.temail}>Email Address</Text>
+                                <TextInput style={s.femail}
+                                    placeholder='Email Address'
+                                    keyboardType="email-address"
+                                    underlineColorAndroid={'transparent'}
+                                    value={this.state.email}
+                                    onChangeText={(text) => { this.setState({ email: text }) }}
+                                />
                             </View>
-                        </View>
 
-                        {/* <View>
+                            <View>
+                                <Text type='rmedium' style={s.tpw}>Password</Text>
+                                <View style={s.fpw}>
+                                    <TextInput style={{ flex: 1 }}
+                                        placeholder='Password'
+                                        secureTextEntry={this.state.secureTextEntry}
+                                        value={this.state.pass}
+                                        onChangeText={(text) => { this.setState({ pass: text }) }} />
+                                    <TouchableOpacity style={{}} onPress={this.onIconPress}>
+                                        <Icon name={this.state.iconName} style={{ paddingTop: 0, justifyContent: "center" }} size={wp('8%')} color="black" />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+
+                            <View>
+                                <Text type='rmedium' style={s.tcpw}> Confirm Password</Text>
+                                <View style={s.fpw}>
+                                    <TextInput style={{ flex: 1 }}
+                                        placeholder='Confirm your password'
+                                        secureTextEntry={this.state.secureTextEntry2}
+                                        value={this.state.confPass}
+                                        onChangeText={(text) => { this.setState({ confPass: text }) }} />
+                                    <TouchableOpacity style={{}} onPress={this.onIconPress2}>
+                                        <Icon name={this.state.iconName2} style={{ paddingTop: 0, justifyContent: "center" }} size={wp('8%')} color="black" />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+
+                            {/* <View>
                             <Text type='rmedium' style={s.tcpw}>Phone Number</Text>
                             <View style={s.fpw}>
                                 <TextInput 
@@ -280,26 +293,26 @@ class SignUp1 extends React.Component {
                             </View>
                         </View> */}
 
-                        <View style={s.gender}>
-                            <RadioForm
-                                style={{width:wp('35%'), height:hp('10%')}}
-                                radio_props={gender}
-                                initial={0} //Atur posisi default
-                                onPress={(value) => {this.setState({ gender: value })}}
-                                buttonSize={14.5}
-                                buttonOuterSize={25}
-                                selectedButtonColor={'#38D1E6'}
-                                selectedLabelColor={'#38D1E6'}
-                                labelStyle={{ fontSize: hp('2%'), marginRight:wp('10%')}}
-                                formHorizontal={true}
-                                buttonColor={'#C8C8C8'}
-                                buttonWrapStyle={{ borderWidth:1 }}
-                            />
+                            <View style={s.gender}>
+                                <RadioForm
+                                    style={{ width: wp('35%'), height: hp('10%') }}
+                                    radio_props={gender}
+                                    initial={0} //Atur posisi default
+                                    onPress={(value) => { this.setState({ gender: value }) }}
+                                    buttonSize={14.5}
+                                    buttonOuterSize={25}
+                                    selectedButtonColor={'#38D1E6'}
+                                    selectedLabelColor={'#38D1E6'}
+                                    labelStyle={{ fontSize: hp('2%'), marginRight: wp('10%') }}
+                                    formHorizontal={true}
+                                    buttonColor={'#C8C8C8'}
+                                    buttonWrapStyle={{ borderWidth: 1 }}
+                                />
+                            </View>
                         </View>
-                    </View>
 
-                    <View style={s.continue}>
-                        <TouchableOpacity
+                        <View style={s.continue}>
+                            <TouchableOpacity
                                 onPress={() => this.onSignUpPress()}
                                 style={s.btnlogin}>
 
@@ -308,15 +321,16 @@ class SignUp1 extends React.Component {
                                 </LinearGradient>
 
                             </TouchableOpacity>
+                        </View>
+
+
+
+
+
                     </View>
-
-                    
-
-
-                    
-                </View>
-            </AppFontLoader>
-        );
+                </AppFontLoader>
+            );
+        }
     }
 }
 

@@ -301,6 +301,9 @@ function introStackScreen({ navigation, route }) {
             <introStack.Screen name="Login" options={{
                 headerShown: false,
             }} component={Login} />
+        <introStack.Screen name="SignUp1" options={{
+          headerShown: false,
+        }} component={SignUp1} />
             <introStack.Screen name="homeScreen" options={{
                 headerShown: false,
                 tabBarVisible: false,
