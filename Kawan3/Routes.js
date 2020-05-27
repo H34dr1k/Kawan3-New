@@ -682,8 +682,7 @@ function communityTopTabs({ navigation, route }) {
           component={trendingScreen}
         />
         <topTabScreen1.Screen
-          name="mostJoinedScreen"
-          options={{ title: route.name}}
+          name="All community"
           component={mostJoinedScreen}
         />
       </topTabScreen1.Navigator>

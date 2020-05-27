@@ -46,6 +46,8 @@ export default class profilScreen extends React.Component {
     }
 
     componentDidMount(){
+        this.setState({ loaded: false });
+        this.load();
         this.props.navigation.addListener('focus', () => {
             this.setState({ loaded: false });
             this.load();
@@ -107,10 +109,11 @@ export default class profilScreen extends React.Component {
         FACES = [];
         for (let i = 0; i < friends.length; i++) {
             FACES.push({
-                id : i,
+                id : 'face' + i,
                 imageUrl : `${user + friends[i].picture}`
             });
         }
+        console.log(FACES);
     }
 
     imagePress = async () => {

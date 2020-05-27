@@ -104,6 +104,12 @@ class communityScreen extends React.Component {
 
             community[i].distance = e;
         };
+
+        const newData = community.filter(item => {
+            return item.distance < 10;
+        })
+
+        community = newData;
     }
 
     render() {

@@ -53,6 +53,8 @@ export default class homeScreen extends React.Component {
     }
 
     componentDidMount(){
+        this.setState({ loaded: false });
+        this.load();
         this.props.navigation.addListener('focus', () => {
             this.setState({ loaded: false });
             this.load();
