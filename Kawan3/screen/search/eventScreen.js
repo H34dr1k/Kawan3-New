@@ -15,6 +15,13 @@ var datauser = [];
 
 // create a component
 export default class eventScreen extends Component {
+    
+    state = {
+        loaded: false,
+        username: '',
+        data: [],
+        emptyEvent: false
+    }
 
     componentDidMount(){
         this.props.navigation.addListener('focus', () => {
@@ -24,6 +31,8 @@ export default class eventScreen extends Component {
     }
 
     async load(){
+        users = [];
+        this.state.data = [];
 
         await AsyncStorage.getItem('datauser').then(rd => {
             datauser = JSON.parse(rd);
@@ -34,11 +43,19 @@ export default class eventScreen extends Component {
             return rs.text()
         })
         .then(rd => {
-            if(rd.indexOf('"id":') == -1 || rd.indexOf('"name":') == -1 || rd.indexOf('"desc":') == -1)
-            Alert.alert('Error', rd);
+            if(rd == "[]"){
+                this.setState({ loaded: true, emptyEvent: true });
+                this.render;
+                return;
+            }
+            
+            if(rd.indexOf('"id":') == -1 || rd.indexOf('"name":') == -1 || rd.indexOf('"desc":') == -1){
+                Alert.alert('Error', rd);
+                return;
+            }
 
             users = JSON.parse(rd);
-            this.setState({ data: users });
+            this.setState({ data: users, emptyEvent: false });
         });
 
         this.setState({ loaded: true });
@@ -56,12 +73,6 @@ export default class eventScreen extends Component {
 
         this.setState({ data: newData });
         // this.render;
-    }
-
-    state = {
-        loaded: false,
-        username: '',
-        data: []
     }
 
     render() {
@@ -88,13 +99,23 @@ export default class eventScreen extends Component {
 
                     </View>
 
+                    {
+                        this.state.emptyEvent && (
+                            <View style={{ alignItems: 'center' }}>
+                                <Text style={{ color: "grey" }}>
+                                    There are no upcoming event...
+                                </Text>
+                            </View>
+                        )
+                    }
+
                     <FlatList
                         style={{width:'100%'}}
                         data={this.state.data}
                         keyExtractor={(item) => item.key}
                         renderItem={({item}) => {
                             return(
-                                <View key={item.kodeuser} style={{ marginHorizontal: 15, marginVertical: 10, backgroundColor:"#628DE7", borderRadius:10, paddingHorizontal:15, paddingBottom:10,}} >    
+                                <View key={item.key} style={{ marginHorizontal: 15, marginVertical: 10, backgroundColor:"#628DE7", borderRadius:10, paddingHorizontal:15, paddingBottom:10,}} >    
                                     <View style={{flex:1, alignItems:"center", flexDirection:"row", }}>
                                         <Image resizeMode="contain" source={{ uri : image + item.preview}} style={{flex:1,marginRight:15, width:wp('20%'), height:hp('15%'), borderRadius: 75 }} />
 

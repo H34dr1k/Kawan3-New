@@ -404,10 +404,10 @@ function homeStackScreen({ navigation, route }) {
             title: route.name,
             tabBarVisible: false,
             headerStyle: {
-              backgroundColor: "#E5E5E5",
+              backgroundColor: "#628DE7",
               elevation: 0
             },
-            headerTintColor: "red",
+            headerTintColor: "white",
             headerTitleStyle: {
               fontWeight: "bold",
               fontSize: hp("3%")
@@ -458,10 +458,10 @@ function homeStackScreen({ navigation, route }) {
             title: route.name,
             tabBarVisible: false,
             headerStyle: {
-              backgroundColor: "#E5E5E5",
+              backgroundColor: "#628DE7",
               elevation: 0
             },
-            headerTintColor: "grey",
+            headerTintColor: "white",
             headerTitleStyle: {
               fontWeight: "bold",
               fontSize: hp("3%")
@@ -693,26 +693,24 @@ function communityTopTabs({ navigation, route }) {
 function searchTopTabs({ navigation, route }) {
   return (
     
-
     <searchStack.Navigator
-      name="Search"
-
+        name="Search"
     >
-      <searchStack.Screen
-        name="Friends"
-        options={{ tabBarVisible: true }}
-        component={friendsScreen}
-      />
-      <searchStack.Screen 
-        name="Events" 
-        options={{ tabBarVisible: true }}
-        component={eventScreen} 
-      />
-      <searchStack.Screen
-        name="Hobby"
-        options={{ tabBarVisible: true }}
-        component={hobbyScreen}
-      />
+        <searchStack.Screen
+            name="Add New Friends"
+            options={{ tabBarVisible: true }}
+            component={friendsScreen}
+        />
+        <searchStack.Screen 
+            name="Join upcoming Events" 
+            options={{ tabBarVisible: true }}
+            component={eventScreen} 
+        />
+        <searchStack.Screen
+            name="Add Favorite Hobby"
+            options={{ tabBarVisible: true }}
+            component={hobbyScreen}
+        />
     </searchStack.Navigator>
   );
 }
