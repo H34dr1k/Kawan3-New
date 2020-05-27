@@ -28,6 +28,9 @@ var datauser = [];
 
 var events = [];
 var joinedEvent = [];
+var friends = [];
+
+var FACES = [];
 
 export default class profilScreen extends React.Component {
 
@@ -36,12 +39,15 @@ export default class profilScreen extends React.Component {
         header: null
     }
 
-    constructor(props){
-        super(props);
-        this.state = { loaded:false }
+    state = {
+        loaded: false,
+        emptyEvent: false,
+        emptyFriend: false
     }
 
     componentDidMount(){
+        this.setState({ loaded: false });
+        this.load();
         this.props.navigation.addListener('focus', () => {
             this.setState({ loaded: false });
             this.load();
@@ -49,54 +55,65 @@ export default class profilScreen extends React.Component {
     }
 
     async load(){
+        joinedEvent = [];
+        friends = [];
+        
         await AsyncStorage.getItem('datauser')
         .then(rd => {
             datauser = JSON.parse(rd);
         });
-
-        await fetch(data.api() + '/api/event/creator/' + datauser.kodeuser + '/3')
-        .then(rs => {
-            return rs.text();
-        })
-        .then(rd => {
-            // console.log(rd);
-            
-            if(rd == "[]"){
-                this.setState({ loaded: true });
-                this.render();
-                return;
-            }
-
-            if(rd.indexOf('[{"id":') == -1){
-                Alert.alert('Error', rd);
-                return;
-            }
-            events = JSON.parse(rd);
-        })
 
         await fetch(api + '/api/joinedEvent/' + datauser.kodeuser)
         .then(rs => {
             return rs.text();
         })
         .then(rd => {
+            rd == "[]" ? this.setState({ emptyEvent: true }) : this.setState({ emptyEvent: false });
             if(rd == "[]"){
-                this.setState({ loaded: true });
-                this.render();
                 return;
             }
-
-            if(rd.indexOf('[{"id":') == -1){
+            else if(rd.indexOf('[{"id":') == -1){
                 Alert.alert('Error', rd);
                 return;
             }
             
             joinedEvent = JSON.parse(rd);
         })
-        // console.log(joinedEvent);
+
+        await fetch(api + '/api/getFriends/' + datauser.kodeuser)
+        .then(rs => {
+            return rs.text();
+        })
+        .then(rd => {
+            rd == "[]" ? this.setState({ emptyFriend: true }) : this.setState({ emptyFriend: false });
+            if(rd == "[]"){
+                return;
+            }
+            else if(rd.indexOf('"kodeuser":') == -1 || rd.indexOf('"name":') == -1){
+                Alert.alert('Error', rd);
+                return;
+            }
+
+            friends = JSON.parse(rd);
+        })
+
+        this.loadFaces();
+        // console.log(FACES);
         // return;
 
         this.setState({ loaded: true });
         this.render();
+    }
+    
+    loadFaces(){
+        FACES = [];
+        for (let i = 0; i < friends.length; i++) {
+            FACES.push({
+                id : 'face' + i,
+                imageUrl : `${user + friends[i].picture}`
+            });
+        }
+        console.log(FACES);
     }
 
     imagePress = async () => {
@@ -140,6 +157,12 @@ export default class profilScreen extends React.Component {
         });
     }
 
+    async showDetail(idEvent){
+        console.log('before');
+        await AsyncStorage.setItem('dataEvent', `${idEvent}`);
+        this.props.navigation.navigate('Event Detail');
+    }
+
     renderDesc(desc){
         if(desc.length > 15){
             var a = "";
@@ -154,53 +177,33 @@ export default class profilScreen extends React.Component {
     }
 
     render() {
-        const FACES = [
-          {
-            id: 0,
-            imageUrl:
-              "https://s3.amazonaws.com/uifaces/faces/twitter/vista/128.jpg"
-          },
-          {
-            id: 1,
-            imageUrl:
-              "http://www.yojackets.com/wp-content/uploads/2016/04/Civil-War-Scarlet-Witch-Red-Coat-1.jpg"
-          },
-          {
-            id: 2,
-            imageUrl:
-              "https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg"
-          },
-          {
-            id: 3,
-            imageUrl:
-              "https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg"
-          },
-          {
-            id: 4,
-            imageUrl:
-              "https://pbs.twimg.com/profile_images/885357926373654528/4tGgnF71_bigger.jpg"
-          }
-          //   {
-          //     id: 0,
-          //     imageUrl: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.tek.id%2Ffuture%2Fai-kamera-dibohongi-pakai-gambar-b1Xe89ej6&psig=AOvVaw3PwHjM0zd3Pv870poh7xay&ust=1585648116266000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCOzdv1wegCFQAAAAAdAAAAABAJ'
-          //   },
-          //   {
-          //     id: 1,
-          //     imageUrl: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.tek.id%2Ffuture%2Fai-kamera-dibohongi-pakai-gambar-b1Xe89ej6&psig=AOvVaw3PwHjM0zd3Pv870poh7xay&ust=1585648116266000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCOzdv1wegCFQAAAAAdAAAAABAJ'
-          //   },
-          //   {
-          //     id: 2,
-          //     imageUrl: "../src/image/Friend3.png"
-          //   },
-          //   {
-          //     id: 3,
-          //     imageUrl: "../src/image/Friend1.png"
-          //   },
-          //   {
-          //     id: 4,
-          //     imageUrl: "../src/image/Friend1.png"
-          //   }
-        ];
+        // const FACES = [
+        //   {
+        //     id: 0,
+        //     imageUrl:
+        //       "https://s3.amazonaws.com/uifaces/faces/twitter/vista/128.jpg"
+        //   },
+        //   {
+        //     id: 1,
+        //     imageUrl:
+        //       "http://www.yojackets.com/wp-content/uploads/2016/04/Civil-War-Scarlet-Witch-Red-Coat-1.jpg"
+        //   },
+        //   {
+        //     id: 2,
+        //     imageUrl:
+        //       "https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg"
+        //   },
+        //   {
+        //     id: 3,
+        //     imageUrl:
+        //       "https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg"
+        //   },
+        //   {
+        //     id: 4,
+        //     imageUrl:
+        //       "https://pbs.twimg.com/profile_images/885357926373654528/4tGgnF71_bigger.jpg"
+        //   }
+        // ];
 
         if(!this.state.loaded){
             return (
@@ -276,10 +279,18 @@ export default class profilScreen extends React.Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={{ flexDirection: 'row' }}>
+                                
+                                {
+                                    this.state.emptyFriend && (
+                                        <View>
+                                            <Text style={{ color: 'grey' }} >
+                                                You don't have friend. But don't be so sad about it :)
+                                            </Text>
+                                        </View>
+                                    )
+                                }
 
-                                <TouchableOpacity onPress={()=> alert('Bisa')}>
-                                <FacePile numFaces={4} faces={FACES} circleSize={25}/>
-                                </TouchableOpacity>
+                                <FacePile numFaces={FACES.length} faces={FACES} circleSize={25}/>
                                 {/* <View>
                                     <TouchableOpacity>
                                         <Image source={require('../src/image/Friend1.png')} style={{ marginRight: 10 }} />
@@ -392,8 +403,20 @@ export default class profilScreen extends React.Component {
                             
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ flexDirection: 'row'  }}>
                                 {
+                                    this.state.emptyEvent && (
+                                        <View>
+                                            <Text style={{ color: 'grey' }} >
+                                                You haven't joined any event yet...
+                                            </Text>
+                                        </View>
+                                    )
+                                }
+
+                                {
                                     eventList = joinedEvent.map(eventData => (
-                                        <TouchableOpacity key={eventData.id}>
+                                        <TouchableOpacity 
+                                            onPress={() => this.showDetail(eventData.id) }
+                                            key={eventData.id}>
                                             <View style={{ marginBottom: 20, marginRight: 15, width: 235, height: 80, borderRadius: 10, backgroundColor: '#E5E5E5', flexDirection: 'row' }}>
                                                 <View style={{ flex: 1, alignSelf: 'center' }}>
                                                     <Image source={{ uri : image + eventData.profile}} style={{ margin: 10, width:wp('10%'), height:hp('5%'), borderRadius: 45 }} />
@@ -414,7 +437,7 @@ export default class profilScreen extends React.Component {
                                                     </View>
                                                     <View style={{ marginTop: 3 }}>
                                                         <Text style={{ color: 'gray', fontSize: 12 }}>
-                                                            { eventData.memberCount } Member
+                                                            { eventData.memberCount } Attendees
                                                         </Text>
                                                     </View>
                                                 </View>

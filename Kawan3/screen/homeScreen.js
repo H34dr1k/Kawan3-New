@@ -47,12 +47,14 @@ fullDay = day + ", " + date + " " + month + " " + year;
 
 export default class homeScreen extends React.Component {
 
-    constructor(props){
-        super(props);
-        this.state = { loaded : false }
+    state = {
+        loaded: false,
+        emptyEvent: false
     }
 
     componentDidMount(){
+        this.setState({ loaded: false });
+        this.load();
         this.props.navigation.addListener('focus', () => {
             this.setState({ loaded: false });
             this.load();
@@ -60,6 +62,7 @@ export default class homeScreen extends React.Component {
     }
 
     async load(){
+        events = [];
         await AsyncStorage.getItem("datauser").then((t) => {
             datauser = JSON.parse(t);
         });
@@ -70,15 +73,18 @@ export default class homeScreen extends React.Component {
         })
         .then(rd => {
             // console.log(rd);
+            rd == "[]" ? this.setState({ emptyEvent: true }) : this.setState({ emptyEvent: false });
             if(rd == "[]"){
-                this.setState({ loaded:true });
+                this.setState({ loaded: true });
                 this.render();
                 return;
             }
-            if(rd.indexOf('"id":') == -1 && rd.indexOf('"name":') == -1 && rd.indexOf('"desc":') == -1){
+
+            if(rd.indexOf('"id":') == -1 || rd.indexOf('"name":') == -1 || rd.indexOf('"desc":') == -1){
                 Alert.alert('Error', rd);
                 return;
             }
+            
             events = JSON.parse(rd);
             // console.log(events);
         })
@@ -87,7 +93,14 @@ export default class homeScreen extends React.Component {
         this.render();
     }
 
+    async showDetail(idEvent){
+        console.log('before');
+        await AsyncStorage.setItem('dataEvent', `${idEvent}`);
+        this.props.navigation.navigate('Event Detail');
+    }
+
     async joinEvent(id){
+        this.setState({ loaded: false });
         var dataBaru = JSON.parse('{ }');
         dataBaru.idEvent = id;
         dataBaru.attendees = datauser.kodeuser;
@@ -108,8 +121,8 @@ export default class homeScreen extends React.Component {
                 return;
             }
         })
-            
-        this.setState({ loaded: false });
+        
+        Alert.alert("Success!", 'You have successfuly joined the Event!');
         this.load();
     }
     
@@ -178,16 +191,13 @@ export default class homeScreen extends React.Component {
                             style={{flex:1, marginLeft:15, width:wp('12%'), height:hp('12%'), borderRadius: 75 }}
                             />
                         {/* </View> */}
-                        <View style={{flex:5, marginLeft: 15, marginTop: 20,  }}>
-                            <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
-                                Hello, { datauser.name }!
-                            </Text> 
-                            
+                            <View style={{ flex:5, marginLeft: 15 }}>
+                                <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
+                                    Hello, { datauser.name }!
+                                </Text> 
+                                
                                 <Text style={{ fontSize: 18, marginTop: 5, color: "white" }}>
                                     { fullDay }
-                                </Text> 
-                                <Text style={{ fontSize: 16, marginTop: 5, color: "#f0f0f0" }}>
-                                    { datauser.desc }
                                 </Text>
                             </View>
                         </View>
@@ -197,6 +207,16 @@ export default class homeScreen extends React.Component {
                         Event you might like
                         </Text>
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ flexDirection: "row" }}>
+                            {
+                                this.state.emptyEvent && (
+                                    <View>
+                                        <Text style={{ color: "grey" }}>
+                                            There are no upcoming event...
+                                        </Text>
+                                    </View>
+                                )
+                            }
+
                             {
                                 eventList = events.map(item => (
                                     <View
@@ -213,9 +233,9 @@ export default class homeScreen extends React.Component {
                                         key={item.id}>
 
                                     <View style={{Flex:1}}>
-                                        <View style={{ alignItems: "center", }}>
-                                            <Image style={{width:wp('24%'), height:wp('24%')}} source={{ uri: images + "/image/Event1.png"}} />
-                                            <Text style={{textAlign:"center", fontSize:16, fontWeight:"bold",marginVertical:10}}>
+                                        <View style={{ alignItems: "center" }}>
+                                            <Image style={{ width:wp('24%'), height:wp('24%')}} source={{ uri: images + "/image/Event1.png" }} />
+                                            <Text style={{ textAlign:"center", fontSize:16, fontWeight:"bold", marginVertical:10 }}>
                                                 { item.name }
                                             </Text>
                                         </View>
@@ -285,7 +305,9 @@ export default class homeScreen extends React.Component {
                                                 </Text>
                                             </TouchableOpacity>
 
-                                                <TouchableOpacity style={{
+                                                <TouchableOpacity 
+                                                onPress={() => this.showDetail(item.id) }
+                                                style={{
                                                     width: 70,
                                                     height: 30,
                                                     backgroundColor: "#F8B814",

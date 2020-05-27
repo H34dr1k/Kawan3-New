@@ -14,7 +14,9 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   TextInput,
-  ToastAndroid
+  ToastAndroid,
+  AsyncStorage,
+  Alert
 } from "react-native";
 
 import "react-native-gesture-handler";
@@ -28,7 +30,7 @@ import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import Text from "../components/customText.js";
 import { AppFontLoader } from "../components/AppFontLoader.js";
 import { Header } from "react-native/Libraries/NewAppScreen";
-import { Directions } from "react-native-gesture-handler";
+import { Directions, FlatList } from "react-native-gesture-handler";
 
 import normalize from "react-native-normalize";
 import {
@@ -40,158 +42,258 @@ import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import firebase from "firebase";
 
+import dt from '../api'
+
+var dat = new dt;
+var api = dat.api();
+var image = dat.image();
+var user = dat.user();
+
+var datauser = [];
+var notif = [];
+
 class notifScreen extends React.Component {
-  static navigationOptions = {
-    title: "notifScreen",
-    header: null
-  };
+    static navigationOptions = {
+        title: "notifScreen",
+        header: null
+    };
 
-  registerForPushNotificationsAsync = async () => {
-    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-    // only asks if permissions have not already been determined, because
-    // iOS won't necessarily prompt the user a second time.
-    // On Android, permissions are granted on app installation, so
-    // `askAsync` will never prompt the user
-
-    // Stop here if the user did not grant permissions
-    if (status !== "granted") {
-      alert("No notification permissions!");
-      return;
+    state = {
+        loaded: false,
+        emptyNotif: false
     }
-    try {
-      // Get the token that identifies this device
-      let token = await Notifications.getExpoPushTokenAsync();
 
-      // POST the token to your backend server from where you can retrieve it to send push notifications.
-      forebase
-        .database()
-        .ref("users/" + this.currentUser.uid + "/push_token")
-        .set(token);
-    } catch (error) {
-      console.log(error);
+    componentDidMount() {
+        this.props.navigation.addListener('focus',() => {
+            this.load();
+        })
     }
-  };
 
-  async componentDidMount() {
-    (this.currentUser = await firebase.auth()), this.currentUser;
-    await this.registerForPushNotificationsAsync();
-  }
+    async load(){
+        notif = [];
+        await AsyncStorage.getItem('datauser').then(rd => {
+            datauser = JSON.parse(rd);
+        });
 
-  sendPushNoticiation = () => {
-    let response = fetch("https://exp.host/--/api/v2/push/send", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: {
-        to: "ExponentPushToken[]",
-        sound: "default",
-        titlel: "Demo",
-        body: "Demo notification"
-      }
-    });
-  };
+        await fetch(api + '/api/r/' + datauser.kodeuser)
+        .then(rs => {
+            return rs.text();
+        })
+        .then(rd => {
+            if(rd == "[]"){
+                this.setState({ loaded: true, emptyNotif: true });
+                this.render;
+                return;
+            }
 
-  render() {
-    return (
-      <AppFontLoader>
-        <SafeAreaView style={s.container}>
-          <StatusBar barStyle="dark-content" barAnimation="slide" />
+            if(rd.indexOf('"kodeuser":') == -1 || rd.indexOf('"name":') == -1 || rd.indexOf('"email":') == -1){
+                Alert.alert("Error", rd);
+                return;
+            }
 
-          <View style={s.notifikasi}>
-            <TouchableOpacity
-              style={s.notif1}
-              onPress={() => this.sendPushNoticiation()}
-            >
-              <Image
-                source={require("../src/img/face1.png")}
-                style={{
-                  width: wp("20%"),
-                  height: hp("20%"),
-                  flex: 1,
-                  marginHorizontal: wp("3%"),
-                  resizeMode: "contain"
-                }}
-              ></Image>
-              <View style={{ flex: 3, paddingRight: wp("1%") }}>
-                <Text
-                  type="rbold"
-                  style={{ fontSize: hp("2.5%"), color: "#FFF" }}
-                >
-                  Hendrik krisma
-                </Text>
-                <Text
-                  type="rbold"
-                  style={{ fontSize: hp("2%"), color: "#FFF" }}
-                >
-                  has sent you a request to meet up!
-                </Text>
-                <Text
-                  type="rlights"
-                  style={{ color: "#FFF", marginBottom: hp("1%") }}
-                >
-                  5 mins ago
-                </Text>
-                <Text
-                  type="rbold"
-                  style={{
-                    backgroundColor: "#fff",
-                    textAlign: "center",
-                    color: "#4FBFD7",
-                    width: wp("18%"),
-                    borderRadius: 30
-                  }}
-                >
-                  Friends
-                </Text>
-              </View>
-            </TouchableOpacity>
+            notif = JSON.parse(rd);
+            this.setState({ loaded: true, emptyNotif: false });
+            this.render;
+        })
+    }
 
-            <TouchableOpacity style={s.notif2}>
-              <Image
-                source={require("../src/img/fireworks1.png")}
-                style={{
-                  width: wp("20%"),
-                  height: hp("20%"),
-                  flex: 1,
-                  marginHorizontal: wp("3%"),
-                  resizeMode: "contain"
-                }}
-              ></Image>
-              <View style={{ flex: 3, paddingRight: wp("1%") }}>
-                <Text
-                  type="rbold"
-                  style={{ fontSize: hp("2.5%"), color: "#FFF" }}
-                >
-                  2 days left until the event begin!
-                </Text>
-                {/* <Text type='rbold' style={{ fontSize: hp('2%'), color: '#FFF' }}>until the event begin!</Text> */}
-                <Text
-                  type="rlights"
-                  style={{ color: "#FFF", marginBottom: hp("1%") }}
-                >
-                  5 mins ago
-                </Text>
-                <Text
-                  type="rbold"
-                  style={{
-                    backgroundColor: "#fff",
-                    textAlign: "center",
-                    color: "#6C63FF",
-                    width: wp("18%"),
-                    borderRadius: 30
-                  }}
-                >
-                  Events
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </SafeAreaView>
-      </AppFontLoader>
-    );
-  }
+    async askRequest(name, user2){
+        await Alert.alert('Friend Request', `Do you want to accept friend request from ${name}`, [
+            {
+                text: 'Block User',
+                onPress: async () => {
+                    this.setState({ loaded: false, emptyNotif: false });
+                    this.render;
+
+                    await fetch(api + '/api/rblock/' + datauser.kodeuser + '/' + user2, { method: "PUT" })
+                    .then(rs => {
+                        return rs.text();
+                    })
+                    .then(rd => {
+                        if(rd != 'berhasil'){
+                            Alert.alert('Error', rd);
+                            return;
+                        }
+                    });
+                    
+                    Alert.alert('Success!', 'This user has been blocked');
+                    this.load();
+                }
+            },
+            {
+                text: 'No',
+                onPress: async () => {
+                    this.setState({ loaded: false, emptyNotif: false });
+                    this.render;
+
+                    await fetch(api + '/api/rdelete/' + datauser.kodeuser + '/' + user2, { method: "DELETE" })
+                    .then(rs => {
+                        return rs.text();
+                    })
+                    .then(rd => {
+                        if(rd != 'berhasil'){
+                            Alert.alert('Error', rd);
+                            return;
+                        }
+                    });
+                    
+                    Alert.alert('Success!', "This request have been denied");
+                    this.load();
+                }
+            },
+            {
+                text: 'Yes',
+                onPress: async () => {
+                    this.setState({ loaded: false, emptyNotif: false });
+                    this.render;
+
+                    await fetch(api + '/api/raccept/' + datauser.kodeuser + '/' + user2, { method: "PUT" })
+                    .then(rs => {
+                        return rs.text();
+                    })
+                    .then(rd => {
+                        if(rd != 'berhasil'){
+                            Alert.alert('Error', rd);
+                            return;
+                        }
+                    });
+                    
+                    Alert.alert('Success!', 'You are a friend with this user now');
+                    this.load();
+                }
+            }
+        ])
+    }
+
+    render() {
+        if(!this.state.loaded){
+            return (
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <ActivityIndicator size="large" />
+                </View>
+            )
+        }
+        else{
+            return (
+                <AppFontLoader>
+                  <SafeAreaView style={s.container}>
+                      <StatusBar barStyle="light-content" />
+          
+                      <View style={s.notifikasi}>
+                          {
+                              this.state.emptyNotif && (
+                                  <View>
+                                      <Text style={{ color: 'grey', textAlign: 'center' }}>
+                                          No new notification for now...
+                                      </Text>
+                                  </View>
+                              )
+                          }
+          
+                          <FlatList 
+                              style={{width:'100%'}}
+                              data={notif}
+                              keyExtractor={item => item.key}
+                              renderItem={({item}) => {
+                                  return (
+                                      
+                                        <TouchableOpacity
+                                        style={s.notif1}
+                                        onPress={() => this.askRequest(item.name, item.kodeuser)}>
+                                        
+                                            <Image
+                                            source={{ uri: user + item.picture }}
+                                            style={{
+                                                width: wp("20%"),
+                                                height: hp("20%"),
+                                                flex: 1,
+                                                marginHorizontal: wp("3%"),
+                                                resizeMode: "contain",
+                                                borderRadius: 75
+                                            }}/>
+            
+                                            <View style={{ flex: 3, paddingRight: wp("1%") }}>
+                                                <Text
+                                                    type="rbold"
+                                                    style={{ fontSize: hp("2.5%"), color: "#FFF" }}
+                                                >
+                                                    { item.name }
+                                                </Text>
+                                                <Text
+                                                    type="rbold"
+                                                    style={{ fontSize: hp("2%"), color: "#FFF" }}
+                                                >
+                                                    has sent you a request to become your friend!
+                                                </Text>
+                                                {/* <Text
+                                                    type="rlights"
+                                                    style={{ color: "#FFF", marginBottom: hp("1%") }}
+                                                >
+                                                    5 mins ago
+                                                </Text> */}
+                                                {/* <Text
+                                                    type="rbold"
+                                                    style={{
+                                                    backgroundColor: "#fff",
+                                                    textAlign: "center",
+                                                    color: "#4FBFD7",
+                                                    width: wp("18%"),
+                                                    borderRadius: 30
+                                                    }}
+                                                >
+                                                    Friends
+                                                </Text> */}
+                                          </View>
+                                  </TouchableOpacity>
+                                  )
+                              }}
+                          />
+          
+                      {/* <TouchableOpacity style={s.notif2}>
+                        <Image
+                          source={require("../src/img/fireworks1.png")}
+                          style={{
+                            width: wp("20%"),
+                            height: hp("20%"),
+                            flex: 1,
+                            marginHorizontal: wp("3%"),
+                            resizeMode: "contain"
+                          }}
+                        ></Image>
+                        <View style={{ flex: 3, paddingRight: wp("1%") }}>
+                          <Text
+                            type="rbold"
+                            style={{ fontSize: hp("2.5%"), color: "#FFF" }}
+                          >
+                            2 days left until the event begin!
+                          </Text>
+                          {/* <Text type='rbold' style={{ fontSize: hp('2%'), color: '#FFF' }}>until the event begin!</Text> 
+                          <Text
+                            type="rlights"
+                            style={{ color: "#FFF", marginBottom: hp("1%") }}
+                          >
+                            5 mins ago
+                          </Text>
+                          <Text
+                            type="rbold"
+                            style={{
+                              backgroundColor: "#fff",
+                              textAlign: "center",
+                              color: "#6C63FF",
+                              width: wp("18%"),
+                              borderRadius: 30
+                            }}
+                          >
+                            Events
+                          </Text>
+                        </View>
+                      </TouchableOpacity> */}
+                    </View>
+                  </SafeAreaView>
+                </AppFontLoader>
+            );
+        }
+    }
 }
 
 export default notifScreen;

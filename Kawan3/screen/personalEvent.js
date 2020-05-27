@@ -30,7 +30,8 @@ var events = [];
 class personalEventScreen extends Component {
 
     state = {
-        loaded: false
+        loaded: false,
+        emptyEvent: false
     }
 
     componentDidMount(){
@@ -62,6 +63,7 @@ class personalEventScreen extends Component {
     }
 
     async load() {
+        events = [];
         await AsyncStorage.getItem('datauser')
         .then(rd => {
             dataUser = JSON.parse(rd);
@@ -72,6 +74,7 @@ class personalEventScreen extends Component {
             return rd.text()
         })
         .then(rs => {
+            rs == '[]' ? this.setState({ emptyEvent: true }) : this.setState({ emptyEvent: false })
             if(rs == "[]"){
                 this.setState({ loaded: true });
                 this.render();
@@ -97,6 +100,14 @@ class personalEventScreen extends Component {
         }else{
             return (
                 <View style={styles.container}>
+                    {
+                        this.state.emptyEvent && (
+                            <Text style={{ color:'grey' }}>
+                                You don't have upcoming Event...
+                            </Text>
+                        )
+                    }
+
                     <FlatList
                         style={{width:'100%'}}
                         data={events}

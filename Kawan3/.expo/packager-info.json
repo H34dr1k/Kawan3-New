@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 7148,
+  "expoServerNgrokUrl": "https://kz-wub.cleiment.kawan3.exp.direct",
+  "packagerNgrokUrl": "https://packager.kz-wub.cleiment.kawan3.exp.direct",
+  "ngrokPid": 9224,
   "webpackServerPort": null
 }
