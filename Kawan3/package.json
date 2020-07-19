@@ -27,7 +27,7 @@
     "expo-permissions": "~8.0.0",
     "firebase": "^7.14.0",
     "grpc": "^1.24.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "native-base": "2.13.8",
     "react": "~16.9.0",
     "react-addons-update": "^15.6.2",
